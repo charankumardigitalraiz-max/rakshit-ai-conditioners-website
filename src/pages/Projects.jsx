@@ -13,25 +13,22 @@ export default function Projects() {
     <div className="bg-white min-h-screen pt-20">
 
       {/* Premium Portfolio Header */}
-      <div className="relative bg-[#002f54] py-16 lg:py-24 overflow-hidden border-b border-white/5">
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(#fff 0.5px, transparent 0.5px)', backgroundSize: '24px 24px' }}></div>
-        {/* <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10 text-center lg:text-left">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-3 mb-6">
+      <div className="relative py-12 lg:py-16 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10 text-center">
+          <div className="max-w-3xl mx-auto">
+            <div className="inline-flex items-center gap-3 mb-6 justify-center">
               <span className="w-12 h-0.5 bg-[#0072bc]"></span>
-              <span className="text-blue-400 text-xs font-bold uppercase tracking-[0.4em]">Project Portfolio</span>
+              <span className="text-[#0072bc] text-xs font-bold uppercase tracking-[0.4em]">Project Portfolio</span>
+              <span className="w-12 h-0.5 bg-[#0072bc]"></span>
             </div>
-            <h1 className="text-white text-5xl lg:text-7xl font-black mb-8 tracking-tighter" style={{ fontFamily: 'Outfit, sans-serif' }}>
-              Precision in <br /> <span className="text-blue-400 font-bold italic">Engineering</span>
+            <h1 className="text-gray-900 text-5xl lg:text-6xl font-black mb-6 tracking-tighter" style={{ fontFamily: 'Outfit, sans-serif' }}>
+              Precision in <span className="text-[#0072bc]">Engineering</span>
             </h1>
-            <p className="text-blue-100/60 text-lg leading-relaxed">
+            <p className="text-gray-500 text-lg leading-relaxed">
               Explore our diverse portfolio of critical HVAC installations across South India. From educational campuses to high-fidelity medical centers and luxury residences.
             </p>
           </div>
-        </div> */}
-
-        {/* Abstract Technical Background Shape */}
-        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-[#0072bc]/10 rounded-full blur-[120px] pointer-events-none"></div>
+        </div>
       </div>
 
       {/* Filter System - Corporate Minimalist */}

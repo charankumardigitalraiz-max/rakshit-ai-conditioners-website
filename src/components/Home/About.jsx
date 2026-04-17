@@ -42,32 +42,32 @@ export default function About() {
             {/* Specialty Icons - High-Fidelity SVGs */}
             <div className="grid grid-cols-2 gap-4 mb-10">
               {[
-                { 
-                  title: 'Pharma & Clean Room', 
+                {
+                  title: 'Pharma & Clean Room',
                   icon: (
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.675.27a6 6 0 01-3.86.517l-2.388-.477a2 2 0 00-1.022.547l-1.168 1.168a2 2 0 00-.547 1.022l-.477 2.387a2 2 0 00.547 1.022l1.168 1.168a2 2 0 001.022.547l2.387.477a6 6 0 003.86-.517l.675-.27a6 6 0 013.86-.517l2.388.477a2 2 0 001.022-.547l1.168-1.168a2 2 0 00.547-1.022l.477-2.387a2 2 0 00-.547-1.022l-1.168-1.168zM12 13V4.5M12 4.5l-3 3M12 4.5l3 3" />
                     </svg>
                   )
                 },
-                { 
-                  title: 'Industrial Solutions', 
+                {
+                  title: 'Industrial Solutions',
                   icon: (
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                     </svg>
                   )
                 },
-                { 
-                  title: 'Commercial Cooling', 
+                {
+                  title: 'Commercial Cooling',
                   icon: (
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                   )
                 },
-                { 
-                  title: 'Luxury Residential', 
+                {
+                  title: 'Luxury Residential',
                   icon: (
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
@@ -86,7 +86,7 @@ export default function About() {
 
             <div className="flex flex-wrap items-center gap-6">
               <a
-                href="#contact"
+                href="/contact"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-[#0072bc] text-white font-bold uppercase tracking-widest rounded-xl hover:bg-[#005fa3] shadow-xl hover:-translate-y-0.5 text-xs transition-all"
                 style={{ fontFamily: 'Outfit, sans-serif' }}
               >
@@ -115,13 +115,13 @@ export default function About() {
           {/* Right – High-Fidelity Image Composition */}
           <div className="order-1 lg:order-2 relative">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl skew-y-1 lg:skew-y-0 group">
-              <img 
-                src="/banner/hero_ac_interior_1776336133282.png" 
-                alt="Rakshith Professional Environment" 
+              <img
+                src="/banner/hero_ac_interior_1776336133282.png"
+                alt="Rakshith Professional Environment"
                 className="w-full h-[520px] object-cover transition-transform duration-1000 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-              
+
               {/* Floating Stat Card */}
               <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-8 border-l-4 border-[#0072bc] shadow-2xl rounded-r-xl">
                 <div className="grid grid-cols-2 gap-8 text-center">
