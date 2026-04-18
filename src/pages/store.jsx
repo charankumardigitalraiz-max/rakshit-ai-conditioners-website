@@ -124,7 +124,7 @@ export default function Store() {
         <div className="bg-white min-h-screen pt-20">
 
             {/* Premium Informative Hero */}
-            <div className="relative py-16 lg:py-10 overflow-hidden">
+            {/* <div className="relative py-16 lg:py-10 overflow-hidden">
                 <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-blue-50/50 to-transparent pointer-events-none"></div>
                 <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
                     <div className="max-w-3xl mx-auto mt-3 flex flex-col items-center text-center">
@@ -142,7 +142,7 @@ export default function Store() {
                         </p>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             {/* Informative Grid - Sticky Navigation */}
             <div className="sticky top-[100px] z-40 bg-white/90 backdrop-blur-xl border-b border-gray-100  sm:top-[120px]">
@@ -168,14 +168,14 @@ export default function Store() {
 
             <div className="max-w-7xl mx-auto px-5 sm:px-8">
                 {/* Tech Highlights */}
-                {content.highlights.length > 0 && (
+                {/* {content.highlights.length > 0 && (
                     <SolutionHighlights highlights={content.highlights} />
                 )}
 
-                {/* Range Overview */}
+  
                 {content.series.length > 0 && (
                     <SeriesOverview series={content.series} />
-                )}
+                )} */}
 
                 {/* Product Configuration Grid */}
                 <div className="pt-15 pb-16">
@@ -214,21 +214,21 @@ export default function Store() {
                             <h3 className="text-white text-2xl font-bold mb-2" style={{ fontFamily: 'Outfit, sans-serif' }}>Need a Technical Site Survey?</h3>
                             <p className="text-blue-100/60 text-sm max-w-lg">Our authorized specialists provide structural analysis and heat-load calculations to ensure your selection is perfectly optimized for your environment.</p>
                         </div>
-                        <button className="px-10 py-4 bg-white text-[#002f54] text-xs font-black uppercase tracking-[0.2em] rounded-2xl hover:bg-[#0072bc] hover:text-white transition-all transform hover:scale-105 active:scale-95">
+                        <button className="px-10 py-4 bg-white text-[#002f54] text-[11px] font-bold uppercase tracking-[0.2em] rounded-2xl hover:bg-[#0072bc] hover:text-white transition-all transform hover:scale-105 active:scale-95" style={{ fontFamily: 'Outfit, sans-serif' }}>
                             Schedule Technical Survey
                         </button>
                     </div>
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-5 sm:px-8 pb-16">
+            {/* <div className="max-w-7xl mx-auto px-5 sm:px-8 pb-16">
                 <div className="p-8 bg-gray-50 rounded-2xl border border-gray-100">
                     <p className="text-[10px] text-gray-400 font-medium leading-relaxed uppercase tracking-widest text-center">
                         *Specifications and performance data are indicative and subject to site conditions. <br />
                         Authorized Sales & Service Channel Partner since 2011. Genuine Daikin Spares & Certified Installation.
                     </p>
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }

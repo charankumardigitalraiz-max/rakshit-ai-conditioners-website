@@ -57,7 +57,7 @@ export default function Projects() {
       </div> */}
 
       {/* Full Projects Gallery */}
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 py-16">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 py-2">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
           {filteredProjects.map((project) => (
             <div key={project.id} className="group flex flex-col bg-white border border-gray-100 rounded-[2rem] overflow-hidden hover:border-[#0072bc]/20 hover:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.08)] transition-all duration-700">

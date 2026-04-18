@@ -18,7 +18,7 @@ import './index.css'
 function App() {
   return (
     <Router>
-      <div className="font-sans antialiased text-gray-900 bg-white selection:bg-[#005bac] selection:text-white relative overflow-x-hidden">
+      <div className="font-sans antialiased text-gray-900 bg-white selection:bg-[#005bac] selection:text-white relative">
         <ScrollToTop />
         <SocialBand />
         <Header />
