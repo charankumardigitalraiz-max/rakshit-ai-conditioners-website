@@ -5,6 +5,8 @@ import { setCategoryFilter } from '../redux/productSlice'
 import ProductCard from '../components/ui/ProductCard'
 import SolutionHighlights from '../components/Store/SolutionHighlights'
 import SeriesOverview from '../components/Store/SeriesOverview'
+import PageTransition from '../components/ui/PageTransition'
+import SectionTransition from '../components/ui/SectionTransition'
 
 export default function Store() {
     const { categoryId } = useParams()
@@ -121,7 +123,8 @@ export default function Store() {
     const content = getPageContent(categoryId);
 
     return (
-        <div className="bg-white min-h-screen pt-20">
+        <PageTransition>
+            <div className="bg-white min-h-screen pt-20">
 
             {/* Premium Informative Hero */}
             {/* <div className="relative py-16 lg:py-10 overflow-hidden">
@@ -193,13 +196,14 @@ export default function Store() {
                     )}
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                        {filteredProducts.map((product) => (
-                            <ProductCard
-                                key={product.id}
-                                product={product}
-                                currentVariant={selectedVariants[product.id] || product.variants[0]}
-                                onVariantChange={handleVariantChange}
-                            />
+                        {filteredProducts.map((product, index) => (
+                            <SectionTransition key={product.id} delay={index * 0.05}>
+                                <ProductCard
+                                    product={product}
+                                    currentVariant={selectedVariants[product.id] || product.variants[0]}
+                                    onVariantChange={handleVariantChange}
+                                />
+                            </SectionTransition>
                         ))}
                     </div>
                 </div>
@@ -230,5 +234,6 @@ export default function Store() {
                 </div>
             </div> */}
         </div>
+    </PageTransition>
     )
 }

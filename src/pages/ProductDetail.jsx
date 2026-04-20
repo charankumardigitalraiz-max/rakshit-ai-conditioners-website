@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import PageTransition from '../components/ui/PageTransition'
+import SectionTransition from '../components/ui/SectionTransition'
+import { AnimatePresence, motion } from 'framer-motion'
 
 export default function ProductDetail() {
     const { productId } = useParams()
@@ -65,7 +68,8 @@ export default function ProductDetail() {
     ]
 
     return (
-        <div className="bg-white min-h-screen">
+        <PageTransition>
+            <div className="bg-white min-h-screen">
             {/* Header Spacer */}
             <div className="h-24 md:h-32"></div>
 
@@ -224,136 +228,146 @@ export default function ProductDetail() {
                     </div>
 
                     <div className="max-w-5xl mx-auto">
-                        {/* Features Tab */}
-                        {activeTab === 'features' && (
-                            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 animate-fadeInUp">
-                                {standardFeatures.map((feat, i) => (
-                                    <div key={i} className="p-8 bg-white border border-gray-100 rounded-2xl hover:border-[#0072bc]/20 hover:shadow-xl hover:shadow-blue-900/5 transition-all text-center group">
-                                        <div className="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center text-[#0072bc] mx-auto mb-6 group-hover:bg-[#0072bc] group-hover:text-white transition-all duration-300">
-                                            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={feat.icon} /></svg>
-                                        </div>
-                                        <h4 className="text-base font-bold text-gray-900 mb-2">{feat.title}</h4>
-                                        <p className="text-sm text-gray-600 leading-relaxed">{feat.desc}</p>
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={activeTab}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.3, ease: "easeOut" }}
+                            >
+                                {/* Features Tab */}
+                                {activeTab === 'features' && (
+                                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                                        {standardFeatures.map((feat, i) => (
+                                            <div key={i} className="p-8 bg-white border border-gray-100 rounded-2xl hover:border-[#0072bc]/20 hover:shadow-xl hover:shadow-blue-900/5 transition-all text-center group">
+                                                <div className="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center text-[#0072bc] mx-auto mb-6 group-hover:bg-[#0072bc] group-hover:text-white transition-all duration-300">
+                                                    <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={feat.icon} /></svg>
+                                                </div>
+                                                <h4 className="text-base font-bold text-gray-900 mb-2">{feat.title}</h4>
+                                                <p className="text-sm text-gray-600 leading-relaxed">{feat.desc}</p>
+                                            </div>
+                                        ))}
                                     </div>
-                                ))}
-                            </div>
-                        )}
+                                )}
 
-                        {/* Specs Tab */}
-                        {activeTab === 'specs' && (
-                            <div className="animate-fadeInUp bg-gray-50/50 p-4 rounded-3xl border border-gray-100">
-                                <div className="grid grid-cols-1 gap-2">
-                                    {[
-                                        { label: 'Cooling Capacity', val: `${activeVariant.type} (Rated at 3.5 kW - 6.0 kW)` },
-                                        { label: 'Power Supply', val: '1 Phase, 230 V, 50 Hz' },
-                                        { label: 'Refrigerant', val: 'Eco-Friendly R-32 (Zero ODP)' },
-                                        { label: 'Condenser Coil', val: '100% High-Grade Copper' },
-                                        { label: 'ISEER Rating', val: '3.90+ for 3-Star Models' },
-                                        { label: 'Operating Temp', val: 'Stable up to 52°C Ambient' }
-                                    ].map((spec, i) => (
-                                        <div key={i} className="flex flex-col sm:flex-row sm:items-center justify-between bg-white p-5 sm:px-8 rounded-2xl border border-transparent hover:border-blue-100 transition-all gap-2">
-                                            <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider">{spec.label}</span>
-                                            <span className="text-base font-medium text-gray-900">{spec.val}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Installation Tab */}
-                        {activeTab === 'installation' && (
-                            <div className="animate-fadeInUp flex flex-col gap-8 px-4 sm:px-6">
-                                <div className="grid md:grid-cols-2 gap-10">
-                                    <div className="p-8 sm:p-10 bg-[#002f54] rounded-3xl text-white shadow-xl shadow-blue-900/10">
-                                        <h4 className="text-xl font-bold mb-6" style={{ fontFamily: 'Outfit, sans-serif' }}>Standard Deployment</h4>
-                                        <div className="space-y-4">
-                                            {installationDetails.includes.map((inc, i) => (
-                                                <div key={i} className="flex gap-3 text-sm font-medium text-blue-100/90 leading-relaxed">
-                                                    <span className="text-blue-400 mt-0.5">✓</span>
-                                                    {inc}
+                                {/* Specs Tab */}
+                                {activeTab === 'specs' && (
+                                    <div className="bg-gray-50/50 p-4 rounded-3xl border border-gray-100">
+                                        <div className="grid grid-cols-1 gap-2">
+                                            {[
+                                                { label: 'Cooling Capacity', val: `${activeVariant.type} (Rated at 3.5 kW - 6.0 kW)` },
+                                                { label: 'Power Supply', val: '1 Phase, 230 V, 50 Hz' },
+                                                { label: 'Refrigerant', val: 'Eco-Friendly R-32 (Zero ODP)' },
+                                                { label: 'Condenser Coil', val: '100% High-Grade Copper' },
+                                                { label: 'ISEER Rating', val: '3.90+ for 3-Star Models' },
+                                                { label: 'Operating Temp', val: 'Stable up to 52°C Ambient' }
+                                            ].map((spec, i) => (
+                                                <div key={i} className="flex flex-col sm:flex-row sm:items-center justify-between bg-white p-5 sm:px-8 rounded-2xl border border-transparent hover:border-blue-100 transition-all gap-2">
+                                                    <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider">{spec.label}</span>
+                                                    <span className="text-base font-medium text-gray-900">{spec.val}</span>
                                                 </div>
                                             ))}
                                         </div>
-                                        <div className="mt-8 pt-8 border-t border-white/10 flex items-center justify-between">
-                                            <div className="flex flex-col">
-                                                <span className="text-xs font-medium text-blue-300 uppercase tracking-wider mb-1">Standard Cost</span>
-                                                <span className="text-2xl font-bold font-mono">{installationDetails.standardCharges}</span>
-                                            </div>
-                                            <div className="flex flex-col text-right">
-                                                <span className="text-xs font-medium text-blue-300 uppercase tracking-wider mb-1">Time To Cool</span>
-                                                <span className="text-xl font-bold">{installationDetails.timeline}</span>
-                                            </div>
-                                        </div>
                                     </div>
-                                    <div className="flex flex-col justify-center gap-8">
-                                        <div className="p-8 sm:p-10 border border-gray-100 rounded-3xl bg-gray-50/50">
-                                            <h4 className="text-sm font-bold text-gray-600 mb-5 uppercase tracking-wider">Exclusions (Not in Scope)</h4>
-                                            <div className="space-y-4">
-                                                {installationDetails.excludes.map((exc, i) => (
-                                                    <div key={i} className="flex gap-3 text-sm font-medium text-gray-600">
-                                                        <span className="text-red-400 mt-0.5">×</span>
-                                                        {exc}
+                                )}
+
+                                {/* Installation Tab */}
+                                {activeTab === 'installation' && (
+                                    <div className="flex flex-col gap-8 px-4 sm:px-6">
+                                        <div className="grid md:grid-cols-2 gap-10">
+                                            <div className="p-8 sm:p-10 bg-[#002f54] rounded-3xl text-white shadow-xl shadow-blue-900/10">
+                                                <h4 className="text-xl font-bold mb-6" style={{ fontFamily: 'Outfit, sans-serif' }}>Standard Deployment</h4>
+                                                <div className="space-y-4">
+                                                    {installationDetails.includes.map((inc, i) => (
+                                                        <div key={i} className="flex gap-3 text-sm font-medium text-blue-100/90 leading-relaxed">
+                                                            <span className="text-blue-400 mt-0.5">✓</span>
+                                                            {inc}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                                <div className="mt-8 pt-8 border-t border-white/10 flex items-center justify-between">
+                                                    <div className="flex flex-col">
+                                                        <span className="text-xs font-medium text-blue-300 uppercase tracking-wider mb-1">Standard Cost</span>
+                                                        <span className="text-2xl font-bold font-mono">{installationDetails.standardCharges}</span>
                                                     </div>
-                                                ))}
+                                                    <div className="flex flex-col text-right">
+                                                        <span className="text-xs font-medium text-blue-300 uppercase tracking-wider mb-1">Time To Cool</span>
+                                                        <span className="text-xl font-bold">{installationDetails.timeline}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="flex flex-col justify-center gap-8">
+                                                <div className="p-8 sm:p-10 border border-gray-100 rounded-3xl bg-gray-50/50">
+                                                    <h4 className="text-sm font-bold text-gray-600 mb-5 uppercase tracking-wider">Exclusions (Not in Scope)</h4>
+                                                    <div className="space-y-4">
+                                                        {installationDetails.excludes.map((exc, i) => (
+                                                            <div key={i} className="flex gap-3 text-sm font-medium text-gray-600">
+                                                                <span className="text-red-400 mt-0.5">×</span>
+                                                                {exc}
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                                <p className="text-xs font-medium text-gray-500 leading-relaxed text-center italic">
+                                                    *Final site appraisal by Rakshith technicians may adjust the final quote.
+                                                </p>
                                             </div>
                                         </div>
-                                        <p className="text-xs font-medium text-gray-500 leading-relaxed text-center italic">
-                                            *Final site appraisal by Rakshith technicians may adjust the final quote.
-                                        </p>
-                                    </div>
-                                </div>
 
-                                {/* Free Services Banner */}
-                                <div className="p-6 sm:p-8 bg-green-50/50 border border-green-100 rounded-3xl flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-6">
-                                    <div className="w-16 h-16 shrink-0 bg-white rounded-2xl flex items-center justify-center text-green-600 shadow-sm border border-green-50">
-                                        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.121 15.536c-1.171 1.952-3.07 1.952-4.242 0-1.172-1.953-1.172-5.119 0-7.072 1.171-1.952 3.07-1.952 4.242 0M8 10.5h4m-4 3h4m9-1.5a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                        {/* Free Services Banner */}
+                                        <div className="p-6 sm:p-8 bg-green-50/50 border border-green-100 rounded-3xl flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-6">
+                                            <div className="w-16 h-16 shrink-0 bg-white rounded-2xl flex items-center justify-center text-green-600 shadow-sm border border-green-50">
+                                                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.121 15.536c-1.171 1.952-3.07 1.952-4.242 0-1.172-1.953-1.172-5.119 0-7.072 1.171-1.952 3.07-1.952 4.242 0M8 10.5h4m-4 3h4m9-1.5a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                            </div>
+                                            <div>
+                                                <h4 className="text-lg font-bold text-gray-900 mb-2">2 Free Maintenance Services</h4>
+                                                <p className="text-sm text-gray-600 leading-relaxed">Enjoy two comprehensive AC maintenance services absolutely free within <span className="font-semibold text-gray-900">1 Year</span> from the date of Installation strictly adhering to Daikin manufacturer standards.</p>
+                                            </div>
+                                        </div>
                                     </div>
+                                )}
+
+                                {/* Warranty Tab */}
+                                {activeTab === 'warranty' && (
                                     <div>
-                                        <h4 className="text-lg font-bold text-gray-900 mb-2">2 Free Maintenance Services</h4>
-                                        <p className="text-sm text-gray-600 leading-relaxed">Enjoy two comprehensive AC maintenance services absolutely free within <span className="font-semibold text-gray-900">1 Year</span> from the date of Installation strictly adhering to Daikin manufacturer standards.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Warranty Tab */}
-                        {activeTab === 'warranty' && (
-                            <div className="animate-fadeInUp">
-                                <div className="p-10 sm:p-16 bg-white border border-gray-100 rounded-3xl shadow-xl shadow-blue-900/5 text-center relative overflow-hidden group">
-                                    <div className="absolute top-0 right-0 p-8 opacity-[0.03] transition-transform group-hover:scale-110 group-hover:rotate-12 duration-1000">
-                                        <svg className="w-48 h-48 text-[#0072bc]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" /></svg>
-                                    </div>
-                                    <div className="relative z-10">
-                                        <h4 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'Outfit, sans-serif' }}>Factory Backed Assurance</h4>
-                                        <p className="text-gray-600 text-base mb-10 max-w-2xl mx-auto leading-relaxed">Genuine Manufacturer Warranty provided with every unit. Verified Rakshith commissioning certificate included for peace of mind.</p>
-
-                                        <div className="flex flex-col sm:flex-row justify-center gap-10 lg:gap-20">
-                                            <div className="flex flex-col items-center gap-4">
-                                                <div className="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center text-[#0072bc] text-xl font-bold shadow-inner shadow-blue-100">10Y</div>
-                                                <div className="text-center">
-                                                    <span className="block text-sm font-bold text-gray-900 mb-1">Compressor</span>
-                                                    <span className="text-xs text-gray-500">Core Integrity</span>
-                                                </div>
+                                        <div className="p-10 sm:p-16 bg-white border border-gray-100 rounded-3xl shadow-xl shadow-blue-900/5 text-center relative overflow-hidden group">
+                                            <div className="absolute top-0 right-0 p-8 opacity-[0.03] transition-transform group-hover:scale-110 group-hover:rotate-12 duration-1000">
+                                                <svg className="w-48 h-48 text-[#0072bc]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" /></svg>
                                             </div>
-                                            <div className="flex flex-col items-center gap-4">
-                                                <div className="w-16 h-16 rounded-full bg-orange-50 flex items-center justify-center text-orange-500 text-xl font-bold shadow-inner shadow-orange-100">5Y</div>
-                                                <div className="text-center">
-                                                    <span className="block text-sm font-bold text-gray-900 mb-1">PCB Unit</span>
-                                                    <span className="text-xs text-gray-500">Logic Board Coverage</span>
-                                                </div>
-                                            </div>
-                                            <div className="flex flex-col items-center gap-4">
-                                                <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center text-green-600 text-xl font-bold shadow-inner shadow-green-100">1Y</div>
-                                                <div className="text-center">
-                                                    <span className="block text-sm font-bold text-gray-900 mb-1">Unit Wide</span>
-                                                    <span className="text-xs text-gray-500">Complete System</span>
+                                            <div className="relative z-10">
+                                                <h4 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'Outfit, sans-serif' }}>Factory Backed Assurance</h4>
+                                                <p className="text-gray-600 text-base mb-10 max-w-2xl mx-auto leading-relaxed">Genuine Manufacturer Warranty provided with every unit. Verified Rakshith commissioning certificate included for peace of mind.</p>
+
+                                                <div className="flex flex-col sm:flex-row justify-center gap-10 lg:gap-20">
+                                                    <div className="flex flex-col items-center gap-4">
+                                                        <div className="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center text-[#0072bc] text-xl font-bold shadow-inner shadow-blue-100">10Y</div>
+                                                        <div className="text-center">
+                                                            <span className="block text-sm font-bold text-gray-900 mb-1">Compressor</span>
+                                                            <span className="text-xs text-gray-500">Core Integrity</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex flex-col items-center gap-4">
+                                                        <div className="w-16 h-16 rounded-full bg-orange-50 flex items-center justify-center text-orange-500 text-xl font-bold shadow-inner shadow-orange-100">5Y</div>
+                                                        <div className="text-center">
+                                                            <span className="block text-sm font-bold text-gray-900 mb-1">PCB Unit</span>
+                                                            <span className="text-xs text-gray-500">Logic Board Coverage</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex flex-col items-center gap-4">
+                                                        <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center text-green-600 text-xl font-bold shadow-inner shadow-green-100">1Y</div>
+                                                        <div className="text-center">
+                                                            <span className="block text-sm font-bold text-gray-900 mb-1">Unit Wide</span>
+                                                            <span className="text-xs text-gray-500">Complete System</span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        )}
+                                )}
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
                 </div>
 
@@ -450,5 +464,6 @@ export default function ProductDetail() {
                 </div>
             )}
         </div>
+    </PageTransition>
     )
 }

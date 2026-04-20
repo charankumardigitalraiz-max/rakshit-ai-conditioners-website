@@ -1,8 +1,10 @@
 import React from 'react'
+import PageTransition from '../components/ui/PageTransition'
 
 export default function About() {
   return (
-    <div className="bg-white min-h-screen pt-20">
+    <PageTransition>
+      <div className="bg-white min-h-screen pt-20">
 
       {/* Decorative SVG Definitions */}
       <svg width="0" height="0" className="absolute">
@@ -182,6 +184,7 @@ export default function About() {
           </a>
         </div>
       </div> */}
-    </div>
+      </div>
+    </PageTransition>
   )
 }

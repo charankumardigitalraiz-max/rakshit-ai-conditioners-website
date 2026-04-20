@@ -1,5 +1,6 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
+import { AnimatePresence } from 'framer-motion'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -16,14 +17,16 @@ import SocialBand from './components/ui/SocialBand'
 import './index.css'
 
 function App() {
+  const location = useLocation();
+
   return (
-    <Router>
-      <div className="font-sans antialiased text-gray-900 bg-white selection:bg-[#005bac] selection:text-white relative">
-        <ScrollToTop />
-        <SocialBand />
-        <Header />
-        <main>
-          <Routes>
+    <div className="font-sans antialiased text-gray-900 bg-white selection:bg-[#005bac] selection:text-white relative">
+      <ScrollToTop />
+      <SocialBand />
+      <Header />
+      <main>
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home />} />
             <Route path="/store/:categoryId?" element={<Store />} />
             <Route path="/projects" element={<Projects />} />
@@ -33,11 +36,11 @@ function App() {
             <Route path="/product/:productId" element={<ProductDetail />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
-        </main>
-        <Footer />
-        <Whatsappfloatingbutton />
-      </div>
-    </Router>
+        </AnimatePresence>
+      </main>
+      <Footer />
+      <Whatsappfloatingbutton />
+    </div>
   )
 }
 

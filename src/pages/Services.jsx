@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import PageTransition from '../components/ui/PageTransition'
+import SectionTransition from '../components/ui/SectionTransition'
 
 export default function Services() {
     const { serviceId } = useParams()
@@ -29,23 +31,26 @@ export default function Services() {
         }
 
     return (
-        <div className="bg-white min-h-screen pt-20">
+        <PageTransition>
+            <div className="bg-white min-h-screen pt-20">
 
             {/* Clean Service Header */}
             <div className="relative py-12 lg:mt-15 overflow-hidden">
                 <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
-                    <div className="max-w-3xl">
-                        <div className="inline-flex items-center gap-3 mb-4">
-                            <span className="w-8 h-0.5 bg-[#0072bc]"></span>
-                            <span className="text-[#0072bc] text-[10px] font-bold uppercase tracking-[0.3em]">{hero.pre}</span>
+                    <SectionTransition direction="up">
+                        <div className="max-w-3xl">
+                            <div className="inline-flex items-center gap-3 mb-4">
+                                <span className="w-8 h-0.5 bg-[#0072bc]"></span>
+                                <span className="text-[#0072bc] text-[10px] font-bold uppercase tracking-[0.3em]">{hero.pre}</span>
+                            </div>
+                            <h1 className="text-gray-900 text-4xl lg:text-5xl font-black mb-4 tracking-tighter" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                                {hero.title} <span className="text-[#0072bc]">{hero.subtitle}</span>
+                            </h1>
+                            <p className="text-gray-500 text-base leading-relaxed max-w-xl">
+                                {hero.desc}
+                            </p>
                         </div>
-                        <h1 className="text-gray-900 text-4xl lg:text-5xl font-black mb-4 tracking-tighter" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                            {hero.title} <span className="text-[#0072bc]">{hero.subtitle}</span>
-                        </h1>
-                        <p className="text-gray-500 text-base leading-relaxed max-w-xl">
-                            {hero.desc}
-                        </p>
-                    </div>
+                    </SectionTransition>
                 </div>
             </div>
 
@@ -353,5 +358,6 @@ export default function Services() {
             </div>
 
         </div>
-    )
+    </PageTransition>
+  )
 }

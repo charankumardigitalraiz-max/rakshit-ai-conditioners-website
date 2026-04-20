@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import PageTransition from '../components/ui/PageTransition'
+import SectionTransition from '../components/ui/SectionTransition'
 
 export default function Products() {
   useEffect(() => {
@@ -134,171 +136,172 @@ export default function Products() {
   const currentCategory = categories.find(c => c.id === categoryId);
 
   return (
-    <div className="bg-[#fafbfc] min-h-screen pt-32 pb-24">
-      <div className="max-w-7xl mx-auto px-5 sm:px-8">
-        {!categoryId ? (
-          <>
-            {/* Page Header - Overview Mode */}
-            <div className="text-center max-w-3xl mx-auto mb-20 animate-fadeInUp">
-              <div className="inline-flex items-center gap-3 mb-6">
-                <span className="w-12 h-0.5 bg-[#0072bc]"></span>
-                <span className="text-[#0072bc] text-[11px] font-black uppercase tracking-[0.3em]">Our Expertise</span>
-                <span className="w-12 h-0.5 bg-[#0072bc]"></span>
+    <PageTransition>
+      <div className="bg-[#fafbfc] min-h-screen pt-32 pb-24">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+          {!categoryId ? (
+            <>
+              {/* Page Header - Overview Mode */}
+              <div className="text-center max-w-3xl mx-auto mb-20 animate-fadeInUp">
+                <div className="inline-flex items-center gap-3 mb-6">
+                  <span className="w-12 h-0.5 bg-[#0072bc]"></span>
+                  <span className="text-[#0072bc] text-[11px] font-black uppercase tracking-[0.3em]">Our Expertise</span>
+                  <span className="w-12 h-0.5 bg-[#0072bc]"></span>
+                </div>
+                <h1 className="text-5xl md:text-6xl font-black text-gray-900 mb-6 tracking-tight leading-tight">
+                  Comprehensive <span className="text-[#0072bc]">HVAC Solutions</span>
+                </h1>
+                <p className="text-gray-500 text-lg leading-relaxed">
+                  As an authorized sales and service partner, we provide end-to-end climate control solutions ranging from residential splits to industrial VRV and ventilation infrastructure.
+                </p>
               </div>
-              <h1 className="text-5xl md:text-6xl font-black text-gray-900 mb-6 tracking-tight leading-tight">
-                Comprehensive <span className="text-[#0072bc]">HVAC Solutions</span>
-              </h1>
-              <p className="text-gray-500 text-lg leading-relaxed">
-                As an authorized sales and service partner, we provide end-to-end climate control solutions ranging from residential splits to industrial VRV and ventilation infrastructure.
-              </p>
-            </div>
 
-            {/* Categories Grid */}
-            <div className="grid md:grid-cols-2 gap-8 lg:gap-12 animate-fadeInUp">
-              {categories.map((category, idx) => (
-                <Link
-                  to={category.href}
-                  key={category.id}
-                  className="group bg-white rounded-[2rem] p-8 sm:p-10 border border-gray-100 shadow-sm hover:shadow-[0_20px_50px_-15px_rgba(0,114,188,0.15)] hover:border-blue-100 transition-all duration-500 flex flex-col h-full relative overflow-hidden"
-                  style={{ animationDelay: `${idx * 100}ms` }}
-                >
-                  <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50/50 rounded-bl-[100%] transition-transform duration-700 group-hover:scale-110 origin-top-right pointer-events-none"></div>
+              <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+                {categories.map((category, idx) => (
+                  <SectionTransition key={category.id} delay={idx * 0.1}>
+                    <Link
+                      to={category.href}
+                      className="group bg-white rounded-[2rem] p-8 sm:p-10 border border-gray-100 shadow-sm hover:shadow-[0_20px_50px_-15px_rgba(0,114,188,0.15)] hover:border-blue-100 transition-all duration-500 flex flex-col h-full relative overflow-hidden"
+                    >
+                      <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50/50 rounded-bl-[100%] transition-transform duration-700 group-hover:scale-110 origin-top-right pointer-events-none"></div>
 
-                  <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center md:items-start h-full">
-                    {/* Visual / Icon Side */}
-                    <div className="w-full md:w-1/3 flex flex-col items-center flex-shrink-0">
-                      <div className="w-20 h-20 bg-[#002f54] text-white rounded-3xl flex items-center justify-center mb-6 shadow-xl shadow-blue-900/20 transform group-hover:-translate-y-2 transition-transform duration-500">
-                        {category.icon}
-                      </div>
-                      <div className="relative w-full aspect-square bg-gray-50/50 rounded-2xl p-4 hidden md:flex items-center justify-center border border-gray-100">
-                        <img src={category.img} alt={category.title} className="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-700" />
-                      </div>
-                    </div>
+                      <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center md:items-start h-full">
+                        {/* Visual / Icon Side */}
+                        <div className="w-full md:w-1/3 flex flex-col items-center flex-shrink-0">
+                          <div className="w-20 h-20 bg-[#002f54] text-white rounded-3xl flex items-center justify-center mb-6 shadow-xl shadow-blue-900/20 transform group-hover:-translate-y-2 transition-transform duration-500">
+                            {category.icon}
+                          </div>
+                          <div className="relative w-full aspect-square bg-gray-50/50 rounded-2xl p-4 hidden md:flex items-center justify-center border border-gray-100">
+                            <img src={category.img} alt={category.title} className="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-700" />
+                          </div>
+                        </div>
 
-                    {/* Content Side */}
-                    <div className="w-full md:w-2/3 flex flex-col h-full text-center md:text-left">
-                      <span className="text-[#0072bc] text-[10px] font-black uppercase tracking-widest mb-2">{category.subtitle}</span>
-                      <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 tracking-tight">
-                        {category.title}
-                      </h3>
-                      <p className="text-gray-500 text-sm leading-relaxed mb-8 flex-grow">
-                        {category.description}
-                      </p>
+                        {/* Content Side */}
+                        <div className="w-full md:w-2/3 flex flex-col h-full text-center md:text-left">
+                          <span className="text-[#0072bc] text-[10px] font-black uppercase tracking-widest mb-2">{category.subtitle}</span>
+                          <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 tracking-tight">
+                            {category.title}
+                          </h3>
+                          <p className="text-gray-500 text-sm leading-relaxed mb-8 flex-grow">
+                            {category.description}
+                          </p>
 
-                      <div className="mt-auto flex items-center justify-center md:justify-start gap-3 text-sm font-bold text-[#002f54] uppercase tracking-widest group-hover:text-[#0072bc] transition-colors">
-                        Explore Information
-                        <div className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-[#0072bc] group-hover:border-[#0072bc] group-hover:text-white transition-all duration-300">
-                          <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                          </svg>
+                          <div className="mt-auto flex items-center justify-center md:justify-start gap-3 text-sm font-bold text-[#002f54] uppercase tracking-widest group-hover:text-[#0072bc] transition-colors">
+                            Explore Information
+                            <div className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-[#0072bc] group-hover:border-[#0072bc] group-hover:text-white transition-all duration-300">
+                              <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                              </svg>
+                            </div>
+                          </div>
                         </div>
                       </div>
+                    </Link>
+                  </SectionTransition>
+                ))}
+              </div>
+            </>
+          ) : currentCategory ? (
+            <div className="animate-fadeInUp">
+              {/* Category Breadcrumb */}
+              <div className="mb-10 flex items-center justify-start gap-2">
+                <Link to="/products" className="text-gray-400 text-[10px] font-bold uppercase tracking-widest hover:text-[#0072bc]">Expertise</Link>
+                <span className="text-gray-300">/</span>
+                <span className="text-[#0072bc] text-[10px] font-bold uppercase tracking-widest">{currentCategory.technicalContent.heroTitle}</span>
+              </div>
+
+              {/* Individual Category Detail Section */}
+              <div className="grid lg:grid-cols-2 gap-16 items-start mb-20">
+                <div>
+                  <div className="inline-flex items-center gap-3 mb-6">
+                    <span className="w-10 h-0.5 bg-[#0072bc]"></span>
+                    <span className="text-[#0072bc] text-[10px] font-black uppercase tracking-[0.3em]">{currentCategory.technicalContent.heroSubtitle}</span>
+                  </div>
+                  <h1 className="text-3xl lg:text-4xl font-black text-gray-900 mb-8 tracking-tight leading-tight">
+                    {currentCategory.technicalContent.heroTitle}
+                  </h1>
+                  <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12">
+                    <p className="font-semibold text-gray-900">{currentCategory.technicalContent.intro}</p>
+                    <p>{currentCategory.technicalContent.longDescription}</p>
+                  </div>
+
+                  {/* Technology Deep Dive Box */}
+                  <div className="bg-[#002f54] text-white p-8 lg:p-10 rounded-[2.5rem] mb-12 relative overflow-hidden shadow-1xl">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16"></div>
+                    <h3 className="text-xl font-bold mb-4 flex items-center gap-3">
+                      <span className="w-8 h-8 rounded-full bg-[#0072bc] flex items-center justify-center text-[10px]">!</span>
+                      {currentCategory.technicalContent.deepDive.title}
+                    </h3>
+                    <p className="text-blue-100/80 text-base leading-relaxed">
+                      {currentCategory.technicalContent.deepDive.content}
+                    </p>
+                  </div>
+
+                  {/* Typical Applications */}
+                  <div>
+                    <h4 className="text-gray-900 font-bold mb-6 text-sm uppercase tracking-widest px-4 border-l-4 border-l-[#0072bc]">Ideal Applications</h4>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                      {currentCategory.technicalContent.applications.map((app, i) => (
+                        <div key={i} className="bg-white border border-gray-100 py-3 px-4 rounded-xl text-xs font-bold text-gray-600 shadow-sm flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 bg-[#0072bc] rounded-full"></span>
+                          {app}
+                        </div>
+                      ))}
                     </div>
                   </div>
-                </Link>
-              ))}
-            </div>
-          </>
-        ) : currentCategory ? (
-          <div className="animate-fadeInUp">
-            {/* Category Breadcrumb */}
-            <div className="mb-10 flex items-center justify-start gap-2">
-              <Link to="/products" className="text-gray-400 text-[10px] font-bold uppercase tracking-widest hover:text-[#0072bc]">Expertise</Link>
-              <span className="text-gray-300">/</span>
-              <span className="text-[#0072bc] text-[10px] font-bold uppercase tracking-widest">{currentCategory.technicalContent.heroTitle}</span>
-            </div>
-
-            {/* Individual Category Detail Section */}
-            <div className="grid lg:grid-cols-2 gap-16 items-start mb-20">
-              <div>
-                <div className="inline-flex items-center gap-3 mb-6">
-                  <span className="w-10 h-0.5 bg-[#0072bc]"></span>
-                  <span className="text-[#0072bc] text-[10px] font-black uppercase tracking-[0.3em]">{currentCategory.technicalContent.heroSubtitle}</span>
-                </div>
-                <h1 className="text-3xl lg:text-4xl font-black text-gray-900 mb-8 tracking-tight leading-tight">
-                  {currentCategory.technicalContent.heroTitle}
-                </h1>
-                <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12">
-                  <p className="font-semibold text-gray-900">{currentCategory.technicalContent.intro}</p>
-                  <p>{currentCategory.technicalContent.longDescription}</p>
                 </div>
 
-                {/* Technology Deep Dive Box */}
-                <div className="bg-[#002f54] text-white p-8 lg:p-10 rounded-[2.5rem] mb-12 relative overflow-hidden shadow-1xl">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16"></div>
-                  <h3 className="text-xl font-bold mb-4 flex items-center gap-3">
-                    <span className="w-8 h-8 rounded-full bg-[#0072bc] flex items-center justify-center text-[10px]">!</span>
-                    {currentCategory.technicalContent.deepDive.title}
-                  </h3>
-                  <p className="text-blue-100/80 text-base leading-relaxed">
-                    {currentCategory.technicalContent.deepDive.content}
-                  </p>
-                </div>
+                {/* Right Column: Visual and Specifications */}
+                <div className="lg:sticky lg:top-36 space-y-8">
+                  <div className="relative group rounded-[2.5rem] overflow-hidden shadow-2xl aspect-[4/3]">
+                    <img
+                      src={currentCategory.img}
+                      alt={currentCategory.title}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-[#002f54]/10 group-hover:bg-transparent transition-colors duration-500"></div>
+                  </div>
 
-                {/* Typical Applications */}
-                <div>
-                  <h4 className="text-gray-900 font-bold mb-6 text-sm uppercase tracking-widest px-4 border-l-4 border-l-[#0072bc]">Ideal Applications</h4>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                    {currentCategory.technicalContent.applications.map((app, i) => (
-                      <div key={i} className="bg-white border border-gray-100 py-3 px-4 rounded-xl text-xs font-bold text-gray-600 shadow-sm flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 bg-[#0072bc] rounded-full"></span>
-                        {app}
+                  {/* Technical Feature Grid */}
+                  <div className="grid gap-4">
+                    {currentCategory.technicalContent.features.map((f, i) => (
+                      <div key={i} className="group bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:border-blue-100 hover:shadow-md transition-all">
+                        <h4 className="text-gray-900 font-bold mb-1 text-sm uppercase tracking-wider group-hover:text-[#0072bc] transition-colors">{f.title}</h4>
+                        <p className="text-gray-500 text-xs leading-relaxed">{f.detail}</p>
                       </div>
                     ))}
                   </div>
-                </div>
-              </div>
 
-              {/* Right Column: Visual and Specifications */}
-              <div className="lg:sticky lg:top-36 space-y-8">
-                <div className="relative group rounded-[2.5rem] overflow-hidden shadow-2xl aspect-[4/3]">
-                  <img
-                    src={currentCategory.img}
-                    alt={currentCategory.title}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-[#002f54]/10 group-hover:bg-transparent transition-colors duration-500"></div>
-                </div>
-
-                {/* Technical Feature Grid */}
-                <div className="grid gap-4">
-                  {currentCategory.technicalContent.features.map((f, i) => (
-                    <div key={i} className="group bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:border-blue-100 hover:shadow-md transition-all">
-                      <h4 className="text-gray-900 font-bold mb-1 text-sm uppercase tracking-wider group-hover:text-[#0072bc] transition-colors">{f.title}</h4>
-                      <p className="text-gray-500 text-xs leading-relaxed">{f.detail}</p>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex items-center justify-center gap-4">
-                  <Link to="/store" className="w-full text-center px-8 py-4 bg-[#0072bc] text-white text-[11px] font-black uppercase tracking-widest rounded-2xl shadow-xl shadow-blue-900/10 hover:-translate-y-1 transition-all">
-                    Browse Compatible Models in Store
-                  </Link>
+                  <div className="flex items-center justify-center gap-4">
+                    <Link to="/store" className="w-full text-center px-8 py-4 bg-[#0072bc] text-white text-[11px] font-black uppercase tracking-widest rounded-2xl shadow-xl shadow-blue-900/10 hover:-translate-y-1 transition-all">
+                      Browse Compatible Models in Store
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ) : (
-          <div className="text-center py-20">
-            <h2 className="text-2xl font-bold text-gray-900">Category not found</h2>
-            <Link to="/products" className="text-[#0072bc] font-bold mt-4 inline-block underline">Return to Expertise</Link>
-          </div>
-        )}
-
-        {/* Bottom CTA Block */}
-        <div className="mt-20 bg-[#002f54] rounded-[2.5rem] p-10 lg:p-7 relative overflow-hidden text-center sm:text-left shadow-2xl">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[#0072bc]/30 rounded-full blur-[80px] -mr-48 -mt-48 pointer-events-none"></div>
-          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="max-w-2xl">
-              <h2 className="text-3xl lg:text-2xl font-bold text-white mb-4">Not sure which system fits your scale?</h2>
-              <p className="text-blue-100/70 text-base leading-relaxed">Schedule a free technical site survey. Our certified engineers will calculate heat loads and recommend the exact tonnage and system architecture required for your infrastructure.</p>
+          ) : (
+            <div className="text-center py-20">
+              <h2 className="text-2xl font-bold text-gray-900">Category not found</h2>
+              <Link to="/products" className="text-[#0072bc] font-bold mt-4 inline-block underline">Return to Expertise</Link>
             </div>
-            <Link to="/contact" className="flex-shrink-0 px-5 py-3 bg-white text-[#002f54] text-[11px] font-bold uppercase tracking-[0.2em] rounded-2xl hover:bg-[#0072bc] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-xl">
-              Request Site Survey
-            </Link>
+          )}
+
+          {/* Bottom CTA Block */}
+          <div className="mt-20 bg-[#002f54] rounded-[2.5rem] p-10 lg:p-7 relative overflow-hidden text-center sm:text-left shadow-2xl">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-[#0072bc]/30 rounded-full blur-[80px] -mr-48 -mt-48 pointer-events-none"></div>
+            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+              <div className="max-w-2xl">
+                <h2 className="text-3xl lg:text-2xl font-bold text-white mb-4">Not sure which system fits your scale?</h2>
+                <p className="text-blue-100/70 text-base leading-relaxed">Schedule a free technical site survey. Our certified engineers will calculate heat loads and recommend the exact tonnage and system architecture required for your infrastructure.</p>
+              </div>
+              <Link to="/contact" className="flex-shrink-0 px-5 py-3 bg-white text-[#002f54] text-[11px] font-bold uppercase tracking-[0.2em] rounded-2xl hover:bg-[#0072bc] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-xl">
+                Request Site Survey
+              </Link>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </PageTransition>
   )
 }
