@@ -53,13 +53,13 @@ export default function ProductCard({ product, currentVariant, onVariantChange }
                 <div className="mt-auto mb-5">
                     <div className="flex items-center justify-between mb-2">
                         <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Select Model</span>
-                        <span className="text-[9px] font-bold text-[#0072bc] truncate max-w-[50%]">{currentVariant.model}</span>
+                        <span className="text-[9px] font-bold text-[#0072bc] truncate max-w-[50%]">{currentVariant.model || currentVariant.sku}</span>
                     </div>
                     <div className="relative group/select">
                         <select
-                            value={currentVariant.type}
+                            value={currentVariant.type || currentVariant.capacity}
                             onChange={(e) => {
-                                const selected = product.variants.find(v => v.type === e.target.value);
+                                const selected = product.variants.find(v => (v.type || v.capacity) === e.target.value);
                                 if (selected) onVariantChange(product.id, selected);
                             }}
                             onClick={(e) => e.stopPropagation()}
@@ -67,8 +67,8 @@ export default function ProductCard({ product, currentVariant, onVariantChange }
                             style={{ fontFamily: 'Outfit, sans-serif' }}
                         >
                             {product.variants.map((variant) => (
-                                <option key={variant.type} value={variant.type}>
-                                    {variant.type} - {variant.model}
+                                <option key={variant.type || variant.sku || variant._id} value={variant.type || variant.capacity}>
+                                    {(variant.type || variant.capacity)} - {(variant.model || variant.sku)}
                                 </option>
                             ))}
                         </select>
