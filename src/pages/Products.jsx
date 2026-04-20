@@ -204,11 +204,11 @@ export default function Products() {
           ) : currentCategory ? (
             <div className="animate-fadeInUp">
               {/* Category Breadcrumb */}
-              <div className="mb-10 flex items-center justify-start gap-2">
+              {/* <div className="mb-10 flex items-center justify-start gap-2">
                 <Link to="/products" className="text-gray-400 text-[10px] font-bold uppercase tracking-widest hover:text-[#0072bc]">Expertise</Link>
                 <span className="text-gray-300">/</span>
                 <span className="text-[#0072bc] text-[10px] font-bold uppercase tracking-widest">{currentCategory.technicalContent.heroTitle}</span>
-              </div>
+              </div> */}
 
               {/* Individual Category Detail Section */}
               <div className="grid lg:grid-cols-2 gap-16 items-start mb-20">
@@ -221,8 +221,10 @@ export default function Products() {
                     {currentCategory.technicalContent.heroTitle}
                   </h1>
                   <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12">
-                    <p className="font-semibold text-gray-900">{currentCategory.technicalContent.intro}</p>
-                    <p>{currentCategory.technicalContent.longDescription}</p>
+                    <p className="font-semibold text-gray-900 text-base leading-relaxed">{currentCategory.technicalContent.intro}</p>
+                    <p className="font-semibold text-gray-900 text-base leading-relaxed" >
+                      {currentCategory.technicalContent.longDescription}
+                    </p>
                   </div>
 
                   {/* Technology Deep Dive Box */}

@@ -47,7 +47,6 @@ export default function Hero() {
               href="/store"
               className="px-8 py-3.5 bg-[#0072bc] text-white text-sm font-semibold tracking-wide transition-all shadow-lg hover:bg-[#005fa3] hover:-translate-y-0.5 inline-flex justify-center items-center"
               style={{ fontFamily: 'Inter, sans-serif' }}
-
             >
               Explore Products
             </a>
