@@ -44,15 +44,16 @@ export default function Hero() {
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <a
-              href="#contact"
+              href="/store"
               className="px-8 py-3.5 bg-[#0072bc] text-white text-sm font-semibold tracking-wide transition-all shadow-lg hover:bg-[#005fa3] hover:-translate-y-0.5 inline-flex justify-center items-center"
               style={{ fontFamily: 'Inter, sans-serif' }}
+
             >
-              Get a Free Quote
+              Explore Products
             </a>
 
             <a
-              href="#services"
+              href="services/approach"
               className="px-8 py-3.5 bg-transparent border border-white/60 text-white text-sm font-semibold tracking-wide transition-all hover:bg-white hover:text-[#0072bc] hover:border-white inline-flex justify-center items-center"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >

@@ -126,8 +126,8 @@ export default function Store() {
         <PageTransition>
             <div className="bg-white min-h-screen pt-20">
 
-            {/* Premium Informative Hero */}
-            {/* <div className="relative py-16 lg:py-10 overflow-hidden">
+                {/* Premium Informative Hero */}
+                {/* <div className="relative py-16 lg:py-10 overflow-hidden">
                 <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-blue-50/50 to-transparent pointer-events-none"></div>
                 <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
                     <div className="max-w-3xl mx-auto mt-3 flex flex-col items-center text-center">
@@ -147,31 +147,31 @@ export default function Store() {
                 </div>
             </div> */}
 
-            {/* Informative Grid - Sticky Navigation */}
-            <div className="sticky top-[100px] z-40 bg-white/90 backdrop-blur-xl border-b border-gray-100  sm:top-[120px]">
-                <div className="max-w-7xl mx-auto px-5 sm:px-8 h-20 flex items-center justify-between overflow-x-auto no-scrollbar">
-                    <div className="flex items-center gap-8 flex-shrink-0">
-                        <div className="flex bg-gray-50 p-1.5 rounded-2xl border border-gray-100">
-                            {['All', 'Room AC', 'Commercial AC', 'Central AC', 'Ventilation'].map(cat => {
-                                const slug = cat === 'All' ? '' : cat.toLowerCase().replace(' ', '-');
-                                return (
-                                    <button
-                                        key={cat}
-                                        onClick={() => navigate(`/store/${slug}`)}
-                                        className={`px-6 py-2.5 text-[11px] font-bold rounded-xl transition-all whitespace-nowrap ${filters.category === cat ? 'bg-white text-[#0072bc] shadow-xl shadow-gray-200 ring-1 ring-gray-100' : 'text-gray-400 hover:text-gray-600'}`}
-                                    >
-                                        {cat}
-                                    </button>
-                                )
-                            })}
+                {/* Informative Grid - Sticky Navigation */}
+                <div className="sticky top-[100px] z-40 bg-white/90 backdrop-blur-xl border-b border-gray-100  sm:top-[120px]">
+                    <div className="max-w-7xl mx-auto px-5 sm:px-8 h-20 flex items-center justify-between overflow-x-auto no-scrollbar">
+                        <div className="flex items-center gap-8 flex-shrink-0">
+                            <div className="flex bg-gray-50 p-1.5 rounded-2xl border border-gray-100">
+                                {['All', 'Room AC', 'Commercial AC', 'Central AC', 'Ventilation'].map(cat => {
+                                    const slug = cat === 'All' ? '' : cat.toLowerCase().replace(' ', '-');
+                                    return (
+                                        <button
+                                            key={cat}
+                                            onClick={() => navigate(`/store/${slug}`)}
+                                            className={`px-6 py-2.5 text-[11px] font-bold rounded-xl transition-all whitespace-nowrap ${filters.category === cat ? 'bg-white text-[#0072bc] shadow-xl shadow-gray-200 ring-1 ring-gray-100' : 'text-gray-400 hover:text-gray-600'}`}
+                                        >
+                                            {cat}
+                                        </button>
+                                    )
+                                })}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div className="max-w-7xl mx-auto px-5 sm:px-8">
-                {/* Tech Highlights */}
-                {/* {content.highlights.length > 0 && (
+                <div className="max-w-7xl mx-auto px-5 sm:px-8">
+                    {/* Tech Highlights */}
+                    {/* {content.highlights.length > 0 && (
                     <SolutionHighlights highlights={content.highlights} />
                 )}
 
@@ -180,52 +180,52 @@ export default function Store() {
                     <SeriesOverview series={content.series} />
                 )} */}
 
-                {/* Product Configuration Grid */}
-                <div className="pt-15 pb-16">
-                    <div className="mb-12">
-                        <h2 className="text-3xl font-black text-gray-900 tracking-tighter" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                            Technical <span className="text-[#0072bc]">Configurations</span>
-                        </h2>
-                        <p className="text-gray-400 text-sm font-medium mt-2">Explore specific models and technical variants for your selection.</p>
-                    </div>
-
-                    {filteredProducts.length === 0 && (
-                        <div className="text-center py-20 text-gray-400 font-medium">
-                            No technical configurations found for this category.
+                    {/* Product Configuration Grid */}
+                    <div className="pt-15 pb-16">
+                        <div className="mb-12">
+                            <h2 className="text-3xl font-black text-gray-900 tracking-tighter" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                                Technical <span className="text-[#0072bc]">Configurations</span>
+                            </h2>
+                            <p className="text-gray-400 text-sm font-medium mt-2">Explore specific models and technical variants for your selection.</p>
                         </div>
-                    )}
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                        {filteredProducts.map((product, index) => (
-                            <SectionTransition key={product.id} delay={index * 0.05}>
-                                <ProductCard
-                                    product={product}
-                                    currentVariant={selectedVariants[product.id] || product.variants[0]}
-                                    onVariantChange={handleVariantChange}
-                                />
-                            </SectionTransition>
-                        ))}
+                        {filteredProducts.length === 0 && (
+                            <div className="text-center py-20 text-gray-400 font-medium">
+                                No technical configurations found for this category.
+                            </div>
+                        )}
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                            {filteredProducts.map((product, index) => (
+                                <SectionTransition key={product.id} delay={index * 0.05}>
+                                    <ProductCard
+                                        product={product}
+                                        currentVariant={selectedVariants[product.id] || product.variants[0]}
+                                        onVariantChange={handleVariantChange}
+                                    />
+                                </SectionTransition>
+                            ))}
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            {/* Authority Footer */}
-            <div className="max-w-7xl mx-auto px-5 sm:px-8 pb-16">
-                <div className="p-10 bg-[#002f54] rounded-[2.5rem] relative overflow-hidden group">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-[#0072bc]/20 rounded-full blur-[80px] -mr-32 -mt-32 transition-all group-hover:bg-[#0072bc]/30"></div>
-                    <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-                        <div>
-                            <h3 className="text-white text-2xl font-bold mb-2" style={{ fontFamily: 'Outfit, sans-serif' }}>Need a Technical Site Survey?</h3>
-                            <p className="text-blue-100/60 text-sm max-w-lg">Our authorized specialists provide structural analysis and heat-load calculations to ensure your selection is perfectly optimized for your environment.</p>
+                {/* Authority Footer */}
+                <div className="max-w-7xl mx-auto px-5 sm:px-8 pb-16">
+                    <div className="p-10 bg-[#002f54] rounded-[2.5rem] relative overflow-hidden group">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-[#0072bc]/20 rounded-full blur-[80px] -mr-32 -mt-32 transition-all group-hover:bg-[#0072bc]/30"></div>
+                        <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+                            <div>
+                                <h3 className="text-white text-2xl font-bold mb-2" style={{ fontFamily: 'Outfit, sans-serif' }}>Need a Technical Site Survey?</h3>
+                                <p className="text-blue-100/60 text-sm max-w-lg">Our authorized specialists provide structural analysis and heat-load calculations to ensure your selection is perfectly optimized for your environment.</p>
+                            </div>
+                            <button  className="px-10 py-4 bg-white text-[#002f54] text-[11px] font-bold uppercase  rounded-2xl hover:bg-[#0072bc] hover:text-white transition-all transform hover:scale-105 active:scale-95" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                                Schedule  Technical  Survey
+                            </button>
                         </div>
-                        <button className="px-10 py-4 bg-white text-[#002f54] text-[11px] font-bold uppercase tracking-[0.2em] rounded-2xl hover:bg-[#0072bc] hover:text-white transition-all transform hover:scale-105 active:scale-95" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                            Schedule Technical Survey
-                        </button>
                     </div>
                 </div>
-            </div>
 
-            {/* <div className="max-w-7xl mx-auto px-5 sm:px-8 pb-16">
+                {/* <div className="max-w-7xl mx-auto px-5 sm:px-8 pb-16">
                 <div className="p-8 bg-gray-50 rounded-2xl border border-gray-100">
                     <p className="text-[10px] text-gray-400 font-medium leading-relaxed uppercase tracking-widest text-center">
                         *Specifications and performance data are indicative and subject to site conditions. <br />
@@ -233,7 +233,7 @@ export default function Store() {
                     </p>
                 </div>
             </div> */}
-        </div>
-    </PageTransition>
+            </div>
+        </PageTransition>
     )
 }

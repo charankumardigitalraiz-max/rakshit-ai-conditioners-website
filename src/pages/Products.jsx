@@ -295,7 +295,7 @@ export default function Products() {
                 <h2 className="text-3xl lg:text-2xl font-bold text-white mb-4">Not sure which system fits your scale?</h2>
                 <p className="text-blue-100/70 text-base leading-relaxed">Schedule a free technical site survey. Our certified engineers will calculate heat loads and recommend the exact tonnage and system architecture required for your infrastructure.</p>
               </div>
-              <Link to="/contact" className="flex-shrink-0 px-5 py-3 bg-white text-[#002f54] text-[11px] font-bold uppercase tracking-[0.2em] rounded-2xl hover:bg-[#0072bc] hover:text-white transition-all transform hover:scale-105 active:scale-95 shadow-xl">
+              <Link to="/contact" className="px-10 py-4 bg-white text-[#002f54] text-[11px] font-bold uppercase  rounded-2xl hover:bg-[#0072bc] hover:text-white transition-all transform hover:scale-105 active:scale-95" style={{ fontFamily: 'Outfit, sans-serif' }}>
                 Request Site Survey
               </Link>
             </div>

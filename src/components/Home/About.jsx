@@ -105,7 +105,7 @@ export default function About() {
                     </div>
                   ))}
                 </div>
-                <div className="text-[11px] text-gray-400 font-bold uppercase tracking-widest leading-tight">
+                <div className="text-[13px] font-semibold text-gray-700 tracking-tight">
                   Trusted by 500+ <br /> Enterprise Clients
                 </div>
               </div>

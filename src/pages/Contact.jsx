@@ -10,7 +10,7 @@ export default function Contact() {
     return (
         <PageTransition>
             <div className="min-h-screen bg-white pt-28">
-                <div className="flex flex-col lg:flex-row min-h-screen lg:items-start">
+                <div className="flex flex-col lg:flex-row lg:items-start">
 
                     {/* Left Side: Sticky Information Panel */}
                     <div className="w-full lg:w-[380px] xl:w-[420px] shrink-0 bg-[#002f54] text-white p-8 sm:p-12 lg:p-10 xl:p-14 2xl:p-16 lg:sticky lg:top-[112px] lg:min-h-[calc(100vh-112px)] flex flex-col justify-between">
@@ -40,13 +40,13 @@ export default function Contact() {
                             </div>
                         </div>
 
-                        <div className="mt-12 lg:mt-6 xl:mt-12 w-full pt-8 border-t border-white/10">
+                        {/* <div className="mt-12 lg:mt-6 xl:mt-12 w-full pt-8 border-t border-white/10">
                             <p className="text-[10px] text-white/30 uppercase tracking-widest">© 2026 Rakshith Air Conditioners & Services</p>
-                        </div>
+                        </div> */}
                     </div>
 
                     {/* Right Side: Scrollable Map Branches */}
-                    <div className="flex-1 w-full bg-white px-4 sm:px-12 lg:px-12 xl:px-20 py-10 lg:py-16">
+                    <div className="flex-1 w-full bg-white px-4 sm:px-12 lg:px-12 xl:px-20 pt-10 pb-2 lg:pt-16 lg:pb-6">
                         <div className="max-w-6xl mx-auto">
                             <div className="mb-4 border-b border-gray-100 pb-6">
                                 <h2 className="text-3xl font-bold text-gray-900 mb-2" style={{ fontFamily: 'Outfit, sans-serif' }}>Visit Our Plazas</h2>
