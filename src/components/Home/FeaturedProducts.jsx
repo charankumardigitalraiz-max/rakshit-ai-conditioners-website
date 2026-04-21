@@ -17,7 +17,7 @@ export default function FeaturedProducts() {
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 mb-4">
             <span className="w-10 h-0.5 bg-[#0072bc]"></span>
-            <span className="text-[#0072bc] text-[10px] font-bold uppercase tracking-[0.4em]" style={{ fontFamily: 'Inter, sans-serif' }}>Authorized Store</span>
+            <span className="text-[#0072bc] text-[10px] font-bold uppercase tracking-wider" style={{ fontFamily: 'Inter, sans-serif' }}>Authorized Store</span>
             <span className="w-10 h-0.5 bg-[#0072bc]"></span>
           </div>
           <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-6 tracking-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
@@ -45,20 +45,21 @@ export default function FeaturedProducts() {
                   {p.hasPlaceholderImage ? (
                     <div className="w-full h-full bg-gradient-to-br from-blue-50/30 to-gray-50 flex items-center justify-center rounded-xl overflow-hidden group-hover:scale-105 transition-transform duration-500">
                       <div className="p-3 bg-white/80 backdrop-blur-sm rounded-lg border border-blue-100 shadow-sm text-center">
-                        <span className="text-[#0072bc] font-black text-[9px] uppercase tracking-widest">{p.placeholderText || 'Image Coming Soon'}</span>
+                        <span className="text-[#0072bc] font-black text-[9px] uppercase tracking-wider">{p.placeholderText || 'Image Coming Soon'}</span>
                       </div>
                     </div>
                   ) : (
                     <img
                       src={p.image}
                       alt={p.name}
+                      loading="lazy"
                       className="w-[85%] h-[85%] object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-110"
                     />
                   )}
 
                   {/* View Product Ghost Overlay on Hover */}
                   <div className="absolute inset-0 bg-white/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center p-4">
-                    <div className="px-5 py-2.5 bg-[#0072bc] text-white text-[9px] font-bold uppercase tracking-widest rounded shadow-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                    <div className="px-5 py-2.5 bg-[#0072bc] text-white text-[9px] font-bold uppercase tracking-wider rounded shadow-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                       View details
                     </div>
                   </div>
@@ -66,7 +67,7 @@ export default function FeaturedProducts() {
 
                 {/* Minimalist Info */}
                 <div className="text-center flex flex-col items-center">
-                  <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">{p.category}</span>
+                  <span className="text-[9px] font-bold text-gray-400 uppercase tracking-wider mb-1">{p.category}</span>
                   <h3 className="text-[15px] font-semibold text-gray-900 mb-2 leading-tight tracking-tight px-2" style={{ fontFamily: 'Outfit, sans-serif' }}>
                     {p.name}
                   </h3>

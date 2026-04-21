@@ -26,6 +26,7 @@ export default function ProductCard({ product, currentVariant, onVariantChange }
                     <img
                         src={product.image}
                         alt={product.name}
+                        loading="lazy"
                         className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105 drop-shadow-sm"
                     />
                 )}

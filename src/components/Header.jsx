@@ -3,20 +3,20 @@ import { Link, useLocation } from 'react-router-dom'
 
 const navLinks = [
   { label: 'Home', href: '/' },
-  { label: 'Store', href: '/store' },
+  { label: 'Products', href: '/store' },
   { label: 'Our Projects', href: '/projects' },
-  { label: 'About Us', href: '/about' },
+  // { label: 'About Us', href: '/about' },
   // { label: 'Our Team', href: '/about' },
-  {
-    label: 'Products',
-    href: '/products',
-    subLinks: [
-      { label: 'Room Air Conditioning', href: '/products/room-ac' },
-      { label: 'Commercial AC', href: '/products/commercial-ac' },
-      { label: 'Central AC', href: '/products/central-ac' },
-      { label: 'Ventilation', href: '/products/ventilation' },
-    ]
-  },
+  // {
+  //   label: 'Products',
+  //   href: '/products',
+  //   subLinks: [
+  //     { label: 'Room Air Conditioning', href: '/products/room-ac' },
+  //     { label: 'Commercial AC', href: '/products/commercial-ac' },
+  //     { label: 'Central AC', href: '/products/central-ac' },
+  //     { label: 'Ventilation', href: '/products/ventilation' },
+  //   ]
+  // },
   {
     label: 'Services',
     href: '/services/approach',
@@ -68,7 +68,7 @@ export default function Header() {
               <span>info@rakshithac.com</span>
             </a>
           </div>
-          <div className="hidden lg:flex items-center gap-2 font-medium text-white tracking-widest uppercase text-[10px]">
+          <div className="hidden lg:flex items-center gap-2 font-medium text-white tracking-wider uppercase text-[10px]">
             Authorized Sales & Service Channel Partner
           </div>
         </div>
@@ -147,19 +147,20 @@ export default function Header() {
             <div className="hidden xl:flex items-center">
               <button
                 onClick={() => setIsModalOpen(true)}
-                className={`px-8 py-3 text-[12px] font-bold uppercase tracking-widest rounded-full transition-all hover:scale-105 active:scale-95 ${(scrolled || !isHome)
+                className={`px-8 py-3 text-[12px] font-bold uppercase tracking-wider rounded-full transition-all hover:scale-105 active:scale-95 ${(scrolled || !isHome)
                   ? 'bg-[#0072bc] text-white shadow-xl shadow-blue-100'
                   : 'bg-white text-[#0072bc] shadow-2xl shadow-black/20'
                   }`}
                 style={{ fontFamily: 'Outfit, sans-serif' }}
               >
-                Inquire Now
+                Enquiry Now
               </button>
             </div>
 
             {/* Mobile Toggle */}
             <button
               id="mobile-menu-toggle"
+              aria-label="Toggle mobile menu"
               className={`xl:hidden p-3 rounded-xl transition-all ${scrolled ? 'text-gray-900 bg-gray-50' : 'text-white bg-white/10'}`}
               onClick={() => setMobileOpen(!mobileOpen)}
             >
@@ -175,7 +176,7 @@ export default function Header() {
           <div className="flex flex-col p-8 h-full">
             <div className="flex items-center justify-between mb-16">
               <img src="/banner/Screenshot 2026-04-15 150304.png" alt="Rakshith" className="h-10 object-contain" />
-              <button onClick={() => setMobileOpen(false)} className="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-2xl text-gray-400">
+              <button onClick={() => setMobileOpen(false)} aria-label="Close mobile menu" className="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-2xl text-gray-400">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" strokeWidth={2} /></svg>
               </button>
             </div>
@@ -253,16 +254,16 @@ export default function Header() {
             <div className="p-8 -mt-6 relative z-20 bg-white rounded-t-[2rem]">
               <form className="space-y-5" onSubmit={(e) => { e.preventDefault(); alert("Inquiry submitted! We will contact you soon."); setIsModalOpen(false); }}>
                 <div>
-                  <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Full Name</label>
+                  <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Full Name</label>
                   <input required type="text" className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all" placeholder="John Doe" />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Phone</label>
+                    <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Phone</label>
                     <input required type="tel" className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all" placeholder="+91" />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Interest</label>
+                    <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Interest</label>
                     <select className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-xl text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all appearance-none cursor-pointer">
                       <option>Commercial VRV</option>
                       <option>Central Chillers</option>
@@ -273,14 +274,14 @@ export default function Header() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Additional Details</label>
+                  <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Additional Details</label>
                   <textarea rows="3" className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all resize-none" placeholder="Please describe your site scale or specific requirements..."></textarea>
                 </div>
 
-                <button type="submit" className="w-full py-4 mt-2 bg-[#002f54] hover:bg-[#0072bc] text-white text-sm font-bold uppercase tracking-widest rounded-xl transition-all shadow-xl shadow-blue-900/10 active:scale-[0.98]" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                <button type="submit" className="w-full py-4 mt-2 bg-[#002f54] hover:bg-[#0072bc] text-white text-sm font-bold uppercase tracking-wider rounded-xl transition-all shadow-xl shadow-blue-900/10 active:scale-[0.98]" style={{ fontFamily: 'Outfit, sans-serif' }}>
                   Submit Inquiry
                 </button>
-                <p className="text-center text-[10px] font-medium text-gray-400 mt-4 uppercase tracking-widest hidden sm:block">
+                <p className="text-center text-[10px] font-medium text-gray-400 mt-4 uppercase tracking-wider hidden sm:block">
                   Direct Line: +91 9848629208
                 </p>
               </form>

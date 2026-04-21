@@ -76,7 +76,7 @@ export default function Projects() {
 
                     {/* Category Badge */}
                     <div className="absolute top-6 right-6">
-                      <span className="bg-white/95 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] font-black text-[#0072bc] uppercase tracking-[0.2em] shadow-lg border border-white">
+                      <span className="bg-blue-50/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-[#0072bc] uppercase tracking-wider border border-blue-100/30 shadow-sm">
                         {project.category}
                       </span>
                     </div>

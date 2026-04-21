@@ -23,24 +23,24 @@ export default function About() {
           <div className="order-2 lg:order-1">
             <div className="inline-flex items-center gap-2 mb-6">
               <span className="w-10 h-0.5 bg-[#0072bc]"></span>
-              <span className="text-[#0072bc] text-xs font-bold uppercase tracking-[0.2em]" style={{ fontFamily: 'Inter, sans-serif' }}>Corporate Profile</span>
+              <span className="text-[#0072bc] text-xs font-bold uppercase tracking-wider" style={{ fontFamily: 'Inter, sans-serif' }}>Corporate Profile</span>
             </div>
 
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-8 leading-tight tracking-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
               Welcome to <span className="text-[#0072bc]">Rakshith Air Conditioners</span>
             </h2>
 
-            <div className="space-y-6 text-gray-600 leading-relaxed mb-10 text-base">
+            <div className="space-y-4 text-gray-600 leading-relaxed mb-10 text-base">
               <p>
-                Rakshith is a premier <strong>Air Conditioning Solution provider</strong> with over a decade of industry-shaping experience. Headquartered in Hyderabad with a robust presence across South India, we deliver high-precision HVAC engineering for critical environments.
+                <strong>RAKSHITH Air Condition & Services</strong>, established in 2011, is a registered company specializing in advanced cooling solutions. We focus on delivering exceptional services across South India for commercial, industrial, and residential sectors.
               </p>
               <p>
-                As an <strong>authorized Daikin partner</strong> since 2007, we specialize in high-complexity projects for Pharma Industries, Cold Room Solutions, Clean Room environments, and high-end commercial architecture.
+                As an <strong>authorized dealer and service provider for Daikin</strong>, we have become a preferred partner for high-end cooling systems, serving IT companies, real estate developers, and manufacturing plants with an annual turnover exceeding 50 crores.
               </p>
             </div>
 
             {/* Specialty Icons - High-Fidelity SVGs */}
-            <div className="grid grid-cols-2 gap-4 mb-10">
+            {/* <div className="grid grid-cols-2 gap-4 mb-10">
               {[
                 {
                   title: 'Pharma & Clean Room',
@@ -82,21 +82,21 @@ export default function About() {
                   <span className="text-[13px] font-semibold text-gray-700 tracking-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>{s.title}</span>
                 </div>
               ))}
-            </div>
+            </div> */}
 
             <div className="flex flex-wrap items-center gap-6">
               <a
-                href="/contact"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-[#0072bc] text-white font-bold uppercase tracking-widest rounded-xl hover:bg-[#005fa3] shadow-xl hover:-translate-y-0.5 text-xs transition-all"
+                href="/about"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-[#0072bc] text-white font-bold uppercase tracking-wider rounded-xl hover:bg-[#005fa3] shadow-xl hover:-translate-y-0.5 text-xs transition-all"
                 style={{ fontFamily: 'Outfit, sans-serif' }}
               >
-                Corporate Profile
+                See more
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </a>
               <div className="flex items-center gap-4">
-                <div className="flex -space-x-2">
+                {/* <div className="flex -space-x-2">
                   {[1, 2, 3].map((i) => (
                     <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-blue-50 flex items-center justify-center text-blue-400">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -104,10 +104,10 @@ export default function About() {
                       </svg>
                     </div>
                   ))}
-                </div>
-                <div className="text-[13px] font-semibold text-gray-700 tracking-tight">
+                </div> */}
+                {/* <div className="text-[13px] font-semibold text-gray-700 tracking-tight">
                   Trusted by 500+ <br /> Enterprise Clients
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -118,6 +118,7 @@ export default function About() {
               <img
                 src="/banner/hero_ac_interior_1776336133282.png"
                 alt="Rakshith Professional Environment"
+                loading="lazy"
                 className="w-full h-[520px] object-cover transition-transform duration-1000 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
@@ -126,12 +127,12 @@ export default function About() {
               <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-8 border-l-4 border-[#0072bc] shadow-2xl rounded-r-xl">
                 <div className="grid grid-cols-2 gap-8 text-center">
                   <div>
-                    <div className="text-4xl font-bold text-[#0072bc]" style={{ fontFamily: 'Outfit, sans-serif' }}>17+</div>
-                    <div className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.2em] mt-2">Years Excellence</div>
+                    <div className="text-4xl font-bold text-[#0072bc]" style={{ fontFamily: 'Outfit, sans-serif' }}>15+</div>
+                    <div className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mt-2">Years of Excellence</div>
                   </div>
                   <div>
                     <div className="text-4xl font-bold text-[#0072bc]" style={{ fontFamily: 'Outfit, sans-serif' }}>8+</div>
-                    <div className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.2em] mt-2">Regional Offices</div>
+                    <div className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mt-2">Regional Offices</div>
                   </div>
                 </div>
               </div>

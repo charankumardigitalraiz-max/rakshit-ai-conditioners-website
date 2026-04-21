@@ -97,7 +97,7 @@ export default function Services() {
                                     </div>
                                     <div className="relative h-full min-h-[400px]">
                                         <div className="absolute inset-0 rounded-[3rem] overflow-hidden shadow-2xl">
-                                            <img src="/service/amc_technician_maintenance_1776509796451.png" alt="Professional Technician Maintenance" className="w-full h-full object-cover" />
+                                            <img src="/service/amc_technician_maintenance_1776509796451.png" alt="Professional Technician Maintenance" loading="lazy" className="w-full h-full object-cover" />
                                             <div className="absolute inset-0 bg-gradient-to-t from-[#002f54]/80 via-transparent to-transparent"></div>
                                             <div className="absolute bottom-8 left-8 right-8">
                                                 <div className="bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-2xl flex items-center gap-4">
@@ -140,7 +140,7 @@ export default function Services() {
                                     </div>
                                     <div className="lg:col-span-4 translate-y-4">
                                         <div className="relative rounded-[2rem] overflow-hidden shadow-xl h-full min-h-[350px]">
-                                            <img src="/service/amc_genuine_spares_1776509955145.png" alt="Technical Engineering" className="absolute inset-0 w-full h-full object-cover" />
+                                            <img src="/service/amc_genuine_spares_1776509955145.png" alt="Technical Engineering" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
                                             <div className="absolute inset-0 bg-[#002f54]/85 backdrop-blur-[1px]"></div>
                                             <div className="relative z-10 p-8 h-full flex flex-col justify-center">
                                                 <h3 className="text-2xl font-bold mb-6 text-white" style={{ fontFamily: 'Outfit, sans-serif' }}>Vast Network</h3>

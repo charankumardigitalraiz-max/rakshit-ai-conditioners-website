@@ -15,7 +15,7 @@ export default function ProjectShowcase() {
           <div className="max-w-xl">
             <div className="inline-flex items-center gap-2 mb-3">
               <span className="w-8 h-0.5 bg-[#0072bc]"></span>
-              <span className="text-[#0072bc] text-[10px] font-bold uppercase tracking-[0.2em]" style={{ fontFamily: 'Inter, sans-serif' }}>Portfolio</span>
+              <span className="text-[#0072bc] text-[10px] font-bold uppercase tracking-wider" style={{ fontFamily: 'Inter, sans-serif' }}>Portfolio</span>
             </div>
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-3 tracking-tight leading-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
               Our Landmark <span className="text-[#0072bc]">Projects</span>
@@ -27,7 +27,7 @@ export default function ProjectShowcase() {
 
           <Link
             to="/projects"
-            className="group flex items-center gap-2 text-xs font-bold text-[#0072bc] uppercase tracking-widest hover:text-[#005fa3] transition-colors"
+            className="group flex items-center gap-2 text-xs font-bold text-[#0072bc] uppercase tracking-wider hover:text-[#005fa3] transition-colors"
           >
             All Projects
             <div className="w-8 h-8 rounded-full border border-blue-100 flex items-center justify-center transition-transform group-hover:translate-x-1">
@@ -48,6 +48,7 @@ export default function ProjectShowcase() {
                 <img
                   src={project.image}
                   alt={project.title}
+                  loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100"
                 />
 
@@ -56,7 +57,7 @@ export default function ProjectShowcase() {
 
                 {/* Metadata Badge */}
                 <div className="absolute top-4 left-4">
-                  <span className="bg-white/95 backdrop-blur-md px-3 py-1 rounded-md text-[9px] font-black text-[#0072bc] uppercase tracking-widest shadow-sm">
+                  <span className="bg-blue-50/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-[#0072bc] uppercase tracking-wider border border-blue-100/30 shadow-sm">
                     {project.category}
                   </span>
                 </div>
@@ -81,7 +82,7 @@ export default function ProjectShowcase() {
                     {project.details}
                   </p>
 
-                  <Link
+                  {/* <Link
                     to="/projects"
                     className="inline-flex items-center gap-1.5 text-white text-[9px] font-bold uppercase tracking-[0.2em] group/btn"
                   >
@@ -91,7 +92,7 @@ export default function ProjectShowcase() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                       </svg>
                     </div>
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
 

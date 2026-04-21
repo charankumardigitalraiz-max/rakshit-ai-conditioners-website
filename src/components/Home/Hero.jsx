@@ -9,6 +9,7 @@ export default function Hero() {
         <img
           src="/banner/rakshith_hero_bg_v2_1776336794838.png"
           alt="Rakshith HVAC Solutions - Modern AC Interior"
+          fetchpriority="high"
           className="w-full h-full object-cover object-right"
         />
         {/* Left-focused gradient + Top Contrast Shelf */}

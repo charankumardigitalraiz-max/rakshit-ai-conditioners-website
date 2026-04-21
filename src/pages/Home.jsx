@@ -4,6 +4,7 @@ import Services from '../components/Home/Services'
 import FeaturedProducts from '../components/Home/FeaturedProducts'
 import About from '../components/Home/About'
 import ProjectShowcase from '../components/Home/ProjectShowcase'
+import TrustedPartners from '../components/Home/TrustedPartners'
 import Process from '../components/Home/Process'
 import Achievements from '../components/Home/Achievements'
 import Contact from '../components/Home/Contact'
@@ -22,6 +23,9 @@ const Home = () => {
             </SectionTransition>
             <SectionTransition delay={0.1}>
                 <ProjectShowcase />
+            </SectionTransition>
+            <SectionTransition delay={0.2}>
+                <TrustedPartners />
             </SectionTransition>
             <SectionTransition delay={0.1}>
                 <Achievements />

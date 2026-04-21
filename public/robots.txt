@@ -1,0 +1,6 @@
+# robots.txt for Rakshith Air Conditioners
+User-agent: *
+Allow: /
+
+# Sitemaps (optional, add if you have one)
+# Sitemap: https://rakshithac.com/sitemap.xml
