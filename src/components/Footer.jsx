@@ -45,9 +45,6 @@ export default function Footer() {
               />
             </div>
 
-            <p className="text-white/60 text-sm leading-relaxed mb-8 max-w-sm">
-              Rakshith Air Condition & Services is South India's premier authorized Daikin distribution partner. Delivering precision-engineered climate solutions since 2011.
-            </p>
 
             <div className="space-y-6">
               {/* HQ Address */}
@@ -58,8 +55,8 @@ export default function Footer() {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="text-[10px] font-bold text-white/40 uppercase tracking-wider mb-1">Regional HQ</h4>
-                  <p className="text-white/80 text-[13px] leading-relaxed">
+                  <h4 className="text-[10px] font-bold text-[#00a8e8] uppercase tracking-wider mb-1">Regional HQ</h4>
+                  <p className="text-white text-[13px] leading-relaxed">
                     RVRH HOMES, 41, Rd No. 3R, <br />
                     Lakshmi Nagar, Miyapur, Hyderabad 500049
                   </p>
@@ -76,10 +73,10 @@ export default function Footer() {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="text-[10px] font-bold text-white/40 uppercase tracking-wider mb-1">Sales Enquiries</h4>
+                    <h4 className="text-[10px] font-bold text-[#00a8e8] uppercase tracking-wider mb-1">Sales Enquiries</h4>
                     <div className="flex flex-col gap-1">
-                      <a href="tel:+919030064466" className="text-white/80 text-[13px] font-semibold hover:text-white transition-colors tracking-tight">+91 90300 64466</a>
-                      <a href="tel:+919030094466" className="text-white/80 text-[13px] font-semibold hover:text-white transition-colors tracking-tight">+91 90300 94466</a>
+                      <a href="tel:+919030064466" className="text-white text-[13px] font-semibold hover:text-white transition-colors tracking-tight">+91 90300 64466</a>
+                      <a href="tel:+919030094466" className="text-white text-[13px] font-semibold hover:text-white transition-colors tracking-tight">+91 90300 94466</a>
                     </div>
                   </div>
                 </div>
@@ -107,8 +104,8 @@ export default function Footer() {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="text-[10px] font-bold text-white/40 uppercase tracking-wider mb-1">Corporate Email</h4>
-                    <a href="mailto:info@rakshithac.com" className="text-white/80 text-[13px] font-semibold hover:text-white transition-colors tracking-tight">info@rakshithac.com</a>
+                    <h4 className="text-[10px] font-bold text-[#00a8e8] uppercase tracking-wider mb-1">Corporate Email</h4>
+                    <a href="mailto:info@rakshithac.com" className="text-white text-[13px] font-semibold hover:text-white transition-colors tracking-tight">info@rakshithac.com</a>
                   </div>
                 </div>
               </div>
@@ -117,9 +114,10 @@ export default function Footer() {
 
           {/* Links Taxonomy */}
           <div className="lg:col-span-4 grid grid-cols-2 md:grid-cols-4 gap-10">
+
             {Object.entries(footerLinks).map(([title, links]) => (
               <div key={title}>
-                <h3 className="text-white font-bold text-[11px] uppercase tracking-[0.25em] mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <h3 className="text-[#00a8e8] font-bold text-[11px] uppercase tracking-[0.25em] mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
                   {title}
                 </h3>
                 <ul className="space-y-3.5">
@@ -139,6 +137,7 @@ export default function Footer() {
                 </ul>
               </div>
             ))}
+
           </div>
         </div>
       </div>
