@@ -6,6 +6,8 @@ import Footer from './components/Footer'
 import Whatsappfloatingbutton from './components/ui/Whatsapp-floating-button'
 import ScrollToTop from './components/ui/ScrollToTop'
 import SocialBand from './components/ui/SocialBand'
+import EnquiryModal from './components/EnquiryModal'
+import { EnquiryProvider } from './context/EnquiryContext'
 import './index.css'
 
 // Lazy load pages for better performance
@@ -31,31 +33,34 @@ function App() {
   const location = useLocation();
 
   return (
-    <div className="font-sans antialiased text-gray-900 bg-white selection:bg-[#005bac] selection:text-white relative">
-      <ScrollToTop />
-      <SocialBand />
-      <Header />
-      <main>
-        <AnimatePresence mode="wait">
-          <Suspense fallback={<PageLoader />}>
-            <Routes location={location} key={location.pathname}>
-              <Route path="/" element={<Home />} />
-              <Route path="/store/:categoryId?" element={<Store />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/services/:serviceId?" element={<Services />} />
-              <Route path="/products/:categoryId?" element={<Products />} />
-              <Route path="/product/:productId" element={<ProductDetail />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/terms" element={<Terms />} />
-              <Route path="/privacy" element={<Privacy />} />
-            </Routes>
-          </Suspense>
-        </AnimatePresence>
-      </main>
-      <Footer />
-      <Whatsappfloatingbutton />
-    </div>
+    <EnquiryProvider>
+      <div className="font-sans antialiased text-gray-900 bg-white selection:bg-[#005bac] selection:text-white relative">
+        <ScrollToTop />
+        <SocialBand />
+        <Header />
+        <main>
+          <AnimatePresence mode="wait">
+            <Suspense fallback={<PageLoader />}>
+              <Routes location={location} key={location.pathname}>
+                <Route path="/" element={<Home />} />
+                <Route path="/store/:categoryId?" element={<Store />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/services/:serviceId?" element={<Services />} />
+                <Route path="/products/:categoryId?" element={<Products />} />
+                <Route path="/product/:productId" element={<ProductDetail />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/privacy" element={<Privacy />} />
+              </Routes>
+            </Suspense>
+          </AnimatePresence>
+        </main>
+        <Footer />
+        <Whatsappfloatingbutton />
+        <EnquiryModal />
+      </div>
+    </EnquiryProvider>
   )
 }
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import PageTransition from '../components/ui/PageTransition'
 import SectionTransition from '../components/ui/SectionTransition'
@@ -6,6 +6,7 @@ import SectionTransition from '../components/ui/SectionTransition'
 export default function Services() {
     const { serviceId } = useParams()
     const navigate = useNavigate()
+    const [showModal, setShowModal] = useState(false)
 
     // Default to 'approach' if there is no param or invalid param
     useEffect(() => {
@@ -248,9 +249,13 @@ export default function Services() {
                                 </div>
 
                                 <div className="mt-12 text-center">
-                                    <a href="/#contact" className="inline-flex px-8 py-3 bg-[#002f54] text-white text-[11px] font-bold uppercase tracking-wider rounded-xl shadow-lg hover:bg-[#0072bc] transition-colors">
+                                    <button
+                                        onClick={() => setShowModal(true)}
+                                        className="inline-flex items-center gap-2 px-8 py-3 bg-[#002f54] text-white text-[11px] font-bold uppercase tracking-wider rounded-xl shadow-lg hover:bg-[#0072bc] transition-colors"
+                                    >
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                                         Request Contract Quotation
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         </section>
@@ -340,7 +345,7 @@ export default function Services() {
                 )}
 
                 {/* Service CTA Footer */}
-                <div className="bg-gradient-to-r from-[#002f54] to-[#00477a] py-16 text-center">
+                {/* <div className="bg-gradient-to-r from-[#002f54] to-[#00477a] py-16 text-center">
                     <div className="max-w-3xl mx-auto px-5">
                         <h2 className="text-2xl lg:text-3xl font-bold text-white mb-4" style={{ fontFamily: 'Outfit, sans-serif' }}>
                             Ready to secure your climate?
@@ -355,7 +360,7 @@ export default function Services() {
                             Schedule Technical Visit
                         </a>
                     </div>
-                </div>
+                </div> */}
 
             </div>
         </PageTransition>

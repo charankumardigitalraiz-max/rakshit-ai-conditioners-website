@@ -46,7 +46,7 @@ export default function Footer() {
             </div>
 
             <p className="text-white/60 text-sm leading-relaxed mb-8 max-w-sm">
-              Rakshith Air Conditioners is South India's premier authorized Daikin distribution partner. Delivering precision-engineered climate solutions since 2011.
+              Rakshith Air Condition & Services is South India's premier authorized Daikin distribution partner. Delivering precision-engineered climate solutions since 2011.
             </p>
 
             <div className="space-y-6">
@@ -145,19 +145,19 @@ export default function Footer() {
 
       {/* Corporate Compliance Bar */}
       <div className="border-t border-white/5 bg-[#002642]">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 py-4 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex flex-col md:flex-row items-center gap-6">
-            <p className="text-white/60 text-[10px] font-bold uppercase tracking-wider">
-              © {new Date().getFullYear()} Rakshith Air Conditioners. Engineering Excellence.
+            <p className="text-white text-[10px] font-bold uppercase tracking-wider">
+              © {new Date().getFullYear()} Rakshith Air Condition & Services.
             </p>
             <div className="hidden md:block w-px h-4 bg-white/10"></div>
-            <p className="text-white/60 text-[10px] uppercase tracking-wider">Certified Daikin Service Channel</p>
+            <p className="text-white text-[10px] uppercase tracking-wider">Certified Daikin Service Channel</p>
           </div>
 
-          <div className="flex items-center gap-4 text-[10px] font-bold text-white/70 uppercase tracking-wider">
+          {/* <div className="flex items-center gap-4 text-[10px] font-bold text-white/70 uppercase tracking-wider">
             <span className="w-2 h-2 bg-[#0072bc] rounded-full animate-pulse"></span>
             Global Daikin Tier 1 Partner
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>

@@ -27,7 +27,7 @@ export default function About() {
             </div>
 
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-8 leading-tight tracking-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
-              Welcome to <span className="text-[#0072bc]">Rakshith Air Conditioners</span>
+              Welcome to <span className="text-[#0072bc]">Rakshith Air Condition & Services</span>
             </h2>
 
             <div className="space-y-4 text-gray-600 leading-relaxed mb-10 text-base">
