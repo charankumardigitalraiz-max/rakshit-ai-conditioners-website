@@ -395,9 +395,9 @@ export default function Services() {
 
             {showModal && (
                 <div className="fixed inset-0 z-[100] flex items-start justify-center p-4 sm:p-6 overflow-y-auto">
-                    <div className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm" onClick={() => setIsModalOpen(false)}></div>
+                    <div className="fixed inset-0 bg-gray-900/40 backdrop-blur-sm" onClick={() => setIsModalOpen(false)}></div>
 
-                    <div className="relative bg-white w-full max-w-lg rounded-[2rem] shadow-2xl shadow-black/20 overflow-hidden transform transition-all animate-fadeInUp">
+                    <div className="relative z-10 w-full max-w-lg max-h-[90vh] overflow-y-auto no-scrollbar bg-white rounded-[2rem] shadow-2xl">
                         {/* Modal Header */}
                         <div className="relative bg-[#002f54] p-8 pb-10 overflow-hidden">
                             <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#fff 0.5px, transparent 0.5px)', backgroundSize: '20px 20px' }}></div>
