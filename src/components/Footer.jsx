@@ -37,7 +37,7 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <div className="mb-8">
               <img
-                src="/banner/Screenshot 2026-04-15 150304.png"
+                src="/banner/Rakshith logos web.webp"
                 alt="Rakshith Air Conditioners"
                 width="180"
                 height="48"
