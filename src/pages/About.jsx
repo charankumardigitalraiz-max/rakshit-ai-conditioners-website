@@ -78,7 +78,7 @@ export default function About() {
                   </div>
                   <div>
                     <h4 className="text-xl font-bold text-gray-900 leading-none mb-1 cursor-default" style={{ fontFamily: 'Outfit, sans-serif' }}>Mr. Koppisetty Rajkamal</h4>
-                    <span className="text-[11px] font-bold text-[#0072bc] uppercase tracking-widest">Managing Director</span>
+                    <span className="text-[11px] font-bold text-[#0072bc] uppercase tracking-wider">Managing Director</span>
                   </div>
                 </div>
               </div>
@@ -211,7 +211,7 @@ export default function About() {
                   <div key={stat.id} className="text-center">
                     <div className="text-2xl font-black text-gray-900" style={{ fontFamily: 'Outfit, sans-serif' }}>{stat.val}</div>
                     <div className="text-[9px] font-bold text-[#0072bc] uppercase tracking-[0.2em] mb-1">{stat.label}</div>
-                    <div className="text-[8px] text-gray-400 font-medium uppercase tracking-widest">{stat.sub}</div>
+                    <div className="text-[8px] text-gray-400 font-medium uppercase tracking-wider">{stat.sub}</div>
                   </div>
                 ))}
               </div>
@@ -249,7 +249,7 @@ export default function About() {
               <div className="lg:col-span-8">
                 <div className="grid sm:grid-cols-2 gap-x-12 gap-y-10">
                   <div>
-                    <h4 className="text-xs font-bold text-gray-900 uppercase tracking-widest mb-6 border-b border-gray-100 pb-2">Industrial Machinery</h4>
+                    <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider mb-6 border-b border-gray-100 pb-2">Industrial Machinery</h4>
                     <ul className="space-y-3">
                       {[
                         'Recovery Machine (Environment Friendly)',
@@ -286,7 +286,7 @@ export default function About() {
                   </div>
 
                   <div className="sm:col-span-2">
-                    <h4 className="text-xs font-bold text-gray-900 uppercase tracking-widest mb-6 border-b border-gray-100 pb-2">Materials & Gas Inventory</h4>
+                    <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider mb-6 border-b border-gray-100 pb-2">Materials & Gas Inventory</h4>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                       {[
                         { title: 'Oxygen', desc: 'Cylinders' },

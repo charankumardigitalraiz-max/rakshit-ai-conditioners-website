@@ -16,7 +16,7 @@ export default function Achievements() {
     const interval = setInterval(() => {
       if (scrollRef.current) {
         const { scrollLeft, clientWidth, scrollWidth } = scrollRef.current;
-        
+
         // If we're near the end, reset to start
         if (scrollLeft + clientWidth >= scrollWidth - 10) {
           scrollRef.current.scrollTo({
@@ -60,7 +60,7 @@ export default function Achievements() {
               <span className="w-10 h-0.5 bg-[#0072bc]"></span>
               <span className="text-[#0072bc] text-[10px] font-bold uppercase tracking-wider" style={{ fontFamily: 'Inter, sans-serif' }}>Corporate Milestones</span>
             </div>
-            <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-6 tracking-tight leading-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
+            <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-6 tracking-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
               National <span className="text-[#0072bc]">Recognition</span>
             </h2>
             <p className="text-gray-500 text-sm leading-relaxed max-w-xl">

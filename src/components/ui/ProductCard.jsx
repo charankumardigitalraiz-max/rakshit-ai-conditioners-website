@@ -19,7 +19,7 @@ export default function ProductCard({ product, currentVariant, onVariantChange }
                 {product.hasPlaceholderImage ? (
                     <div className="w-full h-full bg-gradient-to-br from-blue-50/30 to-gray-50 flex items-center justify-center rounded-xl overflow-hidden group-hover:scale-105 transition-transform duration-500">
                         <div className="p-3 bg-white/80 backdrop-blur-sm rounded-lg border border-blue-100 shadow-sm text-center">
-                            <span className="text-[#0072bc] font-black text-[9px] uppercase tracking-widest">{product.placeholderText}</span>
+                            <span className="text-[#0072bc] font-black text-[9px] uppercase tracking-wider">{product.placeholderText}</span>
                         </div>
                     </div>
                 ) : (
@@ -33,7 +33,7 @@ export default function ProductCard({ product, currentVariant, onVariantChange }
 
                 {/* Minimal Badge */}
                 <div className="absolute top-3 right-3">
-                    <span className="bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[9px] font-bold text-gray-500 uppercase tracking-widest shadow-sm border border-gray-100">
+                    <span className="bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[9px] font-bold text-gray-500 uppercase tracking-wider shadow-sm border border-gray-100">
                         {product.category}
                     </span>
                 </div>
@@ -53,7 +53,7 @@ export default function ProductCard({ product, currentVariant, onVariantChange }
                 {/* Variant Selector - Pill Format */}
                 <div className="mt-auto mb-5">
                     <div className="flex items-center justify-between mb-2">
-                        <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Select Model</span>
+                        <span className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">Select Model</span>
                         <span className="text-[9px] font-bold text-[#0072bc] truncate max-w-[50%]">{currentVariant.model || currentVariant.sku}</span>
                     </div>
                     <div className="relative group/select">
@@ -84,7 +84,7 @@ export default function ProductCard({ product, currentVariant, onVariantChange }
                 {/* Price block - Compact */}
                 <div className="pt-2 border-t border-gray-100 flex items-end justify-between">
                     <div>
-                        <div className="text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">Indicative Quote</div>
+                        <div className="text-[8px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">Indicative Quote</div>
                         <div className="text-lg font-black text-gray-900 tracking-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
                             ₹{currentVariant.price.toLocaleString()}
                         </div>

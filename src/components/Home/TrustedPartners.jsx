@@ -5,7 +5,11 @@ const TrustedPartners = () => {
         'Sri Harsha Trucking Private', 'MHA Villa-591 Kiran', 'Aneesh Lucky Health Care', 'GHR Infra Developers LLP',
         'Skootr Global Private Limited', 'K Ganesh Rao', 'SSR Luxury Rooms', 'Chintalpalli Aparna',
         'Kantamneni Varun (301)', 'Yerneni Naveen (401)', 'Soumith Goud', 'RNV Ventures B4',
-        'Joyalukkas', 'L&T Finance Limited', 'Covalent Laboratories Pvt Ltd'
+        'Joyalukkas', 'L&T Finance Limited', 'Covalent Laboratories Pvt Ltd', 'OMEGA HOSPITAL',
+        'GITAM', 'G M KANNA BABU (ESAOTE INDIA)', 'R ARUNKUMAR AYYANA PRESTAGE 401F A BLOCK', 'PRASANNA',
+        'TELUGU FILM PRODUCERS', 'NAKODA JEWELLERS', 'MV MADHUSUDHAN', 'LEIUTIS PHARMACEUTICALS LLP',
+        'DVS RAJU', 'COVALENT LABORATORIES PVT LTD', 'SM SHEGAL FOUNDATION', 'MHA VILLA-110 (Mr.MANISH)',
+        'LAPALOMA VILLA OWNERS WELFARE', 'NCL INDUSTRIES LTD'
     ];
 
     const standardClients = [

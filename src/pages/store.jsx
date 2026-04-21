@@ -210,7 +210,7 @@ export default function Store() {
                 </div>
 
                 {/* Authority Footer */}
-                <div className="max-w-7xl mx-auto px-5 sm:px-8 pb-16">
+                {/* <div className="max-w-7xl mx-auto px-5 sm:px-8 pb-16">
                     <div className="p-10 bg-[#002f54] rounded-[2.5rem] relative overflow-hidden group">
                         <div className="absolute top-0 right-0 w-64 h-64 bg-[#0072bc]/20 rounded-full blur-[80px] -mr-32 -mt-32 transition-all group-hover:bg-[#0072bc]/30"></div>
                         <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
@@ -223,7 +223,7 @@ export default function Store() {
                             </button>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 {/* <div className="max-w-7xl mx-auto px-5 sm:px-8 pb-16">
                 <div className="p-8 bg-gray-50 rounded-2xl border border-gray-100">

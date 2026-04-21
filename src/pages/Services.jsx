@@ -106,7 +106,7 @@ export default function Services() {
                                                     </div>
                                                     <div>
                                                         <h4 className="text-white font-bold mb-0.5">Certified Engineers</h4>
-                                                        <p className="text-white/80 text-[10px] uppercase tracking-widest">Daikin Specialised Team</p>
+                                                        <p className="text-white/80 text-[10px] uppercase tracking-wider">Daikin Specialised Team</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -173,13 +173,13 @@ export default function Services() {
                                 <div className="grid xl:grid-cols-3 gap-6">
                                     {/* Contract 1: Comprehensive */}
                                     <div className="bg-white rounded-[2rem] border border-[#0072bc]/20 shadow-[0_20px_40px_-20px_rgba(0,114,188,0.15)] p-8 relative flex flex-col transform transition-transform hover:-translate-y-1">
-                                        <div className="absolute top-0 right-0 bg-[#0072bc] text-white text-[9px] font-black uppercase tracking-widest py-1.5 px-5 rounded-bl-2xl rounded-tr-[2rem]">Most Popular</div>
+                                        <div className="absolute top-0 right-0 bg-[#0072bc] text-white text-[9px] font-black uppercase tracking-wider py-1.5 px-5 rounded-bl-2xl rounded-tr-[2rem]">Most Popular</div>
                                         <h3 className="text-2xl font-bold text-gray-900 mb-2" style={{ fontFamily: 'Outfit, sans-serif' }}>Comprehensive</h3>
                                         <p className="text-xs text-gray-500 mb-6 pb-6 border-b border-gray-100">Complete peace of mind with critical component replacement.</p>
 
                                         <div className="flex-grow space-y-6">
                                             <div>
-                                                <h4 className="text-xs font-bold text-gray-900 uppercase tracking-widest mb-3 flex items-center gap-2"><span className="text-green-500">◆</span> Inclusions</h4>
+                                                <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider mb-3 flex items-center gap-2"><span className="text-green-500">◆</span> Inclusions</h4>
                                                 <ul className="space-y-2.5">
                                                     {['Four routine services', 'Immediate attendance of breakdown', 'Refrigerant gas charging', 'Compressor', 'Fan Motor', 'P.C.B.', 'Magnetic Switch', 'Transformer'].map((item, i) => (
                                                         <li key={i} className="flex items-start gap-2 text-sm text-gray-600"><span className="text-green-500 font-bold shrink-0">✓</span> {item}</li>
@@ -248,7 +248,7 @@ export default function Services() {
                                 </div>
 
                                 <div className="mt-12 text-center">
-                                    <a href="/#contact" className="inline-flex px-8 py-3 bg-[#002f54] text-white text-[11px] font-bold uppercase tracking-widest rounded-xl shadow-lg hover:bg-[#0072bc] transition-colors">
+                                    <a href="/#contact" className="inline-flex px-8 py-3 bg-[#002f54] text-white text-[11px] font-bold uppercase tracking-wider rounded-xl shadow-lg hover:bg-[#0072bc] transition-colors">
                                         Request Contract Quotation
                                     </a>
                                 </div>

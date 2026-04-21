@@ -42,7 +42,7 @@ export default function Projects() {
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
-                className={`px-6 py-2.5 text-[11px] font-bold uppercase tracking-widest rounded-xl transition-all ${filter === cat
+                className={`px-6 py-2.5 text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all ${filter === cat
                   ? 'bg-white text-[#0072bc] shadow-md ring-1 ring-gray-100'
                   : 'text-gray-400 hover:text-gray-600'
                   }`}
@@ -87,7 +87,7 @@ export default function Projects() {
                     <div >
                       <div className="flex items-center gap-2 mb-3">
                         <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
-                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{project.location}</span>
+                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">{project.location}</span>
                       </div>
                       <h3 className="text-xl font-[500] text-gray-900 group-hover:text-[#0072bc] transition-colors mb-4" style={{ fontFamily: 'Outfit, sans-serif' }}>
                         {project.title}
@@ -100,7 +100,7 @@ export default function Projects() {
 
                     {/* Visual Accent */}
                     {/* <div className="mt-auto pt-6 flex items-center justify-between border-t border-gray-50">
-                  <span className="text-[10px] font-bold text-blue-300 uppercase tracking-widest">Authentication Verified</span>
+                  <span className="text-[10px] font-bold text-blue-300 uppercase tracking-wider">Authentication Verified</span>
                   <svg className="w-5 h-5 text-gray-100 group-hover:text-[#0072bc] transition-colors" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
@@ -113,7 +113,7 @@ export default function Projects() {
         </div>
 
         {/* Portfolio CTA */}
-        <div className="bg-[#002f54] py-20 text-center relative overflow-hidden">
+        {/* <div className="bg-[#002f54] py-20 text-center relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#0072bc] to-transparent"></div>
           <div className="max-w-3xl mx-auto px-5 relative z-10">
             <h2 className="text-3xl font-bold text-white mb-6" style={{ fontFamily: 'Outfit, sans-serif' }}>
@@ -129,7 +129,7 @@ export default function Projects() {
               Initiate Contact
             </a>
           </div>
-        </div>
+        </div> */}
       </div>
     </PageTransition>
   )

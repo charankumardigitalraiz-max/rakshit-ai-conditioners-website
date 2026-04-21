@@ -241,7 +241,7 @@ export default function Products() {
 
                   {/* Typical Applications */}
                   <div>
-                    <h4 className="text-gray-900 font-bold mb-6 text-sm uppercase tracking-widest px-4 border-l-4 border-l-[#0072bc]">Ideal Applications</h4>
+                    <h4 className="text-gray-900 font-bold mb-6 text-sm uppercase tracking-wider px-4 border-l-4 border-l-[#0072bc]">Ideal Applications</h4>
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                       {currentCategory.technicalContent.applications.map((app, i) => (
                         <div key={i} className="bg-white border border-gray-100 py-3 px-4 rounded-xl text-xs font-bold text-gray-600 shadow-sm flex items-center gap-2">
@@ -275,7 +275,7 @@ export default function Products() {
                   </div>
 
                   <div className="flex items-center justify-center gap-4">
-                    <Link to="/store" className="w-full text-center px-8 py-4 bg-[#0072bc] text-white text-[11px] font-black uppercase tracking-widest rounded-2xl shadow-xl shadow-blue-900/10 hover:-translate-y-1 transition-all">
+                    <Link to="/store" className="w-full text-center px-8 py-4 bg-[#0072bc] text-white text-[11px] font-black uppercase tracking-wider rounded-2xl shadow-xl shadow-blue-900/10 hover:-translate-y-1 transition-all">
                       Browse Compatible Models in Store
                     </Link>
                   </div>
