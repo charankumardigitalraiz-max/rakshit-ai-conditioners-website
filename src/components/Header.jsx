@@ -230,7 +230,7 @@ export default function Header() {
       {/* Modern Inquiry Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-[100] flex items-start justify-center p-4 sm:p-6 overflow-y-auto">
-          <div className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm transition-opacity" onClick={() => setIsModalOpen(false)}></div>
+          <div className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm" onClick={() => setIsModalOpen(false)}></div>
 
           <div className="relative bg-white w-full max-w-lg rounded-[2rem] shadow-2xl shadow-black/20 overflow-hidden transform transition-all animate-fadeInUp">
             {/* Modal Header */}
