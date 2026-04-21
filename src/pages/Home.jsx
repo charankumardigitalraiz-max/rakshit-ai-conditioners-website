@@ -28,7 +28,7 @@ const Home = () => {
             {/* <SectionTransition delay={0.2}>
                 <TrustedPartners />
             </SectionTransition> */}
-                        <SectionTransition delay={0.1}>
+            <SectionTransition delay={0.1}>
                 <Achievements />
             </SectionTransition>
             <SectionTransition delay={0.1}>

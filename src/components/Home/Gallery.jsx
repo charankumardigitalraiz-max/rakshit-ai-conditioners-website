@@ -23,7 +23,7 @@ export default function Gallery() {
               <span className="text-[#0072bc] text-[10px] font-bold uppercase tracking-wider" style={{ fontFamily: 'Inter, sans-serif' }}>Our Work</span>
             </div>
             <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-4 tracking-tight leading-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
-              Gallery
+              Success Highlights
             </h2>
             <p className="text-gray-500 text-sm leading-relaxed">
               A visual showcase of our precision-engineered HVAC installations across industrial, commercial, and residential spaces.
@@ -32,7 +32,7 @@ export default function Gallery() {
           {/* <div className="flex items-center gap-2 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
             <span className="w-2 h-2 bg-[#0072bc] rounded-full animate-pulse"></span>
             Daikin Authorized Installations
-          </div> */}  
+          </div> */}
         </div>
 
         {/* Masonry Grid */}
