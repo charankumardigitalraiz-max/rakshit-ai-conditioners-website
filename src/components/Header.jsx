@@ -229,7 +229,7 @@ export default function Header() {
 
       {/* Modern Inquiry Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+        <div className="fixed inset-0 z-[100] flex items-start justify-center p-4 sm:p-6 overflow-y-auto">
           <div className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm transition-opacity" onClick={() => setIsModalOpen(false)}></div>
 
           <div className="relative bg-white w-full max-w-lg rounded-[2rem] shadow-2xl shadow-black/20 overflow-hidden transform transition-all animate-fadeInUp">
@@ -239,10 +239,22 @@ export default function Header() {
               <div className="absolute top-1/2 -right-10 w-40 h-40 bg-[#0072bc]/40 rounded-full blur-[40px]"></div>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center bg-white/10 hover:bg-white/25 text-white transition-all rounded-full focus:outline-none ring-offset-2 focus:ring-2 focus:ring-white/20"
+                className="absolute top-6 right-6 z-50 w-10 h-10 flex items-center justify-center bg-white/10 hover:bg-white/25 text-white transition-all rounded-full focus:outline-none ring-offset-2 focus:ring-2 focus:ring-white/20 cursor-pointer"
                 aria-label="Close modal"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" /></svg>
+                <svg
+                  className="w-5 h-5 pointer-events-none"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2.5}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
               </button>
               <div className="relative z-10">
                 <h2 className="text-3xl font-bold text-white mb-2" style={{ fontFamily: 'Outfit, sans-serif' }}>Get a Quote</h2>
@@ -279,10 +291,10 @@ export default function Header() {
                 </div>
 
                 <button type="submit" className="w-full py-4 mt-2 bg-[#002f54] hover:bg-[#0072bc] text-white text-sm font-bold uppercase tracking-wider rounded-xl transition-all shadow-xl shadow-blue-900/10 active:scale-[0.98]" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                  Submit Inquiry
+                  Submit Enquiry
                 </button>
                 <p className="text-center text-[10px] font-medium text-gray-400 mt-4 uppercase tracking-wider hidden sm:block">
-                  Direct Line: +91 9848629208
+                  Direct Line: +91 91000 90150
                 </p>
               </form>
             </div>
