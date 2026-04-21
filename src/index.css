@@ -98,13 +98,13 @@ h6 {
 .animate-marquee {
   display: flex;
   width: max-content;
-  animation: marquee 100s linear infinite;
+  animation: marquee 120s linear infinite;
 }
 
 .animate-marquee-reverse {
   display: flex;
   width: max-content;
-  animation: marquee-reverse 100s linear infinite;
+  animation: marquee-reverse 90s linear infinite;
 }
 
 .animate-fadeInUp {

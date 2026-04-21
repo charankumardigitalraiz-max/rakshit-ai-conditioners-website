@@ -7,6 +7,7 @@ import ProjectShowcase from '../components/Home/ProjectShowcase'
 import TrustedPartners from '../components/Home/TrustedPartners'
 import Process from '../components/Home/Process'
 import Achievements from '../components/Home/Achievements'
+import Gallery from '../components/Home/Gallery'
 import Contact from '../components/Home/Contact'
 import PageTransition from '../components/ui/PageTransition'
 import SectionTransition from '../components/ui/SectionTransition'
@@ -24,12 +25,16 @@ const Home = () => {
             <SectionTransition delay={0.1}>
                 <ProjectShowcase />
             </SectionTransition>
-            <SectionTransition delay={0.2}>
+            {/* <SectionTransition delay={0.2}>
                 <TrustedPartners />
-            </SectionTransition>
-            <SectionTransition delay={0.1}>
+            </SectionTransition> */}
+                        <SectionTransition delay={0.1}>
                 <Achievements />
             </SectionTransition>
+            <SectionTransition delay={0.1}>
+                <Gallery />
+            </SectionTransition>
+
         </PageTransition>
     )
 }
