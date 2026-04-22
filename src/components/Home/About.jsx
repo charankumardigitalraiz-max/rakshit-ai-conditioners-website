@@ -27,15 +27,15 @@ export default function About() {
             </div>
 
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-8 leading-tight tracking-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
-              Welcome to <span className="text-[#0072bc]">Rakshith Air Condition & Services</span>
+              Welcome to <span className="text-[#0072bc]">Rakshith Air Condition & Services </span>India Pvt Ltd.
             </h2>
 
             <div className="space-y-4 text-gray-600 leading-relaxed mb-10 text-base">
               <p>
-                <strong>RAKSHITH Air Condition & Services</strong>, established in 2011, is a registered company specializing in advanced cooling solutions. We focus on delivering exceptional services across South India for commercial, industrial, and residential sectors.
+                <strong>RAKSHITH Air Condition & Services India Pvt Ltd</strong>, established in 2011, is a registered company specializing in advanced cooling solutions. We focus on delivering exceptional services across South India for commercial, industrial, and residential sectors.
               </p>
               <p>
-                As an <strong>authorized dealer and service provider for Daikin</strong>, we have become a preferred partner for high-end cooling systems, serving IT companies, real estate developers, and manufacturing plants with an annual turnover exceeding 50 crores.
+                As an <strong>authorized dealer and service provider for Daikin</strong>, we have become a preferred partner for high-end cooling systems, serving IT companies, real estate developers, and manufacturing plants with an annual turnover exceeding 75 crores.
               </p>
             </div>
 

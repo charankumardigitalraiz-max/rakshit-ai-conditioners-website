@@ -1,11 +1,11 @@
 import React, { useRef, useEffect } from 'react'
 
 const awards = [
-  { id: 1, img: '/achievements/1.png' },
-  { id: 2, img: '/achievements/2.png' },
-  { id: 3, img: '/achievements/3.png' },
-  { id: 4, img: '/achievements/4.png' },
-  { id: 5, img: '/achievements/4.png' },
+  { id: 1, img: '/achievements/1.webp' },
+  { id: 2, img: '/achievements/2.webp' },
+  { id: 3, img: '/achievements/3.webp' },
+  { id: 4, img: '/achievements/4.webp' },
+  // { id: 5, img: '/achievements/4.webp' },
 ]
 
 export default function Achievements() {
@@ -101,23 +101,23 @@ export default function Achievements() {
             {awards.map((award) => (
               <div
                 key={award.id}
-                className="flex-shrink-0 w-[240px] sm:w-[280px] snap-start group relative bg-white rounded-3xl border border-gray-100 overflow-hidden transition-all duration-500 hover:border-[#0072bc]/30 hover:shadow-[0_40px_80px_-20px_rgba(0,114,188,0.15)]"
+                className="flex-shrink-0 w-[220px] sm:w-[260px] snap-start group relative bg-white rounded-3xl border border-gray-100 overflow-hidden transition-all duration-500 hover:border-[#0072bc]/30 hover:shadow-[0_40px_80px_-20px_rgba(0,114,188,0.15)]"
               >
                 {/* Top Accent */}
                 <div className="h-1.5 w-full bg-[#0072bc] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 {/* Image area */}
-                <div className="relative flex items-center justify-center p-8 aspect-square">
+                <div className="relative flex items-center justify-center p-4 aspect-square">
                   {/* Radial Backdrop */}
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,114,188,0.03)_0%,_transparent_70%)]" />
 
                   {/* Pulsing Base */}
-                  <div className="absolute inset-6 rounded-full border border-blue-50 group-hover:scale-125 transition-transform duration-1000 group-hover:border-[#0072bc]/10" />
+                  <div className="absolute inset-4 rounded-full border border-blue-50 group-hover:scale-110 transition-transform duration-1000 group-hover:border-[#0072bc]/10" />
 
                   <img
                     src={award.img}
                     alt={`Award ${award.id}`}
-                    className="relative z-10 w-[75%] h-[75%] object-contain transition-all duration-700 group-hover:scale-110 drop-shadow-xl"
+                    className="relative z-10 w-full h-full object-contain transition-all duration-700 group-hover:scale-110 drop-shadow-xl"
                   />
                 </div>
 

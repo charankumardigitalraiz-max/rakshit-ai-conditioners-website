@@ -1,5 +1,6 @@
 import React from 'react'
 import Hero from '../components/Home/Hero'
+import Testimonials from '../components/Home/Testimonials'
 import Services from '../components/Home/Services'
 import FeaturedProducts from '../components/Home/FeaturedProducts'
 import About from '../components/Home/About'
@@ -16,6 +17,7 @@ const Home = () => {
     return (
         <PageTransition>
             <Hero />
+
             <SectionTransition delay={0.1}>
                 <FeaturedProducts />
             </SectionTransition>
@@ -30,6 +32,9 @@ const Home = () => {
             </SectionTransition> */}
             <SectionTransition delay={0.1}>
                 <Achievements />
+            </SectionTransition>
+            <SectionTransition delay={0.1}>
+                <Testimonials />
             </SectionTransition>
             <SectionTransition delay={0.1}>
                 <Gallery />

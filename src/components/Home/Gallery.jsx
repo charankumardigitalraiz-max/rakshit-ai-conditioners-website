@@ -23,7 +23,7 @@ export default function Gallery() {
               <span className="text-[#0072bc] text-[10px] font-bold uppercase tracking-wider" style={{ fontFamily: 'Inter, sans-serif' }}>Our Work</span>
             </div>
             <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-4 tracking-tight leading-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
-              Success Highlights
+              <span className="text-[#0072bc]">Success</span> Highlights
             </h2>
             <p className="text-gray-500 text-sm leading-relaxed">
               A visual showcase of our precision-engineered HVAC installations across industrial, commercial, and residential spaces.

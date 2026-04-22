@@ -64,7 +64,7 @@ export default function Footer() {
               </div>
 
               {/* Contact Grid - Organized for High Visibility */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-6">
                 {/* Sales Lines */}
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-xl bg-[#0072bc]/10 flex items-center justify-center shrink-0 border border-white/5">
@@ -105,7 +105,7 @@ export default function Footer() {
                   </div>
                   <div>
                     <h4 className="text-[10px] font-bold text-[#00a8e8] uppercase tracking-wider mb-1">Corporate Email</h4>
-                    <a href="mailto:info@rakshithac.com" className="text-white text-[13px] font-semibold hover:text-white transition-colors tracking-tight">info@rakshithac.com</a>
+                    <a href="mailto:info@rakshithaircondition.com" className="text-white text-[13px] font-semibold hover:text-white transition-colors tracking-tight">info@rakshithaircondition.com</a>
                   </div>
                 </div>
               </div>
@@ -147,10 +147,10 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-5 sm:px-8 py-4 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex flex-col md:flex-row items-center gap-6">
             <p className="text-white text-[10px] font-bold uppercase tracking-wider">
-              © {new Date().getFullYear()} Rakshith Air Condition & Services.
+              © {new Date().getFullYear()} Rakshith Air Condition & Services India Pvt Ltd.
             </p>
             <div className="hidden md:block w-px h-4 bg-white/10"></div>
-            <p className="text-white text-[10px] uppercase tracking-wider">Certified Daikin Service Channel</p>
+            <p className="text-white text-[10px] uppercase tracking-wider">Authorized Daikin Channel Partner</p>
           </div>
 
           {/* <div className="flex items-center gap-4 text-[10px] font-bold text-white/70 uppercase tracking-wider">

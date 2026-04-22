@@ -6,6 +6,7 @@ const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'Products', href: '/store' },
   { label: 'Our Projects', href: '/projects' },
+  { label: 'Our Clients', href: '/clients' },
   // { label: 'About Us', href: '/about' },
   // { label: 'Our Team', href: '/about' },
   // {
@@ -62,15 +63,15 @@ export default function Header() {
               </svg>
               <span>+91 9030064466</span>
             </a>
-            <a href="mailto:info@rakshithac.com" className="hidden sm:flex items-center gap-2 text-white hover:text-white transition-colors font-medium">
+            <a href="mailto:info@rakshithaircondition.com" className="hidden sm:flex items-center gap-2 text-white hover:text-white transition-colors font-medium">
               <svg className="w-3.5 h-3.5 text-[#0072bc]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
-              <span>info@rakshithac.com</span>
+              <span>info@rakshithaircondition.com</span>
             </a>
           </div>
           <div className="hidden lg:flex items-center gap-2 font-medium text-white tracking-wider uppercase text-[10px]">
-            Authorized Sales & Service Channel Partner
+            Authorized Sales & Service Daikin Channel Partner
           </div>
         </div>
       </div>

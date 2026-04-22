@@ -7,6 +7,7 @@ import Whatsappfloatingbutton from './components/ui/Whatsapp-floating-button'
 import ScrollToTop from './components/ui/ScrollToTop'
 import SocialBand from './components/ui/SocialBand'
 import EnquiryModal from './components/EnquiryModal'
+
 import { EnquiryProvider } from './context/EnquiryContext'
 import './index.css'
 
@@ -14,6 +15,7 @@ import './index.css'
 const Home = lazy(() => import('./pages/Home'))
 const Store = lazy(() => import('./pages/store'))
 const Projects = lazy(() => import('./pages/Projects'))
+const Clients = lazy(() => import('./pages/Clients'))
 const About = lazy(() => import('./pages/About'))
 const Services = lazy(() => import('./pages/Services'))
 const ProductDetail = lazy(() => import('./pages/ProductDetail'))
@@ -45,6 +47,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/store/:categoryId?" element={<Store />} />
                 <Route path="/projects" element={<Projects />} />
+                <Route path="/clients" element={<Clients />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/services/:serviceId?" element={<Services />} />
                 <Route path="/products/:categoryId?" element={<Products />} />
