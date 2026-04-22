@@ -3,16 +3,17 @@ import PageTransition from '../components/ui/PageTransition';
 import SectionTransition from '../components/ui/SectionTransition';
 
 const vijaImages = [
-    '/branch/WhatsApp Image 2026-04-22 at 5.30.19 PM (1).jpeg',
-    '/branch/WhatsApp Image 2026-04-22 at 5.30.19 PM (2).jpeg',
-    '/branch/WhatsApp Image 2026-04-22 at 5.30.19 PM.jpeg',
-    '/branch/WhatsApp Image 2026-04-22 at 5.30.20 PM.jpeg',
-    '/branch/WhatsApp Image 2026-04-22 at 5.30.21 PM (1).jpeg',
     '/branch/WhatsApp Image 2026-04-22 at 5.30.21 PM (2).jpeg',
     '/branch/WhatsApp Image 2026-04-22 at 5.30.21 PM.jpeg',
     '/branch/WhatsApp Image 2026-04-22 at 5.30.22 PM.jpeg',
     '/branch/WhatsApp Image 2026-04-22 at 5.30.23 PM (1).jpeg',
     '/branch/WhatsApp Image 2026-04-22 at 5.30.23 PM.jpeg',
+    '/branch/WhatsApp Image 2026-04-22 at 5.30.19 PM (1).jpeg',
+    '/branch/WhatsApp Image 2026-04-22 at 5.30.19 PM (2).jpeg',
+    '/branch/WhatsApp Image 2026-04-22 at 5.30.19 PM.jpeg',
+    '/branch/WhatsApp Image 2026-04-22 at 5.30.20 PM.jpeg',
+    '/branch/WhatsApp Image 2026-04-22 at 5.30.21 PM (1).jpeg',
+
 ];
 
 const hydImages = [
@@ -140,114 +141,182 @@ export default function Contact() {
                     </div>
                 </div>
 
-                {/* 3. NARROW EXECUTIVE GRID - DIRECT VIEW (WIDTH REDUCED) */}
-                <div className="max-w-5xl mx-auto px-5 sm:px-8 mb-16 lg:mb-20">
+                {/* 3. EXECUTIVE REGIONAL NETWORK - HORIZONTAL BLOCKS */}
+                <div className="max-w-7xl mx-auto px-5 sm:px-8 mb-20 lg:mb-28">
                     <SectionTransition direction="up">
 
-                        {/* Slim Centered Header */}
-                        <div className="mb-6">
-                            <div className="inline-flex items-center gap-2 mb-1.5">
+                        {/* Executive Header */}
+                        <div className="mb-10 lg:mb-5">
+                            <div className="inline-flex items-center gap-2 mb-2">
                                 <span className="w-10 h-0.5 bg-[#0072bc]"></span>
-                                <span className="text-[#0072bc] text-xs font-bold uppercase tracking-wider" style={{ fontFamily: 'Inter, sans-serif' }}>Regional Network</span>
+                                <span className="text-[#0072bc] text-xs font-bold uppercase tracking-wider" style={{ fontFamily: 'Inter, sans-serif' }}>Regional Infrastructure</span>
                             </div>
-                            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2 tracking-tight leading-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>Operational <span className="text-[#0072bc]">Bases.</span></h2>
-                            <p className="text-gray-600 text-sm lg:text-base leading-relaxed font-normal max-w-2xl">Our primary corporate hubs managing technical support directly across South India.</p>
+                            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-3 tracking-tight leading-none" style={{ fontFamily: 'Outfit, sans-serif' }}>Strategic <span className="text-[#0072bc]">Hubs.</span></h2>
+                            <p className="text-gray-600 text-sm lg:text-base leading-relaxed font-normal max-w-2xl">Our primary corporate nodes managing technical operations and logistics directly across South India.</p>
                         </div>
 
-                        {/* Narrow Compression Grid */}
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
+                        {/* Full Width Stacked Interface */}
+                        <div className="flex flex-col gap-12 lg:gap-20">
 
-                            {/* HYDERABAD HUB (Narrow) */}
-                            <div className="bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm hover:shadow-[0_20px_60px_-15px_rgba(0,114,188,0.1)] transition-all duration-700 flex flex-col group">
-                                <div className="h-[180px] lg:h-[210px] relative bg-gray-50/50 overflow-hidden border-b border-gray-50">
+                            {/* HYDERABAD HUB (Horizontal Layout - Map on Right) */}
+                            <div className="bg-white rounded-[2.5rem] lg:rounded-[3.5rem] overflow-hidden border border-gray-100 shadow-sm hover:shadow-[0_40px_100px_-20px_rgba(0,114,188,0.15)] transition-all duration-1000 flex flex-col lg:flex-row group relative min-h-[420px]">
+                                {/* Map Node (Reduced Width) */}
+                                <div className="lg:w-[46%] xl:w-[48%] relative h-[250px] lg:h-auto bg-gray-50 border-b lg:border-b-0 lg:border-l border-gray-100 overflow-hidden order-1 lg:order-2">
                                     <div className="absolute inset-0 transition-opacity duration-1000">
                                         {swapHyd ? (
-                                            <img src={swapHyd} className="absolute inset-0 w-full h-full object-cover animate-in fade-in zoom-in-105 duration-1000" alt="Peek" />
+                                            <img src={swapHyd} className="absolute inset-0 w-full h-full object-cover animate-in fade-in zoom-in-110 duration-1000" alt="Peek" />
                                         ) : (
                                             <iframe
                                                 src={branchData.hyd.map}
-                                                className="w-full h-full grayscale-[60%] group-hover:grayscale-0 transition-all duration-1000"
+                                                className="w-full h-full  group-hover:grayscale-[20%] transition-all duration-1000 "
                                                 allowFullScreen=""
                                                 loading="lazy"
                                             ></iframe>
                                         )}
                                     </div>
-                                    <div className="absolute top-4 left-4 px-3 py-1 bg-white/95 backdrop-blur shadow-sm border border-gray-100/30 rounded-full">
-                                        <span className="text-[9px] font-black uppercase tracking-widest text-[#0072bc]">Corporate Headquarters</span>
-                                    </div>
+                                    {/* <div className="absolute top-8 right-8 z-10 px-5 py-2 bg-white shadow-2xl shadow-blue-900/10 rounded-full border border-blue-50/50">
+                                        <span className="text-[10px] lg:text-[11px] font-black uppercase tracking-[0.25em] text-[#0072bc]">Operational Satellite Interface</span>
+                                    </div> */}
+
+                                    {!swapHyd && (
+                                        <div className="absolute bottom-8 left-8 right-8 z-10 flex items-center gap-5 pointer-events-none">
+                                            <div className="h-0.5 flex-grow bg-blue-900/10 rounded-full overflow-hidden">
+                                                <div className="h-full bg-[#0072bc] w-1/3 animate-pulse"></div>
+                                            </div>
+                                            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.3em] whitespace-nowrap">Asset Telemetry</span>
+                                        </div>
+                                    )}
                                 </div>
-                                <div className="p-6 lg:p-7 flex flex-col justify-between flex-grow space-y-4">
-                                    <div className="space-y-3">
-                                        <h2 className="text-xl lg:text-2xl font-semibold text-gray-900 tracking-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>{branchData.hyd.name}.</h2>
-                                        <p className="text-gray-600 text-[13px] lg:text-sm leading-relaxed font-normal">{branchData.hyd.address}</p>
+                                {/* Balanced Content Area (Widened) */}
+                                <div className="lg:w-[54%] xl:w-[52%] p-8 lg:p-11 xl:px-14 xl:py-12 flex flex-col relative justify-center order-2 lg:order-1">
+                                    <div className="space-y-4 mb-8 relative z-10">
+                                        <div className="inline-block py-1 px-3 bg-blue-50 rounded-lg">
+                                            <span className="text-[10px] font-bold text-[#0072bc] uppercase tracking-[0.2em]">Operational Node</span>
+                                        </div>
+                                        <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 tracking-tighter leading-none" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                                            {branchData.hyd.name}<span className="text-[#0072bc]">.</span>
+                                        </h2>
+                                        <p className="text-gray-500 text-sm lg:text-base leading-relaxed font-normal pr-6 max-w-sm">
+                                            {branchData.hyd.address}
+                                        </p>
                                     </div>
 
-                                    <div className="space-y-3 pt-1">
-                                        <div className="text-[9px] font-bold text-gray-300 uppercase tracking-widest">Facility Visuals • Peek on Hover</div>
-                                        <div className="flex flex-wrap gap-1.5">
+                                    <div className="space-y-5 relative z-10">
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.3em]">Infrastructure Gallery</span>
+                                            <span className="flex items-center gap-2">
+                                                <span className="w-1.5 h-1.5 bg-[#0072bc] rounded-full animate-pulse"></span>
+                                                <span className="text-[10px] font-black text-[#0072bc] uppercase tracking-widest italic">Live Peek</span>
+                                            </span>
+                                        </div>
+                                        <div className="flex items-center gap-4">
                                             {branchData.hyd.images.slice(0, 5).map((img, i) => (
-                                                <div key={i} onMouseEnter={() => setSwapHyd(img)} onMouseLeave={() => setSwapHyd(null)} onClick={() => openLightbox(img, branchData.hyd.images)} className="w-9 h-9 lg:w-9.5 lg:h-9.5 rounded-lg overflow-hidden cursor-zoom-in border border-gray-50 shadow-sm hover:shadow-lg transition-all">
+                                                <div
+                                                    key={i}
+                                                    onMouseEnter={() => setSwapHyd(img)}
+                                                    onMouseLeave={() => setSwapHyd(null)}
+                                                    onClick={() => openLightbox(img, branchData.hyd.images)}
+                                                    className={`w-14 h-14 lg:w-16 lg:h-16 xl:w-17 xl:h-17 rounded-2xl overflow-hidden cursor-zoom-in border-[3px] transition-all duration-500 hover:scale-115 hover:-translate-y-3 shadow-md ${swapHyd === img ? 'border-[#0072bc] shadow-2xl shadow-blue-500/40 ring-4 ring-blue-50 scale-110 -translate-y-2' : 'border-white grayscale-[40%] hover:grayscale-0 hover:border-blue-100'}`}
+                                                >
                                                     <img src={img} className="w-full h-full object-cover" alt="Hub" />
                                                 </div>
                                             ))}
                                         </div>
                                     </div>
 
-                                    <a href={branchData.hyd.nav} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 w-full py-3 bg-[#0072bc] text-white font-bold uppercase tracking-wider rounded-xl hover:bg-[#005fa3] shadow-lg text-[9px] transition-all shadow-blue-100" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                                        Launch Navigation
-                                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                                    </a>
+                                    <div className="mt-10 relative z-10">
+                                        <a href={branchData.hyd.nav} target="_blank" rel="noreferrer" className="group/btn inline-flex items-center justify-center gap-4 w-fit px-10 py-4 bg-[#0072bc] text-white font-bold uppercase tracking-widest rounded-2xl hover:bg-[#005fa3] shadow-[0_20px_50px_rgba(0,114,188,0.2)] hover:shadow-[0_25px_60px_rgba(0,114,188,0.3)] transition-all text-[11px] active:scale-95" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                                            Launch Navigation
+                                            <svg className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                        </a>
+                                    </div>
+                                    <div className="absolute left-0 top-12 bottom-12 w-1 bg-[#0072bc]/10 rounded-full hidden lg:block"></div>
                                 </div>
-                            </div>
 
-                            {/* VIJAYAWADA HUB (Narrow) */}
-                            <div className="bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm hover:shadow-[0_20px_60px_-15px_rgba(34,197,94,0.1)] transition-all duration-700 flex flex-col group">
-                                <div className="h-[180px] lg:h-[210px] relative bg-gray-50/50 overflow-hidden border-b border-gray-50">
+
+                            </div>                            {/* VIJAYAWADA HUB (Horizontal Layout - Map on Right) */}
+                            <div className="bg-white rounded-[2.5rem] lg:rounded-[3.5rem] overflow-hidden border border-gray-100 shadow-sm hover:shadow-[0_40px_100px_-20px_rgba(34,197,94,0.15)] transition-all duration-1000 flex flex-col lg:flex-row group relative min-h-[420px]">
+                                {/* Map Node (Anchored Left) */}
+                                <div className="lg:w-[46%] xl:w-[48%] relative h-[250px] lg:h-auto bg-gray-50 border-b lg:border-b-0 lg:border-r border-gray-100 overflow-hidden order-1 lg:order-1">
                                     <div className="absolute inset-0 transition-opacity duration-1000">
                                         {swapVija === 'video' ? (
                                             <video src={videoFile} autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover animate-in fade-in duration-700" />
                                         ) : swapVija ? (
-                                            <img src={swapVija} className="absolute inset-0 w-full h-full object-cover animate-in fade-in zoom-in-105 duration-1000" alt="Peek" />
+                                            <img src={swapVija} className="absolute inset-0 w-full h-full object-cover animate-in fade-in zoom-in-110 duration-1000" alt="Peek" />
                                         ) : (
                                             <iframe
                                                 src={branchData.vija.map}
-                                                className="w-full h-full grayscale-[60%] group-hover:grayscale-0 transition-all duration-1000"
+                                                className="w-full h-full  group-hover:grayscale-[20%] transition-all duration-1000 "
                                                 allowFullScreen=""
                                                 loading="lazy"
                                             ></iframe>
                                         )}
                                     </div>
-                                    <div className="absolute top-4 left-4 px-3 py-1 bg-white/95 backdrop-blur shadow-sm border border-gray-100/30 rounded-full">
-                                        <span className="text-[9px] font-black uppercase tracking-widest text-green-600">Regional Distribution Center</span>
-                                    </div>
+                                    {/* <div className="absolute top-8 right-8 z-10 px-5 py-2 bg-white shadow-2xl shadow-green-900/10 rounded-full border border-green-50/50">
+                                        <span className="text-[10px] lg:text-[11px] font-black uppercase tracking-[0.25em] text-green-600">Regional Gateway Satellite Interface</span>
+                                    </div> */}
+
+                                    {!swapVija && (
+                                        <div className="absolute bottom-8 left-8 right-8 z-10 flex items-center gap-5 pointer-events-none">
+                                            <div className="h-0.5 flex-grow bg-green-900/10 rounded-full overflow-hidden">
+                                                <div className="h-full bg-green-500 w-1/4 animate-pulse"></div>
+                                            </div>
+                                            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.3em] whitespace-nowrap">Logistic Telemetry</span>
+                                        </div>
+                                    )}
                                 </div>
-                                <div className="p-6 lg:p-7 flex flex-col justify-between flex-grow space-y-4">
-                                    <div className="space-y-3">
-                                        <h2 className="text-xl lg:text-2xl font-semibold text-gray-900 tracking-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>{branchData.vija.name}.</h2>
-                                        <p className="text-gray-600 text-[13px] lg:text-sm leading-relaxed font-normal">{branchData.vija.address}</p>
+                                {/* Content Area (Anchored Right) */}
+                                <div className="lg:w-[54%] xl:w-[52%] p-8 lg:p-11 xl:px-14 xl:py-12 flex flex-col relative justify-center order-2 lg:order-2">
+                                    <div className="space-y-4 mb-8 relative z-10">
+                                        <div className="inline-block py-1 px-3 bg-green-50 rounded-lg">
+                                            <span className="text-[10px] font-bold text-green-600 uppercase tracking-[0.2em]">Logistics Center</span>
+                                        </div>
+                                        <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 tracking-tighter leading-none" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                                            {branchData.vija.name}<span className="text-green-600">.</span>
+                                        </h2>
+                                        <p className="text-gray-500 text-sm lg:text-base leading-relaxed font-normal pr-6 max-w-sm">
+                                            {branchData.vija.address}
+                                        </p>
                                     </div>
 
-                                    <div className="space-y-3 pt-1">
-                                        <div className="text-[9px] font-bold text-gray-300 uppercase tracking-widest">Facility Visuals • Peek on Hover</div>
-                                        <div className="flex flex-wrap gap-1.5">
+                                    <div className="space-y-5 relative z-10">
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.3em]">Operational Assets</span>
+                                            <span className="flex items-center gap-2">
+                                                <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                                                <span className="text-[10px] font-black text-green-600 uppercase tracking-widest italic">Live Peek</span>
+                                            </span>
+                                        </div>
+                                        <div className="flex items-center gap-4">
                                             {branchData.vija.images.slice(0, 4).map((img, i) => (
-                                                <div key={i} onMouseEnter={() => setSwapVija(img)} onMouseLeave={() => setSwapVija(null)} onClick={() => openLightbox(img, branchData.vija.images)} className="w-9 h-9 lg:w-9.5 lg:h-9.5 rounded-lg overflow-hidden cursor-zoom-in border border-gray-50 shadow-sm hover:shadow-lg transition-all">
+                                                <div
+                                                    key={i}
+                                                    onMouseEnter={() => setSwapVija(img)}
+                                                    onMouseLeave={() => setSwapVija(null)}
+                                                    onClick={() => openLightbox(img, branchData.vija.images)}
+                                                    className={`w-14 h-14 lg:w-16 lg:h-16 xl:w-17 xl:h-17 rounded-2xl overflow-hidden cursor-zoom-in border-[3px] transition-all duration-500 hover:scale-115 hover:-translate-y-3 shadow-md ${swapVija === img ? 'border-green-600 shadow-2xl shadow-green-500/40 ring-4 ring-green-50 scale-110 -translate-y-2' : 'border-white grayscale-[40%] hover:grayscale-0 hover:border-green-100'}`}
+                                                >
                                                     <img src={img} className="w-full h-full object-cover" alt="Hub" />
                                                 </div>
                                             ))}
-                                            <div onMouseEnter={() => setSwapVija('video')} onMouseLeave={() => setSwapVija(null)} className="w-9 h-9 lg:w-9.5 lg:h-9.5 rounded-lg bg-green-50 flex items-center justify-center cursor-pointer hover:bg-green-100 transition-all border border-green-100 group/vid shadow-sm">
-                                                <svg className="w-5 h-5 text-green-600 group-hover/vid:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                                            <div onMouseEnter={() => setSwapVija('video')} onMouseLeave={() => setSwapVija(null)} className="w-14 h-14 lg:w-16 lg:h-16 xl:w-17 xl:h-17 rounded-2xl bg-green-50 flex items-center justify-center cursor-pointer hover:bg-green-100 border-[3px] border-white transition-all shadow-md group/vid">
+                                                <svg className="w-8 h-8 text-green-600 group-hover/vid:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20">
                                                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
                                                 </svg>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <a href={branchData.vija.nav} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 w-full py-3 bg-green-600 text-white font-bold uppercase tracking-wider rounded-xl hover:bg-green-700 shadow-lg text-[9px] transition-all shadow-green-100" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                                        Launch Navigation
-                                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                                    </a>
+                                    <div className="mt-10 relative z-10">
+                                        <a href={branchData.vija.nav} target="_blank" rel="noreferrer" className="group/btn inline-flex items-center justify-center gap-4 w-fit px-10 py-4 bg-green-600 text-white font-bold uppercase tracking-widest rounded-2xl hover:bg-green-700 shadow-[0_20px_50px_rgba(22,163,74,0.2)] hover:shadow-[0_25px_60px_rgba(22,163,74,0.3)] transition-all text-[11px] active:scale-95" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                                            Launch Navigation
+                                            <svg className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                        </a>
+                                    </div>
+                                    <div className="absolute right-0 top-12 bottom-12 w-1 bg-green-500/10 rounded-full hidden lg:block"></div>
                                 </div>
+
+
                             </div>
 
                         </div>

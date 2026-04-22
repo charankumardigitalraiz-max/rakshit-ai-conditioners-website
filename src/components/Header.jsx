@@ -84,7 +84,7 @@ export default function Header() {
             {/* Logo */}
             <Link to="/" className="flex items-center flex-shrink-0">
               <img
-                src="/banner/Rakshith logos web.webp"
+                src="/Rakshith logo web.jpg"
                 alt="Rakshith Air Conditioners"
                 className="h-11 w-auto object-contain transition-all"
               />
