@@ -71,7 +71,7 @@ export default function Contact() {
 
     return (
         <PageTransition>
-            <div className="min-h-screen bg-white text-[#1a1a1a] font-sans">
+            <div className="min-h-screen bg-white  pt-10 text-[#1a1a1a] font-sans">
 
                 {/* 1. SLIM HERO */}
                 <header className="relative pt-20 lg:pt-28 overflow-hidden">
@@ -271,7 +271,7 @@ export default function Contact() {
                                         <div className="inline-block py-1 px-3 bg-green-50 rounded-lg">
                                             <span className="text-[10px] font-bold text-green-600 uppercase tracking-[0.2em]">Logistics Center</span>
                                         </div>
-                                        <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 tracking-tighter leading-none" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                                        <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 tracking-tighter leading-none" style={{ fontFamily: 'Outfit, sans-serif' }}>
                                             {branchData.vija.name}<span className="text-green-600">.</span>
                                         </h2>
                                         <p className="text-gray-500 text-sm lg:text-base leading-relaxed font-normal pr-6 max-w-sm">

@@ -1,9 +1,115 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { motion, AnimatePresence } from 'framer-motion'
+import { X, MapPin, Calendar, Activity, Wind, Database, ArrowRight } from 'lucide-react'
 import PageTransition from '../components/ui/PageTransition'
 import SectionTransition from '../components/ui/SectionTransition'
 import { fetchProjects } from '../redux/projectsSlice'
 import { getImageUrl } from '../services/api'
+
+// Project Detail Modal Component
+const ProjectModal = ({ project, isOpen, onClose }) => {
+  if (!project) return null;
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+          />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            className="relative w-full max-w-4xl bg-white rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh]"
+          >
+            {/* Close Button */}
+            <button
+              onClick={onClose}
+              className="absolute top-6 right-6 z-20 p-2 bg-white/80 backdrop-blur-md rounded-full text-slate-500 hover:text-slate-900 hover:scale-110 transition-all border border-slate-100"
+            >
+              <X size={20} />
+            </button>
+
+            {/* Image Section */}
+            <div className="w-full md:w-1/2 h-64 md:h-auto relative bg-slate-100">
+              <img
+                src={getImageUrl(project.image)}
+                alt={project.title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent pointer-events-none md:hidden" />
+            </div>
+
+            {/* Content Section */}
+            <div className="w-full md:w-1/2 p-8 md:p-12 overflow-y-auto no-scrollbar">
+              <div className="mb-8">
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 text-[#0072bc] rounded-full text-[10px] font-bold uppercase tracking-widest mb-4">
+                  {typeof project.category === 'string' ? project.category : project.category?.name}
+                </div>
+                <h2 className="text-3xl font-black text-slate-900 leading-tight mb-4 tracking-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                  {project.title}
+                </h2>
+                <div className="flex items-center gap-3 text-slate-500 text-sm">
+                  <MapPin size={16} className="text-blue-500" />
+                  <span>{project.location}</span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-6 mb-10">
+                <div className="space-y-1">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                    <Calendar size={12} /> Timeline
+                  </p>
+                  <p className="text-sm font-semibold text-slate-700">{project.date || 'Project Period'}</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                    <Activity size={12} /> Status
+                  </p>
+                  <p className="text-sm font-semibold text-slate-700">{project.status}</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                    <Wind size={12} /> System Type
+                  </p>
+                  <p className="text-sm font-semibold text-slate-700">{project.hvacSystemType || 'Not Specified'}</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                    <Database size={12} /> Capacity
+                  </p>
+                  <p className="text-sm font-semibold text-slate-700">{project.totalCapacity || 'Not Specified'}</p>
+                </div>
+              </div>
+
+              <div className="space-y-4 pt-6 border-t border-slate-100">
+                <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Project Overview</p>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  {project.description || project.details || 'No additional details available for this installation.'}
+                </p>
+              </div>
+
+              <div className="mt-12">
+                <button
+                  onClick={onClose}
+                  className="w-full py-4 bg-slate-50 hover:bg-slate-100 text-slate-600 font-bold text-[11px] uppercase tracking-[0.2em] rounded-2xl transition-all"
+                >
+                  Close Intelligence Report
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  );
+};
 
 export default function Projects() {
   const dispatch = useDispatch()
@@ -11,17 +117,31 @@ export default function Projects() {
   const projectStatus = useSelector((state) => state.projects.status)
   const projectError = useSelector((state) => state.projects.error)
 
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   useEffect(() => {
     if (projectStatus === 'idle') {
       dispatch(fetchProjects())
     }
   }, [dispatch, projectStatus])
 
+  const openModal = (project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
   const filteredProjects = allProjects
 
   return (
     <PageTransition>
-      <div className="bg-white min-h-screen pt-20">
+      <div className="bg-white min-h-screen pt-20 pb-20">
+
+        <ProjectModal
+          project={selectedProject}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
 
         {/* Premium Portfolio Header */}
         <div className="relative py-12 lg:py-16 overflow-hidden">
@@ -42,31 +162,6 @@ export default function Projects() {
           </div>
         </div>
 
-        {/* Filter System - Corporate Minimalist */}
-        {/* <div className="sticky top-[80px] z-40 bg-white/80 backdrop-blur-xl border-b border-gray-100 shadow-sm">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 h-20 flex items-center justify-between overflow-x-auto no-scrollbar">
-          <div className="flex bg-gray-50 p-1.5 rounded-2xl border border-gray-100 flex-shrink-0">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setFilter(cat)}
-                className={`px-6 py-2.5 text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all ${filter === cat
-                  ? 'bg-white text-[#0072bc] shadow-md ring-1 ring-gray-100'
-                  : 'text-gray-400 hover:text-gray-600'
-                  }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          <div className="hidden lg:flex items-center gap-3 text-gray-400 text-[10px] font-bold uppercase tracking-widest border-l border-gray-100 pl-8 ml-8">
-            <span className="w-2 h-2 bg-[#0072bc] rounded-full"></span>
-            {filteredProjects.length} Verified Installations
-          </div>
-        </div>
-      </div> */}
-
         {/* Full Projects Gallery */}
         <div className="max-w-7xl mx-auto px-5 sm:px-8 py-2">
           {projectStatus === 'loading' && (
@@ -77,8 +172,8 @@ export default function Projects() {
           )}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
             {filteredProjects.map((project, index) => (
-              <SectionTransition key={project.id} delay={index * 0.1}>
-                <div className="group flex flex-col h-full bg-white border border-gray-100 rounded-[2rem] overflow-hidden hover:border-[#0072bc]/20 hover:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.08)] transition-all duration-700">
+              <SectionTransition key={project.id || project._id} delay={index * 0.1}>
+                <div className="group flex flex-col h-full bg-white border border-gray-100 rounded-[2.5rem] overflow-hidden hover:border-[#0072bc]/20 hover:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.08)] transition-all duration-700">
 
                   {/* Image & Detail Overlay */}
                   <div className="relative aspect-video overflow-hidden bg-gray-50">
@@ -90,61 +185,44 @@ export default function Projects() {
 
                     {/* Category Badge */}
                     <div className="absolute top-6 right-6">
-                      <span className="bg-blue-50/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-[#0072bc] uppercase tracking-wider border border-blue-100/30 shadow-sm">
+                      <span className="bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-[#0072bc] uppercase tracking-wider border border-blue-100/30 shadow-sm">
                         {typeof project.category === 'string' ? project.category : project.category?.name}
                       </span>
                     </div>
                   </div>
 
-                  {/* Project Intelligence Content */}
-                  <div className="p-5 flex flex-col flex-grow">
-                    <div >
+                  {/* Project Content */}
+                  <div className="p-6 flex flex-col flex-grow">
+                    <div className="flex-grow">
                       <div className="flex items-center gap-2 mb-3">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
+                        <MapPin size={12} className="text-blue-500" />
                         <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">{project.location}</span>
                       </div>
-                      <h3 className="text-xl font-[500] text-gray-900 group-hover:text-[#0072bc] transition-colors mb-4" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                      <h3 className="text-xl font-bold text-slate-900 group-hover:text-[#0072bc] transition-colors mb-4 line-clamp-2" style={{ fontFamily: 'Outfit, sans-serif' }}>
                         {project.title}
                       </h3>
-                      <div className="h-0.5 w-12 bg-gray-100 group-hover:w-20 group-hover:bg-[#0072bc] transition-all duration-500 mb-6"></div>
-                      <p className="text-sm text-gray-500 leading-relaxed font-normal">
+                      <p className="text-sm text-gray-500 leading-relaxed font-normal line-clamp-3 mb-6">
                         {project.description || project.details || 'Project description not available.'}
                       </p>
                     </div>
 
-                    {/* Visual Accent */}
-                    {/* <div className="mt-auto pt-6 flex items-center justify-between border-t border-gray-50">
-                  <span className="text-[10px] font-bold text-blue-300 uppercase tracking-wider">Authentication Verified</span>
-                  <svg className="w-5 h-5 text-gray-100 group-hover:text-[#0072bc] transition-colors" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                </div> */}
+                    <button
+                      onClick={() => openModal(project)}
+                      className="flex items-center justify-between w-full p-4 bg-slate-50 hover:bg-[#0072bc] group/btn rounded-2xl transition-all duration-500"
+                    >
+                      <span className="text-[11px] font-bold text-slate-500 group-hover/btn:text-white uppercase tracking-widest transition-colors">
+                        View Case Study
+                      </span>
+                      <ArrowRight size={16} className="text-slate-300 group-hover/btn:text-white group-hover/btn:translate-x-1 transition-all" />
+                    </button>
                   </div>
                 </div>
               </SectionTransition>
             ))}
           </div>
         </div>
-
-        {/* Portfolio CTA */}
-        {/* <div className="bg-[#002f54] py-20 text-center relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#0072bc] to-transparent"></div>
-          <div className="max-w-3xl mx-auto px-5 relative z-10">
-            <h2 className="text-3xl font-bold text-white mb-6" style={{ fontFamily: 'Outfit, sans-serif' }}>
-              Ready for your Next Landmark Project?
-            </h2>
-            <p className="text-blue-100/60 mb-10">
-              Connect with our engineering specialists to discuss bespoke HVAC solutions for your infrastructure requirements.
-            </p>
-            <a
-              href="/#contact"
-              className="inline-flex items-center gap-3 px-10 py-4 bg-[#0072bc] text-white text-xs font-bold uppercase tracking-[0.25em] rounded-full hover:bg-[#005fa3] hover:-translate-y-1 transition-all shadow-2xl shadow-blue-500/20"
-            >
-              Initiate Contact
-            </a>
-          </div>
-        </div> */}
       </div>
     </PageTransition>
   )
 }
+
