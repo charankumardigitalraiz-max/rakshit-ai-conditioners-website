@@ -1,16 +1,21 @@
 import React, { useState, useRef, useEffect } from 'react'
-
-const testimonials = [
-  { id: 1, src: '/testimonials/1.jpg', alt: 'Client Review 1' },
-  { id: 2, src: '/testimonials/2.webp', alt: 'Client Review 2' },
-  { id: 3, src: '/testimonials/3.webp', alt: 'Client Review 3' },
-  { id: 4, src: '/testimonials/4.webp', alt: 'Client Review 4' },
-]
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchTestimonials } from '../../redux/testimonialsSlice'
+import { getImageUrl } from '../../services/api'
 
 export default function Testimonials() {
+  const dispatch = useDispatch()
+  const testimonials = useSelector((state) => state.testimonials.items)
+  const testimonialsStatus = useSelector((state) => state.testimonials.status)
   const [lightbox, setLightbox] = useState(null)
   const [isHovered, setIsHovered] = useState(false)
   const scrollRef = useRef(null)
+
+  useEffect(() => {
+    if (testimonialsStatus === 'idle') {
+      dispatch(fetchTestimonials())
+    }
+  }, [dispatch, testimonialsStatus])
 
   // Continuous smooth scroll logic
   useEffect(() => {
@@ -111,8 +116,8 @@ export default function Testimonials() {
               >
                 {/* Image area only - no background, auto width based on proportion! */}
                 <img
-                  src={item.src}
-                  alt={item.alt}
+                  src={getImageUrl(item.image)}
+                  alt={`Testimonial ${index + 1}`}
                   className="h-full w-auto max-w-[85vw] object-contain rounded-2xl transition-transform duration-700 group-hover:scale-[1.03]"
                 />
 
@@ -173,8 +178,8 @@ export default function Testimonials() {
             onClick={(e) => e.stopPropagation()}
           >
             <img
-              src={lightbox.src}
-              alt={lightbox.alt}
+              src={getImageUrl(lightbox.image)}
+              alt={`Testimonial ${testimonials.findIndex(i => i.id === lightbox.id) + 1}`}
               className="max-h-[85vh] max-w-full object-contain rounded-lg shadow-2xl"
             />
 

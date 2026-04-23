@@ -37,7 +37,7 @@ export default function Header() {
   const [mobileAccordion, setMobileAccordion] = useState(null)
   const { openModal } = useEnquiry()
   const location = useLocation()
-  const isHome = location.pathname === '/'
+  const isHome = location.pathname === '/' || '';
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -77,18 +77,26 @@ export default function Header() {
       </div>
 
       {/* Main Nav */}
-      <nav className={`transition-all duration-500 ${(scrolled || !isHome) ? 'bg-white shadow-2xl shadow-black/5' : 'bg-transparent'}`}>
+      <nav className={`transition-all duration-500 ${(scrolled || !isHome) ? 'bg-white border-b border-gray-100 shadow-md' : 'bg-transparent border-b-0'}`}>
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
-          <div className="flex items-center justify-between h-[80px]">
+          <div className={`flex items-center justify-between transition-all duration-500 ${isHome && !scrolled ? 'h-[75px]' : 'h-[85px]'}`}>
 
-            {/* Logo */}
-            <Link to="/" className="flex items-center flex-shrink-0">
-              <img
-                src="/Rakshith logo web.jpg"
-                alt="Rakshith Air Conditioners"
-                className="h-11 w-auto object-contain transition-all"
-              />
-            </Link>
+            {/* Logo Section */}
+            <div className="h-full flex items-center">
+              <Link
+                to="/"
+                className={`flex items-center justify-center h-full transition-all duration-500 ${isHome && !scrolled
+                  ? 'bg-white px-10 rounded-b-2xl shadow-sm'
+                  : 'bg-transparent px-0'
+                  }`}
+              >
+                <img
+                  src="/Rakshith logo web png.png"
+                  alt="Rakshith Air Conditioners"
+                  className={`w-auto object-contain transition-all duration-500 ${isHome && !scrolled ? 'h-10' : 'h-11'}`}
+                />
+              </Link>
+            </div>
 
             {/* Desktop Nav - High-Fidelity Technical Style */}
             <div className="hidden xl:flex items-center gap-1 h-full">
@@ -101,7 +109,7 @@ export default function Header() {
                 >
                   <Link
                     to={link.href}
-                    className={`px-4 py-2 rounded-lg text-[15px] font-medium transition-all flex items-center gap-1.5 relative ${(scrolled || !isHome)
+                    className={`h-full px-4 flex items-center text-[15px] font-medium transition-all relative ${(scrolled || !isHome)
                       ? 'text-gray-800 hover:text-[#0072bc]'
                       : 'text-white/95 hover:text-white drop-shadow-sm'
                       }`}
@@ -110,7 +118,7 @@ export default function Header() {
                     {link.label}
                     {link.subLinks && (
                       <svg
-                        className={`w-3 h-3 ml-1 transition-transform duration-300 ease-in-out ${activeDropdown === link.label ? 'rotate-180' : ''}`}
+                        className={`w-3 h-3 ml-1.5 transition-transform duration-300 ${activeDropdown === link.label ? 'rotate-180' : ''}`}
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -118,12 +126,13 @@ export default function Header() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                       </svg>
                     )}
-                    <span className={`absolute bottom-1 left-4 right-4 h-[2px] rounded-full transition-transform duration-300 origin-left scale-x-0 group-hover/nav:scale-x-100 ${(scrolled || !isHome) ? 'bg-[#0072bc]' : 'bg-white'}`}></span>
+                    {/* Underline effect closer to text */}
+                    <span className={`absolute bottom-6 left-4 right-4 h-[2px] rounded-full transition-transform duration-300 origin-left scale-x-0 group-hover/nav:scale-x-100 ${(scrolled || !isHome) ? 'bg-[#0072bc]' : 'bg-white'}`}></span>
                   </Link>
 
-                  {/* High-Fidelity Dropdown */}
+                  {/* High-Fidelity Dropdown - Closer to nav */}
                   {link.subLinks && (
-                    <div className={`absolute top-[85%] left-0 w-72 bg-white shadow-[0_30px_90px_-15px_rgba(0,0,0,0.15)] rounded-2xl border border-gray-50 overflow-hidden transition-all duration-400 transform origin-top-left ${activeDropdown === link.label ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
+                    <div className={`absolute top-[80%] left-0 w-72 bg-white shadow-2xl rounded-2xl border border-gray-50 overflow-hidden transition-all duration-400 transform origin-top ${activeDropdown === link.label ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'}`}>
                       <div className="p-3">
                         {link.subLinks.map((sub) => (
                           <Link
@@ -146,12 +155,12 @@ export default function Header() {
             </div>
 
             {/* CTA - Premium Button */}
-            <div className="hidden xl:flex items-center">
+            <div className="hidden xl:flex items-center h-full">
               <button
                 onClick={openModal}
-                className={`px-8 py-3 text-[12px] font-bold uppercase tracking-wider rounded-full transition-all hover:scale-105 active:scale-95 ${(scrolled || !isHome)
-                  ? 'bg-[#0072bc] text-white shadow-xl shadow-blue-100'
-                  : 'bg-white text-[#0072bc] shadow-2xl shadow-black/20'
+                className={`px-8 py-3 text-[11px] font-black uppercase tracking-[0.2em] rounded-xl transition-all hover:scale-105 active:scale-95 ${(scrolled || !isHome)
+                  ? 'bg-[#0072bc] text-white shadow-lg'
+                  : 'bg-white text-[#0072bc] shadow-xl'
                   }`}
                 style={{ fontFamily: 'Outfit, sans-serif' }}
               >

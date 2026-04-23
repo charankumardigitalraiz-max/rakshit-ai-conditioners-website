@@ -1,15 +1,23 @@
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import PageTransition from '../components/ui/PageTransition'
 import SectionTransition from '../components/ui/SectionTransition'
-
-const categories = ['All', 'Residential', 'Educational', 'Commercial', 'Medical']
+import { fetchProjects } from '../redux/projectsSlice'
+import { getImageUrl } from '../services/api'
 
 export default function Projects() {
+  const dispatch = useDispatch()
   const allProjects = useSelector((state) => state.projects.items)
-  const [filter, setFilter] = useState('All')
+  const projectStatus = useSelector((state) => state.projects.status)
+  const projectError = useSelector((state) => state.projects.error)
 
-  const filteredProjects = allProjects.filter(p => filter === 'All' || p.category === filter)
+  useEffect(() => {
+    if (projectStatus === 'idle') {
+      dispatch(fetchProjects())
+    }
+  }, [dispatch, projectStatus])
+
+  const filteredProjects = allProjects
 
   return (
     <PageTransition>
@@ -61,6 +69,12 @@ export default function Projects() {
 
         {/* Full Projects Gallery */}
         <div className="max-w-7xl mx-auto px-5 sm:px-8 py-2">
+          {projectStatus === 'loading' && (
+            <div className="py-14 text-center text-gray-500">Loading projects...</div>
+          )}
+          {projectStatus === 'failed' && (
+            <div className="py-14 text-center text-red-500">{projectError || 'Failed to load projects.'}</div>
+          )}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
             {filteredProjects.map((project, index) => (
               <SectionTransition key={project.id} delay={index * 0.1}>
@@ -69,7 +83,7 @@ export default function Projects() {
                   {/* Image & Detail Overlay */}
                   <div className="relative aspect-video overflow-hidden bg-gray-50">
                     <img
-                      src={project.image}
+                      src={getImageUrl(project.image)}
                       alt={project.title}
                       className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                     />
@@ -77,7 +91,7 @@ export default function Projects() {
                     {/* Category Badge */}
                     <div className="absolute top-6 right-6">
                       <span className="bg-blue-50/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-[#0072bc] uppercase tracking-wider border border-blue-100/30 shadow-sm">
-                        {project.category}
+                        {typeof project.category === 'string' ? project.category : project.category?.name}
                       </span>
                     </div>
                   </div>
@@ -94,7 +108,7 @@ export default function Projects() {
                       </h3>
                       <div className="h-0.5 w-12 bg-gray-100 group-hover:w-20 group-hover:bg-[#0072bc] transition-all duration-500 mb-6"></div>
                       <p className="text-sm text-gray-500 leading-relaxed font-normal">
-                        {project.details}
+                        {project.description || project.details || 'Project description not available.'}
                       </p>
                     </div>
 

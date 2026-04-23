@@ -95,45 +95,39 @@ export default function Clients() {
                 <div className="max-w-7xl mx-auto px-5 sm:px-8 py-10 lg:py-14">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                         {filtered.map((client, idx) => (
-                            <SectionTransition key={client.id} delay={idx * 0.1}>
-                                <div className="group flex flex-col h-full bg-white border border-gray-100 rounded-[2rem] overflow-hidden hover:border-[#0072bc]/20 hover:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.08)] transition-all duration-700">
+                            <SectionTransition key={client.id || idx} delay={idx * 0.05}>
+                                <div className="group relative aspect-square overflow-hidden rounded-[2rem] bg-gray-900 border border-gray-100 shadow-md">
+                                    <img
+                                        src={client.logo}
+                                        alt={client.name}
+                                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-70 group-hover:opacity-100"
+                                    />
 
-                                    {/* Image & Detail Overlay */}
-                                    <div className="relative aspect-video overflow-hidden bg-gray-50">
-                                        <img
-                                            src={client.logo}
-                                            alt={client.name}
-                                            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                                        />
+                                    {/* Glass Overlay */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
 
-                                        {/* Category Badge */}
-                                        <div className="absolute top-6 right-6">
-                                            <span className="bg-blue-50/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-[#0072bc] uppercase tracking-wider border border-blue-100/30 shadow-sm">
-                                                {client.category}
-                                            </span>
-                                        </div>
-                                    </div>
+                                    {/* Compact Content */}
+                                    <div className="absolute inset-0 p-6 flex flex-col justify-end">
+                                        <div className="transform translate-y-3 group-hover:translate-y-0 transition-all duration-500">
+                                            <div className="mb-2.5">
+                                                <span className="bg-[#0072bc] text-white text-[8px] font-black uppercase tracking-[0.2em] px-2 py-1 rounded shadow-lg">
+                                                    {client.category}
+                                                </span>
+                                            </div>
 
-                                    {/* Project Intelligence Content */}
-                                    <div className="p-6 flex flex-col flex-grow">
-                                        <div>
-                                            <h3 className="text-xl font-semibold text-gray-900 group-hover:text-[#0072bc] transition-colors mb-3 leading-snug" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                                            <h3 className="text-lg font-bold text-white mb-2 leading-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
                                                 {client.name}
                                             </h3>
-                                            <div className="h-0.5 w-10 bg-gray-100 group-hover:w-16 group-hover:bg-[#0072bc] transition-all duration-500 mb-4"></div>
-                                            <div className="flex items-center gap-2 mb-2">
-                                                <div className="w-1.5 h-1.5 rounded-full bg-[#0072bc]"></div>
-                                                <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">{client.location}</span>
-                                            </div>
-                                        </div>
 
-                                        {/* Footer (HP Capacity) */}
-                                        {client.hp && (
-                                            <div className="mt-auto pt-5 flex items-center justify-between border-t border-gray-50">
-                                                <span className="text-[10px] font-bold text-gray-300 uppercase tracking-widest">Total Capacity</span>
-                                                <span className="text-xs font-black text-[#0072bc] bg-blue-50/50 px-2.5 py-1 rounded-md">{client.hp} HP</span>
-                                            </div>
-                                        )}
+                                            {/* <div className="flex items-center justify-between pt-3 border-t border-white/10">
+                                                <span className="text-white/50 text-[10px] font-bold uppercase tracking-widest">{client.location}</span>
+                                                {client.hp && (
+                                                    <span className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-2 py-0.5 rounded text-[10px] font-black">
+                                                        {client.hp} HP
+                                                    </span>
+                                                )}
+                                            </div> */}
+                                        </div>
                                     </div>
                                 </div>
                             </SectionTransition>

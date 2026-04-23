@@ -1,10 +1,17 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { getImageUrl } from '../../services/api'
+import { fetchProjects } from '../../redux/projectsSlice'
 
 export default function ProjectShowcase() {
+  const dispatch = useDispatch();
   const allProjects = useSelector((state) => state.projects.items)
   const featuredProjects = allProjects.slice(0, 4) // First 4 as requested
+
+  useEffect(() => {
+    dispatch(fetchProjects());
+  }, []);
 
   return (
     <section id="project-showcase" className="py-8 bg-white">
@@ -41,12 +48,12 @@ export default function ProjectShowcase() {
         {/* Project Grid - Compact 4 Column layout */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {featuredProjects.map((project) => (
-            <div key={project.id} className="group relative bg-[#002f54] rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-blue-900/20 transition-all duration-500">
+            <div key={project.id || project._id} className="group relative bg-[#002f54] rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-blue-900/20 transition-all duration-500">
 
               {/* Image Container - Taller upright cards */}
               <div className="aspect-[4/5] overflow-hidden relative">
                 <img
-                  src={project.image}
+                  src={getImageUrl(project.image)}
                   alt={project.title}
                   loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100"
@@ -58,7 +65,7 @@ export default function ProjectShowcase() {
                 {/* Metadata Badge */}
                 <div className="absolute top-4 left-4">
                   <span className="bg-blue-50/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-[#0072bc] uppercase tracking-wider border border-blue-100/30 shadow-sm">
-                    {project.category}
+                    {typeof project.category === 'string' ? project.category : project.category?.name}
                   </span>
                 </div>
               </div>
@@ -79,7 +86,7 @@ export default function ProjectShowcase() {
                 {/* Hidden description that reveals smoothly on hover */}
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
                   <p className="text-gray-300 text-xs leading-relaxed mb-4 line-clamp-2">
-                    {project.details}
+                    {project.description || project.details || 'Project description not available.'}
                   </p>
 
                   {/* <Link

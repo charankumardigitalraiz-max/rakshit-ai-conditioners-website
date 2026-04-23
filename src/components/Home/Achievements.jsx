@@ -1,5 +1,7 @@
 import React, { useRef, useEffect } from 'react'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchAchievements } from '../../redux/achievementsSlice'
+import { getImageUrl } from '../../services/api'
 const awards = [
   { id: 1, img: '/achievements/1.webp' },
   { id: 2, img: '/achievements/2.webp' },
@@ -10,7 +12,8 @@ const awards = [
 
 export default function Achievements() {
   const scrollRef = useRef(null);
-
+  const dispatch = useDispatch();
+  const achievements = useSelector((state) => state.achievements.items)
   // Auto-scroll logic
   useEffect(() => {
     const interval = setInterval(() => {
@@ -34,6 +37,12 @@ export default function Achievements() {
 
     return () => clearInterval(interval);
   }, []);
+
+
+
+  useEffect(() => {
+    dispatch(fetchAchievements())
+  }, [])
 
   const scroll = (direction) => {
     if (scrollRef.current) {
@@ -98,9 +107,9 @@ export default function Achievements() {
             ref={scrollRef}
             className="flex overflow-x-auto gap-6 pb-12 snap-x no-scrollbar scroll-smooth"
           >
-            {awards.map((award) => (
+            {achievements.map((item, index) => (
               <div
-                key={award.id}
+                key={item._id}
                 className="flex-shrink-0 w-[220px] sm:w-[260px] snap-start group relative bg-white rounded-3xl border border-gray-100 overflow-hidden transition-all duration-500 hover:border-[#0072bc]/30 hover:shadow-[0_40px_80px_-20px_rgba(0,114,188,0.15)]"
               >
                 {/* Top Accent */}
@@ -115,10 +124,11 @@ export default function Achievements() {
                   <div className="absolute inset-4 rounded-full border border-blue-50 group-hover:scale-110 transition-transform duration-1000 group-hover:border-[#0072bc]/10" />
 
                   <img
-                    src={award.img}
-                    alt={`Award ${award.id}`}
+                    src={getImageUrl(item.image)}
+                    alt={`Award ${item._id}`}
                     className="relative z-10 w-full h-full object-contain transition-all duration-700 group-hover:scale-110 drop-shadow-xl"
                   />
+
                 </div>
 
                 {/* Card Branding */}

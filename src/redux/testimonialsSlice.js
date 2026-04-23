@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { fetchJSON } from '../services/api'
 
-export const fetchProjects = createAsyncThunk('projects/fetchProjects', async (_, thunkAPI) => {
+export const fetchTestimonials = createAsyncThunk('testimonials/fetchTestimonials', async (_, thunkAPI) => {
   try {
-    const response = await fetchJSON('/projects')
+    const response = await fetchJSON('/testimonials?limit=100')
     return response.data || []
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message)
@@ -16,25 +16,28 @@ const initialState = {
   error: null
 }
 
-const projectsSlice = createSlice({
-  name: 'projects',
+const testimonialsSlice = createSlice({
+  name: 'testimonials',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchProjects.pending, (state) => {
+      .addCase(fetchTestimonials.pending, (state) => {
         state.status = 'loading'
         state.error = null
       })
-      .addCase(fetchProjects.fulfilled, (state, action) => {
+      .addCase(fetchTestimonials.fulfilled, (state, action) => {
         state.status = 'succeeded'
-        state.items = action.payload
+        state.items = action.payload.map((item, idx) => ({
+          ...item,
+          id: item._id || idx + 1
+        }))
       })
-      .addCase(fetchProjects.rejected, (state, action) => {
+      .addCase(fetchTestimonials.rejected, (state, action) => {
         state.status = 'failed'
         state.error = action.payload || action.error.message
       })
   }
 })
 
-export default projectsSlice.reducer
+export default testimonialsSlice.reducer
