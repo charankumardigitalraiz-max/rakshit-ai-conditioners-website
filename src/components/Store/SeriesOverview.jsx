@@ -1,4 +1,5 @@
 import React from 'react'
+import { getImageUrl } from '../../services/api'
 
 const SeriesOverview = ({ series }) => {
   return (
@@ -15,7 +16,7 @@ const SeriesOverview = ({ series }) => {
           <div key={index} className="group relative overflow-hidden rounded-[2.5rem] bg-gray-50 border border-gray-100 flex flex-col sm:flex-row items-center p-6 gap-8 hover:bg-white hover:shadow-2xl hover:shadow-gray-200/50 transition-all duration-700">
             <div className="w-full sm:w-1/3 aspect-square rounded-3xl overflow-hidden bg-white border border-gray-50 flex items-center justify-center p-4">
               {item.image ? (
-                <img src={item.image} alt={item.title} className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110" />
+                <img src={getImageUrl(item.image)} alt={item.title} className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110" />
               ) : (
                 <div className="text-[10px] font-bold text-gray-300 uppercase tracking-[0.2em] text-center">
                   {item.title} Illustration

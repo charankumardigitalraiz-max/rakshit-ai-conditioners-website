@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getImageUrl } from '../../services/api';
 
 export default function ProductCard({ product, currentVariant, onVariantChange }) {
     const navigate = useNavigate();
@@ -24,7 +25,7 @@ export default function ProductCard({ product, currentVariant, onVariantChange }
                     </div>
                 ) : (
                     <img
-                        src={product.image}
+                        src={getImageUrl(product.image)}
                         alt={product.name}
                         loading="lazy"
                         className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105 drop-shadow-sm"
@@ -54,13 +55,13 @@ export default function ProductCard({ product, currentVariant, onVariantChange }
                 <div className="mt-auto mb-5">
                     <div className="flex items-center justify-between mb-2">
                         <span className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">Select Model</span>
-                        <span className="text-[9px] font-bold text-[#0072bc] truncate max-w-[50%]">{currentVariant.model || currentVariant.sku}</span>
+                        <span className="text-[9px] font-bold text-[#0072bc] truncate max-w-[50%]">{currentVariant.sku || currentVariant.model}</span>
                     </div>
                     <div className="relative group/select">
                         <select
-                            value={currentVariant.type || currentVariant.capacity}
+                            value={currentVariant.capacity || currentVariant.type}
                             onChange={(e) => {
-                                const selected = product.variants.find(v => (v.type || v.capacity) === e.target.value);
+                                const selected = product.variants.find(v => (v.capacity || v.type) === e.target.value);
                                 if (selected) onVariantChange(product._id || product.id, selected);
                             }}
                             onClick={(e) => e.stopPropagation()}
@@ -68,8 +69,8 @@ export default function ProductCard({ product, currentVariant, onVariantChange }
                             style={{ fontFamily: 'Outfit, sans-serif' }}
                         >
                             {product.variants.map((variant) => (
-                                <option key={variant.type || variant.sku || variant._id} value={variant.type || variant.capacity}>
-                                    {(variant.type || variant.capacity)} - {(variant.model || variant.sku)}
+                                <option key={variant.sku || variant.type || variant._id} value={variant.capacity || variant.type}>
+                                    {(variant.capacity || variant.type)} - {(variant.sku || variant.model)}
                                 </option>
                             ))}
                         </select>

@@ -7,10 +7,11 @@ export default function EnquiryModal() {
   const { isOpen, closeModal } = useEnquiry()
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
-    fullName: '',
+    name: '',
+    email: '',
     phone: '',
     interest: 'Commercial VRV',
-    details: ''
+    message: ''
   })
 
   if (!isOpen) return null
@@ -25,7 +26,7 @@ export default function EnquiryModal() {
     setLoading(true)
 
     try {
-      const data = await fetchJSON('/enquiries', {
+      const data = await fetchJSON('/contacts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -36,10 +37,11 @@ export default function EnquiryModal() {
       if (data.success) {
         toast.success('Inquiry submitted! We will contact you soon.')
         setFormData({
-          fullName: '',
+          name: '',
+          email: '',
           phone: '',
           interest: 'Commercial VRV',
-          details: ''
+          message: ''
         })
         closeModal()
       }
@@ -88,9 +90,9 @@ export default function EnquiryModal() {
               <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Full Name</label>
               <input
                 required
-                name="fullName"
+                name="name"
                 type="text"
-                value={formData.fullName}
+                value={formData.name}
                 onChange={handleInputChange}
                 className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all"
                 placeholder="John Doe"
@@ -108,6 +110,18 @@ export default function EnquiryModal() {
                   onChange={handleInputChange}
                   className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all"
                   placeholder="+91"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Phone</label>
+                <input
+                  required
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all"
+                  placeholder="example@gmail.com"
                 />
               </div>
               <div>
@@ -137,8 +151,8 @@ export default function EnquiryModal() {
             <div>
               <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Additional Details</label>
               <textarea
-                name="details"
-                value={formData.details}
+                name="message"
+                value={formData.message}
                 onChange={handleInputChange}
                 rows="3"
                 className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all resize-none"

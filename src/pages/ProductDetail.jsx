@@ -4,13 +4,13 @@ import { useSelector } from 'react-redux'
 import PageTransition from '../components/ui/PageTransition'
 import SectionTransition from '../components/ui/SectionTransition'
 import { AnimatePresence, motion } from 'framer-motion'
-import { fetchJSON } from '../services/api'
+import { fetchJSON, getImageUrl } from '../services/api'
 import { toast } from 'react-hot-toast'
 
 export default function ProductDetail() {
     const { productId } = useParams()
     const navigate = useNavigate()
-    const products = useSelector((state) => state.products.items)
+    const products = useSelector((state) => state.products.items) || []
     const [product, setProduct] = useState(null)
     const [activeVariant, setActiveVariant] = useState(null)
     const [activeTab, setActiveTab] = useState('features')
@@ -40,7 +40,7 @@ export default function ProductDetail() {
                 },
                 body: JSON.stringify({
                     ...quoteData,
-                    interest: `${product.name} (${activeVariant.type})`,
+                    interest: `${product.name} (${activeVariant.capacity})`,
                     product: product._id || product.id // Support both for safety
                 }),
             })
@@ -69,9 +69,9 @@ export default function ProductDetail() {
         if (found) {
             setProduct(found)
             setActiveVariant(found.variants[0])
-        } else {
+        } else if (products.length > 0) {
             // Fallback to searching by slug-like comparison if ID match fails
-            const foundBySlug = products.find(p => p.id.includes(productId) || productId.includes(p.id))
+            const foundBySlug = products.find(p => p.id && (p.id.includes(productId) || productId.includes(p.id)))
             if (foundBySlug) {
                 setProduct(foundBySlug)
                 setActiveVariant(foundBySlug.variants[0])
@@ -84,35 +84,60 @@ export default function ProductDetail() {
     if (!product || !activeVariant) return <div className="min-h-screen flex items-center justify-center">Loading...</div>
 
     const techImages = [
-        { label: 'Indoor Unit', type: 'product' },
-        { label: 'Outdoor Unit', type: 'condenser' },
-        { label: 'Remote Control', type: 'remote' },
-        { label: 'Unit Specs', type: 'blueprint' }
+        { label: 'Main Unit', isMain: true, url: getImageUrl(product.image), hasPlaceholder: product.hasPlaceholderImage, placeholderText: product.placeholderText },
+        ...(product.images || []).map((imgUrl, idx) => ({
+            label: `Angle ${idx + 1}`,
+            url: getImageUrl(imgUrl)
+        }))
     ]
 
+    // If no gallery images, we keep some dummy thumbnails so the UI doesn't look empty,
+    // but only if there are truly no extra images.
+    if (techImages.length === 1) {
+        techImages.push(
+            { label: 'Outdoor Unit', dummy: true },
+            { label: 'Remote Control', dummy: true },
+            { label: 'Unit Specs', dummy: true }
+        )
+    }
+
     const installationDetails = {
-        standardCharges: "Rs. 1,500",
-        outdoorStand: "Rs. 750",
-        timeline: "2 – 3 days",
-        includes: [
+        standardCharges: product.installation?.standardCharges || "Rs. 1,500",
+        outdoorStand: product.installation?.outdoorStand || "Rs. 750",
+        timeline: product.installation?.timeline || "2 – 3 days",
+        includes: product.installation?.includes?.length > 0 ? product.installation.includes : [
             "Drilling of wall hole & fixing sleeve.",
             "Fixing Indoor and Outdoor Unit.",
             "Standard Kit Connection (3m).",
             "Functional Demo."
         ],
-        excludes: [
+        excludes: product.installation?.excludes?.length > 0 ? product.installation.excludes : [
             "Extra Copper Piping.",
             "Civil and Masonry Work.",
             "Electrical cabling from power point."
         ]
     }
 
-    const standardFeatures = [
-        { title: 'Inverter Compressor', desc: 'Neo swing tech for efficiency.', icon: 'M13 10V3L4 14h7v7l9-11h-7z' },
-        { title: 'Coanda Airflow', desc: 'Draft-free comfort ceiling flow.', icon: 'M4.5 17.25a4.5 4.5 0 008.197-2.348' },
-        { title: 'PM 2.5 Filter', desc: 'Titanium air-purification.', icon: 'M9 12l2 2 4-4' },
-        { title: 'Anti-Corrosion', desc: 'Protective hydrophilic coating.', icon: 'M19.428 15.428a2 2 0 00-1.022-.547' }
-    ]
+    const standardIcons = [
+        'M13 10V3L4 14h7v7l9-11h-7z', // Lightning
+        'M4.5 17.25a4.5 4.5 0 008.197-2.348', // Wind
+        'M9 12l2 2 4-4', // Check
+        'M19.428 15.428a2 2 0 00-1.022-.547' // Shield
+    ];
+
+    const standardFeatures = product.features?.length > 0
+        ? product.features.map((feat, idx) => ({
+            title: feat.split(' ').slice(0, 2).join(' ') || 'Feature',
+            desc: feat,
+            icon: standardIcons[idx % standardIcons.length]
+        }))
+        : [
+            { title: 'Inverter Compressor', desc: 'Neo swing tech for efficiency.', icon: standardIcons[0] },
+            { title: 'Coanda Airflow', desc: 'Draft-free comfort ceiling flow.', icon: standardIcons[1] },
+            { title: 'PM 2.5 Filter', desc: 'Titanium air-purification.', icon: standardIcons[2] },
+            { title: 'Anti-Corrosion', desc: 'Protective hydrophilic coating.', icon: standardIcons[3] }
+        ]
+
 
     return (
         <PageTransition>
@@ -137,21 +162,21 @@ export default function ProductDetail() {
                             {/* Main Stage */}
                             <div className="relative flex-1 flex items-center justify-center group min-h-0 mb-4 sm:mb-6">
                                 <div className="w-full h-full flex items-center justify-center relative z-10">
-                                    {activeImgIdx === 0 ? (
-                                        product.hasPlaceholderImage ? (
-                                            <div className="bg-white p-8 rounded-2xl shadow-lg border border-blue-50 text-center">
-                                                <span className="text-[#0072bc] font-bold text-sm uppercase tracking-wider">{product.placeholderText}</span>
-                                            </div>
-                                        ) : (
-                                            <img src={product.image} alt={product.name} className="w-full h-full object-contain rounded-2xl transition-transform duration-700 hover:scale-105" />
-                                        )
-                                    ) : (
+                                    {techImages[activeImgIdx]?.dummy ? (
                                         <div className="flex flex-col items-center justify-center text-center opacity-40">
                                             <div className="w-16 h-16 mb-3 bg-white rounded-full flex items-center justify-center shadow-sm">
                                                 <svg className="w-6 h-6 text-[#0072bc]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                                             </div>
                                             <p className="text-xs font-medium text-gray-500">{techImages[activeImgIdx].label}</p>
                                         </div>
+                                    ) : (
+                                        techImages[activeImgIdx]?.hasPlaceholder ? (
+                                            <div className="bg-white p-8 rounded-2xl shadow-lg border border-blue-50 text-center">
+                                                <span className="text-[#0072bc] font-bold text-sm uppercase tracking-wider">{techImages[activeImgIdx].placeholderText}</span>
+                                            </div>
+                                        ) : (
+                                            <img src={techImages[activeImgIdx]?.url} alt={product.name} className="w-full h-full object-contain rounded-2xl transition-transform duration-700 hover:scale-105" />
+                                        )
                                     )}
                                 </div>
 
@@ -193,7 +218,7 @@ export default function ProductDetail() {
                                     {product.name}
                                 </h1>
                                 <p className="text-gray-600 text-base leading-relaxed max-w-2xl border-l-4 border-[#0072bc]/20 pl-6 py-2 italic font-medium">
-                                    "{product.description}"
+                                    "{product.shortDescription || 'Experience premium cooling comfort and superior energy efficiency with advanced technology.'}"
                                 </p>
                             </div>
 
@@ -214,14 +239,14 @@ export default function ProductDetail() {
                             <div className="mb-10">
                                 <div className="flex items-center justify-between mb-4">
                                     <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider block mb-2">Choose Configuration</span>
-                                    <span className="text-xs font-medium text-[#0072bc]">ID: {activeVariant.model}</span>
+                                    <span className="text-xs font-medium text-[#0072bc]">SKU: {activeVariant.sku}</span>
                                 </div>
                                 <div className="grid grid-cols-5 sm:grid-cols-4 gap-4">
                                     {product.variants.map((v) => {
-                                        const isSelected = activeVariant.type === v.type
+                                        const isSelected = activeVariant.capacity === v.capacity
                                         return (
                                             <button
-                                                key={v.type}
+                                                key={v._id || v.id || v.capacity}
                                                 onClick={() => setActiveVariant(v)}
                                                 className={`py-1 px-1 rounded-xl border-2 transition-all text-center ${isSelected
                                                     ? 'border-[#0072bc] bg-white shadow-md shadow-blue-500/10'
@@ -229,7 +254,7 @@ export default function ProductDetail() {
                                                     }`}
                                             >
                                                 <span className={`block text-lg font-bold ${isSelected ? 'text-[#0072bc]' : 'text-gray-500'}`} style={{ fontFamily: 'Outfit, sans-serif' }}>
-                                                    {v.type}
+                                                    {v.capacity}
                                                 </span>
                                                 {/* <span className="text-xs font-medium text-gray-400 mt-1 block">Series Range</span> */}
                                             </button>
@@ -303,12 +328,12 @@ export default function ProductDetail() {
                                         <div className="bg-gray-50/50 p-4 rounded-3xl border border-gray-100">
                                             <div className="grid grid-cols-1 gap-2">
                                                 {[
-                                                    { label: 'Cooling Capacity', val: `${activeVariant.type} (Rated at 3.5 kW - 6.0 kW)` },
-                                                    { label: 'Power Supply', val: '1 Phase, 230 V, 50 Hz' },
-                                                    { label: 'Refrigerant', val: 'Eco-Friendly R-32 (Zero ODP)' },
-                                                    { label: 'Condenser Coil', val: '100% High-Grade Copper' },
-                                                    { label: 'ISEER Rating', val: '3.90+ for 3-Star Models' },
-                                                    { label: 'Operating Temp', val: 'Stable up to 52°C Ambient' }
+                                                    { label: 'Cooling Capacity', val: `${activeVariant.capacity}` },
+                                                    { label: 'Power Supply', val: product.technicalSpecs?.powerSupply || '1 Phase, 230 V, 50 Hz' },
+                                                    { label: 'Refrigerant', val: product.refrigerant || 'Eco-Friendly R-32 (Zero ODP)' },
+                                                    { label: 'Condenser Coil', val: product.technicalSpecs?.condenserCoil || '100% High-Grade Copper' },
+                                                    { label: 'ISEER Rating', val: activeVariant.iseer ? `${activeVariant.iseer}` : '3.90+ for 3-Star Models' },
+                                                    { label: 'Operating Temp', val: product.technicalSpecs?.operatingTemp || 'Stable up to 52°C Ambient' }
                                                 ].map((spec, i) => (
                                                     <div key={i} className="flex flex-col sm:flex-row sm:items-center justify-between bg-white p-5 sm:px-8 rounded-2xl border border-transparent hover:border-blue-100 transition-all gap-2">
                                                         <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider">{spec.label}</span>
@@ -388,21 +413,27 @@ export default function ProductDetail() {
 
                                                     <div className="flex flex-col sm:flex-row justify-center gap-10 lg:gap-20">
                                                         <div className="flex flex-col items-center gap-4">
-                                                            <div className="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center text-[#0072bc] text-xl font-bold shadow-inner shadow-blue-100">10Y</div>
+                                                            <div className="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center text-[#0072bc] text-xl font-bold shadow-inner shadow-blue-100">
+                                                                {product.warranty?.compressor?.split(' ')[0] || '10'}Y
+                                                            </div>
                                                             <div className="text-center">
                                                                 <span className="block text-sm font-bold text-gray-900 mb-1">Compressor</span>
                                                                 <span className="text-xs text-gray-500">Core Integrity</span>
                                                             </div>
                                                         </div>
                                                         <div className="flex flex-col items-center gap-4">
-                                                            <div className="w-16 h-16 rounded-full bg-orange-50 flex items-center justify-center text-orange-500 text-xl font-bold shadow-inner shadow-orange-100">5Y</div>
+                                                            <div className="w-16 h-16 rounded-full bg-orange-50 flex items-center justify-center text-orange-500 text-xl font-bold shadow-inner shadow-orange-100">
+                                                                {product.warranty?.pcb?.split(' ')[0] || '5'}Y
+                                                            </div>
                                                             <div className="text-center">
                                                                 <span className="block text-sm font-bold text-gray-900 mb-1">PCB Unit</span>
                                                                 <span className="text-xs text-gray-500">Logic Board Coverage</span>
                                                             </div>
                                                         </div>
                                                         <div className="flex flex-col items-center gap-4">
-                                                            <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center text-green-600 text-xl font-bold shadow-inner shadow-green-100">1Y</div>
+                                                            <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center text-green-600 text-xl font-bold shadow-inner shadow-green-100">
+                                                                {product.warranty?.unitWide?.split(' ')[0] || '1'}Y
+                                                            </div>
                                                             <div className="text-center">
                                                                 <span className="block text-sm font-bold text-gray-900 mb-1">Unit Wide</span>
                                                                 <span className="text-xs text-gray-500">Complete System</span>
@@ -435,13 +466,13 @@ export default function ProductDetail() {
                                                 {similarProd.hasPlaceholderImage ? (
                                                     <div className="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center text-[#0072bc] text-xs font-bold uppercase tracking-wider">{similarProd.placeholderText}</div>
                                                 ) : (
-                                                    <img src={similarProd.image} alt={similarProd.name} className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-110 drop-shadow-sm mix-blend-multiply" />
+                                                    <img src={getImageUrl(similarProd.image)} alt={similarProd.name} className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-110 drop-shadow-sm mix-blend-multiply" />
                                                 )}
                                             </div>
 
                                             <div className="flex-1 flex flex-col">
                                                 <h4 className="text-sm font-bold text-gray-900 mb-1.5 line-clamp-1">{similarProd.name}</h4>
-                                                <p className="text-xs text-gray-500 line-clamp-2 mb-4 leading-relaxed">{similarProd.description || 'Premium air conditioning system delivering exceptional comfort and energy efficiency.'}</p>
+                                                <p className="text-xs text-gray-500 line-clamp-2 mb-4 leading-relaxed">{similarProd.shortDescription || 'Premium air conditioning system delivering exceptional comfort and energy efficiency.'}</p>
 
                                                 <div className="mt-auto flex items-center justify-between pt-4 border-t border-gray-50">
                                                     <div className="flex flex-col">
@@ -480,7 +511,7 @@ export default function ProductDetail() {
                                 <form className="space-y-5" onSubmit={handleQuoteSubmit}>
                                     <div>
                                         <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">Product Configuration</label>
-                                        <input type="text" readOnly value={`${product.name} - ${activeVariant.type}`} className="w-full bg-gray-50 border border-gray-200 text-gray-500 text-sm rounded-xl px-4 py-3 focus:outline-none font-medium" />
+                                        <input type="text" readOnly value={`${product.name} - ${activeVariant.capacity}`} className="w-full bg-gray-50 border border-gray-200 text-gray-500 text-sm rounded-xl px-4 py-3 focus:outline-none font-medium" />
                                     </div>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                         <div>
@@ -519,7 +550,7 @@ export default function ProductDetail() {
                                             className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:border-[#0072bc] focus:ring-2 focus:ring-[#0072bc]/20 outline-none transition-all resize-none"
                                         />
                                     </div>
-                                    <div className="mt-8 pt-2">
+                                    <div className="    mt-8 pt-2">
                                         <button
                                             type="submit"
                                             disabled={isSubmitting}

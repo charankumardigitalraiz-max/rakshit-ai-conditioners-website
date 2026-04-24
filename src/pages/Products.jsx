@@ -1,9 +1,14 @@
 import React, { useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import PageTransition from '../components/ui/PageTransition'
 import SectionTransition from '../components/ui/SectionTransition'
+import { getImageUrl } from '../services/api'
 
 export default function Products() {
+  const navigate = useNavigate();
+  const products = useSelector((state) => state.products.items) || [];
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -134,6 +139,13 @@ export default function Products() {
   ];
 
   const currentCategory = categories.find(c => c.id === categoryId);
+  const categoryProducts = currentCategory ? products.filter(p => {
+    if (currentCategory.id === 'room-ac') return p.category === 'Room AC';
+    if (currentCategory.id === 'commercial-ac') return p.category === 'Commercial AC' && !p.name.includes('VRV');
+    if (currentCategory.id === 'central-ac') return p.category === 'Commercial AC' && p.name.includes('VRV');
+    if (currentCategory.id === 'ventilation') return p.category === 'Ventilation';
+    return p.category === currentCategory.title;
+  }) : [];
 
   return (
     <PageTransition>
@@ -202,13 +214,7 @@ export default function Products() {
               </div>
             </>
           ) : currentCategory ? (
-            <div className="animate-fadeInUp">
-              {/* Category Breadcrumb */}
-              {/* <div className="mb-10 flex items-center justify-start gap-2">
-                <Link to="/products" className="text-gray-400 text-[10px] font-bold uppercase tracking-widest hover:text-[#0072bc]">Expertise</Link>
-                <span className="text-gray-300">/</span>
-                <span className="text-[#0072bc] text-[10px] font-bold uppercase tracking-widest">{currentCategory.technicalContent.heroTitle}</span>
-              </div> */}
+            <div className="animate-fadeInUp">              {/* Category Breadcrumb */}
 
               {/* Individual Category Detail Section */}
               <div className="grid lg:grid-cols-2 gap-16 items-start mb-20">
@@ -281,6 +287,50 @@ export default function Products() {
                   </div>
                 </div>
               </div>
+
+              {/* Products Grid for this Category */}
+              {categoryProducts.length > 0 && (
+                <div className="mt-16">
+                  <div className="inline-flex items-center gap-3 mb-8">
+                    <span className="w-10 h-0.5 bg-[#0072bc]"></span>
+                    <span className="text-[#0072bc] text-[10px] font-black uppercase tracking-[0.3em]">Available Models</span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {categoryProducts.map((p) => {
+                      const startingPrice = p.variants?.[0]?.price || 0;
+                      return (
+                        <div
+                          key={p.id || p._id}
+                          onClick={() => navigate(`/product/${p.id || p._id}`)}
+                          className="group flex flex-col bg-white border border-gray-100 rounded-xl transition-all duration-500 hover:border-[#0072bc] hover:shadow-2xl hover:shadow-blue-900/5 p-4 cursor-pointer"
+                        >
+                          <div className="relative aspect-square flex items-center justify-center mb-4 overflow-hidden bg-gray-50/30 rounded-lg">
+                            <img
+                              src={getImageUrl(p.image)}
+                              alt={p.name}
+                              loading="lazy"
+                              className="w-[85%] h-[85%] object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-110"
+                            />
+                            <div className="absolute inset-0 bg-white/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center p-4">
+                              <div className="px-5 py-2.5 bg-[#0072bc] text-white text-[9px] font-bold uppercase tracking-wider rounded shadow-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                View details
+                              </div>
+                            </div>
+                          </div>
+                          <div className="text-center flex flex-col items-center">
+                            <h3 className="text-[15px] font-semibold text-gray-900 mb-2 leading-tight tracking-tight px-2" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                              {p.name}
+                            </h3>
+                            <span className="text-[#0072bc] text-base font-bold tracking-tight">
+                              ₹{startingPrice.toLocaleString()}
+                            </span>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
           ) : (
             <div className="text-center py-20">

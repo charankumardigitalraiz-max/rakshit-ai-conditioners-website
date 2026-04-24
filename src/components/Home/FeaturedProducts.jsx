@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 export default function FeaturedProducts() {
-  const products = useSelector((state) => state.products.items);
+  const products = useSelector((state) => state.products.items) || [];
   const navigate = useNavigate();
 
   // Pick the first 5 products to feature dynamically
