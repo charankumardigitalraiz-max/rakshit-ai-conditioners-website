@@ -1,13 +1,17 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
+import { getImageUrl } from '../../services/api';
 export default function FeaturedProducts() {
   const products = useSelector((state) => state.products.items) || [];
   const navigate = useNavigate();
 
   // Pick the first 5 products to feature dynamically
   const featuredProducts = products.slice(0, 5);
+
+  //   const handleCardClick = () => {
+  //     // navigate(`/product/${product.slug || product._id || product.id}`);
+  // };
 
   return (
     <section id="products" className="py-3 bg-white">
@@ -37,7 +41,7 @@ export default function FeaturedProducts() {
             return (
               <div
                 key={p.id}
-                onClick={() => navigate(`/product/${p.id}`)}
+                onClick={() => navigate(`/product/${p._id}`)}
                 className="group flex flex-col bg-white border border-gray-100 rounded-xl transition-all duration-500 hover:border-[#0072bc] hover:shadow-2xl hover:shadow-blue-900/5 p-4 cursor-pointer"
               >
                 {/* Product Visual */}
@@ -50,7 +54,7 @@ export default function FeaturedProducts() {
                     </div>
                   ) : (
                     <img
-                      src={p.image}
+                      src={getImageUrl(p.image)}
                       alt={p.name}
                       loading="lazy"
                       className="w-[85%] h-[85%] object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-110"
