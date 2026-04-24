@@ -457,10 +457,10 @@ export default function ProductDetail() {
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
                             {products
-                                .filter(p => p.category === product.category && p.id !== product.id)
+                                .filter(p => p.category === product.category && (p._id || p.id) !== (product._id || product.id))
                                 .slice(0, 4)
                                 .map(similarProd => (
-                                    <Link key={similarProd.id} to={`/product/${similarProd.id}`} className="group block h-full">
+                                    <Link key={similarProd._id || similarProd.id} to={`/product/${similarProd.slug || similarProd._id || similarProd.id}`} className="group block h-full">
                                         <div className="bg-white border border-gray-100 rounded-3xl p-5 sm:p-6 flex flex-col h-full transition-all hover:border-[#0072bc]/30 hover:shadow-xl hover:shadow-blue-900/5 text-left">
                                             <div className="h-32 sm:h-40 mb-5 flex items-center justify-center">
                                                 {similarProd.hasPlaceholderImage ? (
