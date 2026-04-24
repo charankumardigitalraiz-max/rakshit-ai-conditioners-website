@@ -1,4 +1,51 @@
+import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { fetchJSON } from '../../services/api';
+
 export default function Contact() {
+  const [loading, setLoading] = useState(false)
+  const [formData, setFormData] = useState({
+    fullName: '',
+    phone: '',
+    interest: '',
+    details: ''
+  })
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+
+    try {
+      const data = await fetchJSON('/enquiries', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (data.success) {
+        toast.success('Assessment request submitted! Our engineers will contact you soon.')
+        setFormData({
+          fullName: '',
+          phone: '',
+          interest: '',
+          details: ''
+        })
+      }
+    } catch (error) {
+      console.error('Submission error:', error)
+      toast.error(error.message || 'Failed to submit request. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <section id="contact" className="py-4 bg-white">
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
@@ -71,12 +118,16 @@ export default function Contact() {
             <h3 className="text-2xl font-bold text-gray-900 mb-8 tracking-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
               Request Technical Assessment
             </h3>
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="grid sm:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Full Name</label>
                   <input
+                    required
+                    name="fullName"
                     type="text"
+                    value={formData.fullName}
+                    onChange={handleInputChange}
                     placeholder="Enter your name"
                     className="w-full px-5 py-3.5 bg-white border border-gray-100 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all"
                   />
@@ -84,7 +135,11 @@ export default function Contact() {
                 <div>
                   <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Primary Contact</label>
                   <input
+                    required
+                    name="phone"
                     type="tel"
+                    value={formData.phone}
+                    onChange={handleInputChange}
                     placeholder="+91"
                     className="w-full px-5 py-3.5 bg-white border border-gray-100 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all"
                   />
@@ -92,18 +147,34 @@ export default function Contact() {
               </div>
               <div>
                 <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">System Orientation</label>
-                <select className="w-full px-5 py-3.5 bg-white border border-gray-100 rounded-lg text-sm text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all appearance-none cursor-pointer">
-                  <option value="">Select infrastructure type...</option>
-                  <option>Industrial Clean Room</option>
-                  <option>Pharmaceutical Complex</option>
-                  <option>Commercial HQ / Office</option>
-                  <option>Precision Residential (Split AC)</option>
-                  <option>Centralized VRF</option>
-                </select>
+                <div className="relative">
+                  <select
+                    required
+                    name="interest"
+                    value={formData.interest}
+                    onChange={handleInputChange}
+                    className="w-full px-5 py-3.5 bg-white border border-gray-100 rounded-lg text-sm text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all appearance-none cursor-pointer"
+                  >
+                    <option value="">Select infrastructure type...</option>
+                    <option>Industrial Clean Room</option>
+                    <option>Pharmaceutical Complex</option>
+                    <option>Commercial HQ / Office</option>
+                    <option>Precision Residential (Split AC)</option>
+                    <option>Centralized VRF</option>
+                  </select>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
               </div>
               <div>
                 <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Project Brief</label>
                 <textarea
+                  name="details"
+                  value={formData.details}
+                  onChange={handleInputChange}
                   rows={4}
                   placeholder="Describe your technical requirements..."
                   className="w-full px-5 py-3.5 bg-white border border-gray-100 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all resize-none"
@@ -111,10 +182,11 @@ export default function Contact() {
               </div>
               <button
                 type="submit"
-                className="w-full py-4 bg-[#0072bc] hover:bg-[#005fa3] text-white font-bold rounded-lg shadow-xl shadow-blue-200 transition-all hover:-translate-y-0.5 text-xs uppercase tracking-[0.2em]"
+                disabled={loading}
+                className={`w-full py-4 bg-[#0072bc] hover:bg-[#005fa3] text-white font-bold rounded-lg shadow-xl shadow-blue-200 transition-all hover:-translate-y-0.5 text-xs uppercase tracking-[0.2em] ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
-                Submit for Assessment
+                {loading ? 'Submitting...' : 'Submit for Assessment'}
               </button>
             </form>
           </div>

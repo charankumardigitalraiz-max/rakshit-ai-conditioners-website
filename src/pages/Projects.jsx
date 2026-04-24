@@ -64,9 +64,9 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
               <div className="grid grid-cols-2 gap-6 mb-10">
                 <div className="space-y-1">
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                    <Calendar size={12} /> Timeline
+                    <Calendar size={12} /> Duration
                   </p>
-                  <p className="text-sm font-semibold text-slate-700">{project.date || 'Project Period'}</p>
+                  <p className="text-sm font-semibold text-slate-700">{project.duration || project.date || 'Project Period'}</p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
@@ -86,6 +86,12 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
                   </p>
                   <p className="text-sm font-semibold text-slate-700">{project.totalCapacity || 'Not Specified'}</p>
                 </div>
+                <div className="space-y-1">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                    <Activity size={12} /> Horsepower (HP)
+                  </p>
+                  <p className="text-sm font-semibold text-slate-700">{project.hp || 'Not Specified'}</p>
+                </div>
               </div>
 
               <div className="space-y-4 pt-6 border-t border-slate-100">
@@ -95,12 +101,12 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
                 </p>
               </div>
 
-              <div className="mt-12">
+              <div className="mt-10">
                 <button
                   onClick={onClose}
-                  className="w-full py-4 bg-slate-50 hover:bg-slate-100 text-slate-600 font-bold text-[11px] uppercase tracking-[0.2em] rounded-2xl transition-all"
+                  className="w-full py-3.5 bg-slate-50 hover:bg-slate-100 text-slate-500 hover:text-slate-900 font-bold text-[10px] uppercase tracking-[0.2em] rounded-xl transition-all border border-slate-100/50"
                 >
-                  Close Intelligence Report
+                  Close Report
                 </button>
               </div>
             </div>
@@ -173,7 +179,7 @@ export default function Projects() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
             {filteredProjects.map((project, index) => (
               <SectionTransition key={project.id || project._id} delay={index * 0.1}>
-                <div className="group flex flex-col h-full bg-white border border-gray-100 rounded-[2.5rem] overflow-hidden hover:border-[#0072bc]/20 hover:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.08)] transition-all duration-700">
+                <div className="group flex flex-col h-full bg-white border border-slate-100/80 rounded-[2rem] overflow-hidden hover:border-blue-200/50 hover:shadow-[0_20px_50px_-12px_rgba(0,114,188,0.12)] transition-all duration-500 hover:-translate-y-1.5">
 
                   {/* Image & Detail Overlay */}
                   <div className="relative aspect-video overflow-hidden bg-gray-50">
@@ -184,37 +190,39 @@ export default function Projects() {
                     />
 
                     {/* Category Badge */}
-                    <div className="absolute top-6 right-6">
-                      <span className="bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-[#0072bc] uppercase tracking-wider border border-blue-100/30 shadow-sm">
+                    <div className="absolute top-4 right-4 z-10">
+                      <span className="bg-white/80 backdrop-blur-md px-3 py-1 rounded-lg text-[9px] font-bold text-[#0072bc] uppercase tracking-[0.1em] border border-white/20 shadow-sm">
                         {typeof project.category === 'string' ? project.category : project.category?.name}
                       </span>
                     </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
 
-                  {/* Project Content */}
                   <div className="p-6 flex flex-col flex-grow">
                     <div className="flex-grow">
                       <div className="flex items-center gap-2 mb-3">
-                        <MapPin size={12} className="text-blue-500" />
-                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">{project.location}</span>
+                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">{project.location}</span>
                       </div>
-                      <h3 className="text-xl font-bold text-slate-900 group-hover:text-[#0072bc] transition-colors mb-4 line-clamp-2" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                      <h3 className="text-lg font-bold text-slate-900 group-hover:text-[#0072bc] transition-colors mb-3 line-clamp-2 leading-snug" style={{ fontFamily: 'Outfit, sans-serif' }}>
                         {project.title}
                       </h3>
-                      <p className="text-sm text-gray-500 leading-relaxed font-normal line-clamp-3 mb-6">
+                      <p className="text-xs text-slate-500 leading-relaxed font-medium line-clamp-3 mb-6">
                         {project.description || project.details || 'Project description not available.'}
                       </p>
                     </div>
 
-                    <button
-                      onClick={() => openModal(project)}
-                      className="flex items-center justify-between w-full p-4 bg-slate-50 hover:bg-[#0072bc] group/btn rounded-2xl transition-all duration-500"
-                    >
-                      <span className="text-[11px] font-bold text-slate-500 group-hover/btn:text-white uppercase tracking-widest transition-colors">
-                        View Case Study
-                      </span>
-                      <ArrowRight size={16} className="text-slate-300 group-hover/btn:text-white group-hover/btn:translate-x-1 transition-all" />
-                    </button>
+                    <div className="flex items-center justify-between pt-2">
+                      <button
+                        onClick={() => openModal(project)}
+                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-50 hover:bg-[#0072bc] group/btn rounded-xl transition-all duration-300 border border-slate-100/50 hover:border-[#0072bc] shadow-sm hover:shadow-md hover:shadow-blue-500/10"
+                      >
+                        <span className="text-[10px] font-bold text-slate-500 group-hover/btn:text-white uppercase tracking-widest transition-colors">
+                          View Details
+                        </span>
+                        <ArrowRight size={14} className="text-slate-400 group-hover/btn:text-white group-hover/btn:translate-x-0.5 transition-all" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </SectionTransition>

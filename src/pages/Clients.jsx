@@ -60,7 +60,7 @@ export default function Clients() {
                                 <span className="text-[#0072bc] text-xs font-bold uppercase tracking-wide" style={{ fontFamily: 'Inter, sans-serif' }}>Our Partners</span>
                             </div>
                             <h1 className="text-4xl lg:text-6xl font-black text-gray-900 leading-tight tracking-tighter mb-5" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                                Trusted by <span className="text-[#0072bc]">Industry</span><br className="hidden lg:block" /> Leaders.
+                                Trusted by <span className="text-[#0072bc]">Industry</span> Leaders.
                             </h1>
                             <p className="text-gray-500 text-base leading-relaxed max-w-lg font-normal">
                                 From critical healthcare infrastructure to premium residential developments — powering South India's most ambitious projects.

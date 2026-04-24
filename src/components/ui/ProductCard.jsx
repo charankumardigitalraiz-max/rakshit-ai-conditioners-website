@@ -5,7 +5,7 @@ export default function ProductCard({ product, currentVariant, onVariantChange }
     const navigate = useNavigate();
 
     const handleCardClick = () => {
-        navigate(`/product/${product.id}`);
+        navigate(`/product/${product.slug || product._id || product.id}`);
     };
 
     return (
@@ -61,7 +61,7 @@ export default function ProductCard({ product, currentVariant, onVariantChange }
                             value={currentVariant.type || currentVariant.capacity}
                             onChange={(e) => {
                                 const selected = product.variants.find(v => (v.type || v.capacity) === e.target.value);
-                                if (selected) onVariantChange(product.id, selected);
+                                if (selected) onVariantChange(product._id || product.id, selected);
                             }}
                             onClick={(e) => e.stopPropagation()}
                             className="w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 text-[10px] font-bold px-4 py-2.5 rounded-xl cursor-pointer hover:border-[#0072bc]/30 hover:bg-white transition-all outline-none"

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PageTransition from '../components/ui/PageTransition';
 import SectionTransition from '../components/ui/SectionTransition';
+import { fetchJSON } from '../services/api';
+import { toast } from 'react-hot-toast';
 
 const vijaImages = [
     '/branch/WhatsApp Image 2026-04-22 at 5.30.21 PM (2).jpeg',
@@ -55,6 +57,39 @@ const branchData = {
 export default function Contact() {
     const [lightbox, setLightbox] = useState(null);
     const [activeGallery, setActiveGallery] = useState(null);
+    const [submitting, setSubmitting] = useState(false);
+    const [contactData, setContactData] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        subject: '',
+        message: ''
+    });
+
+    const handleContactChange = (e) => {
+        const { name, value } = e.target;
+        setContactData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleContactSubmit = async (e) => {
+        e.preventDefault();
+        setSubmitting(true);
+        try {
+            const data = await fetchJSON('/contacts', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(contactData)
+            });
+            if (data.success) {
+                toast.success('Message sent successfully! We will get back to you soon.');
+                setContactData({ name: '', email: '', phone: '', subject: '', message: '' });
+            }
+        } catch (error) {
+            toast.error(error.message || 'Failed to send message');
+        } finally {
+            setSubmitting(false);
+        }
+    };
 
     // Low-Latency Peek States
     const [swapHyd, setSwapHyd] = useState(null);
@@ -323,7 +358,122 @@ export default function Contact() {
                     </SectionTransition>
                 </div>
 
-                {/* 4. LIGHTBOX - SYNCHRONIZED ARCHITECTURE */}
+                {/* 4. CONTACT FORM SECTION */}
+                {/* <div className="bg-slate-50 py-20 lg:py-28">
+                    <div className="max-w-7xl mx-auto px-5 sm:px-8">
+                        <div className="grid lg:grid-cols-2 gap-16 items-start">
+                            <SectionTransition direction="right">
+                                <div>
+                                    <div className="inline-flex items-center gap-2 mb-4">
+                                        <span className="w-10 h-0.5 bg-[#0072bc]"></span>
+                                        <span className="text-[#0072bc] text-xs font-bold uppercase tracking-wider">Direct Communication</span>
+                                    </div>
+                                    <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 tracking-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                                        Send us a <span className="text-[#0072bc]">Message.</span>
+                                    </h2>
+                                    <p className="text-gray-600 mb-8 leading-relaxed max-w-md">
+                                        For general inquiries, corporate feedback, or partnership opportunities, please use the form below. Our administrative team will route your message to the appropriate department.
+                                    </p>
+
+                                    <div className="space-y-6">
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-12 h-12 rounded-2xl bg-white border border-gray-100 shadow-sm flex items-center justify-center text-[#0072bc]">
+                                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                            </div>
+                                            <div>
+                                                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-0.5">Response Time</h4>
+                                                <p className="text-gray-900 font-bold">Within 2-4 Business Hours</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </SectionTransition>
+
+                            <SectionTransition direction="left">
+                                <div className="bg-white rounded-[2.5rem] p-8 lg:p-10 border border-gray-100 shadow-2xl shadow-blue-900/5">
+                                    <form className="space-y-5" onSubmit={handleContactSubmit}>
+                                        <div className="grid sm:grid-cols-2 gap-5">
+                                            <div>
+                                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2 ml-1">Full Name</label>
+                                                <input
+                                                    required
+                                                    name="name"
+                                                    type="text"
+                                                    value={contactData.name}
+                                                    onChange={handleContactChange}
+                                                    placeholder="John Doe"
+                                                    className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2 ml-1">Email Address</label>
+                                                <input
+                                                    required
+                                                    name="email"
+                                                    type="email"
+                                                    value={contactData.email}
+                                                    onChange={handleContactChange}
+                                                    placeholder="john@example.com"
+                                                    className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="grid sm:grid-cols-2 gap-5">
+                                            <div>
+                                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2 ml-1">Phone (Optional)</label>
+                                                <input
+                                                    name="phone"
+                                                    type="tel"
+                                                    value={contactData.phone}
+                                                    onChange={handleContactChange}
+                                                    placeholder="+91"
+                                                    className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2 ml-1">Subject</label>
+                                                <input
+                                                    required
+                                                    name="subject"
+                                                    type="text"
+                                                    value={contactData.subject}
+                                                    onChange={handleContactChange}
+                                                    placeholder="e.g. Partnership Inquiry"
+                                                    className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2 ml-1">Your Message</label>
+                                            <textarea
+                                                required
+                                                name="message"
+                                                value={contactData.message}
+                                                onChange={handleContactChange}
+                                                rows="4"
+                                                placeholder="Write your message here..."
+                                                className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all resize-none"
+                                            />
+                                        </div>
+
+                                        <button
+                                            type="submit"
+                                            disabled={submitting}
+                                            className={`w-full py-4 bg-[#002f54] hover:bg-[#0072bc] text-white text-xs font-bold uppercase tracking-[0.2em] rounded-2xl shadow-xl shadow-blue-900/10 transition-all active:scale-[0.98] ${submitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                                            style={{ fontFamily: 'Outfit, sans-serif' }}
+                                        >
+                                            {submitting ? 'Sending Message...' : 'Send Message'}
+                                        </button>
+                                    </form>
+                                </div>
+                            </SectionTransition>
+                        </div>
+                    </div>
+                </div> */}
+
+                {/* 5. LIGHTBOX - SYNCHRONIZED ARCHITECTURE */}
                 {lightbox && (
                     <div
                         className="fixed inset-0 z-[100] bg-white/98 backdrop-blur-xl flex flex-col items-center justify-center p-6 transition-all animate-in fade-in duration-300"

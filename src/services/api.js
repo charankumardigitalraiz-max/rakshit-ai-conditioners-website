@@ -1,4 +1,5 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://rakshit-ai-conditioners-backend.onrender.com/api'
+// const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://rakshit-ai-conditioners-backend.onrender.com/api'
+const API_BASE_URL = 'http://localhost:9000/api'
 const API_ORIGIN = import.meta.env.VITE_API_ORIGIN || API_BASE_URL.replace(/\/api$/, '')
 
 export const fetchJSON = async (path, options = {}) => {

@@ -10,8 +10,7 @@ import SectionTransition from '../components/ui/SectionTransition'
 
 export default function Store() {
     const { categoryId } = useParams()
-    const products = useSelector((state) => state.products.items)
-    const filters = useSelector((state) => state.products.filters)
+    const { items: products, filters, status, error } = useSelector((state) => state.products)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -103,7 +102,8 @@ export default function Store() {
     useEffect(() => {
         const initialVariants = {}
         products.forEach(p => {
-            initialVariants[p.id] = p.variants[0]
+            const pid = p._id || p.id;
+            if (pid) initialVariants[pid] = p.variants[0]
         })
         setSelectedVariants(initialVariants)
     }, [products])
@@ -189,18 +189,43 @@ export default function Store() {
                             <p className="text-gray-400 text-sm font-medium mt-2">Explore specific models and technical variants for your selection.</p>
                         </div>
 
-                        {filteredProducts.length === 0 && (
-                            <div className="text-center py-20 text-gray-400 font-medium">
-                                No technical configurations found for this category.
+                        {status === 'loading' && (
+                            <div className="flex flex-col items-center justify-center py-20">
+                                <div className="w-12 h-12 border-4 border-blue-100 border-t-[#0072bc] rounded-full animate-spin mb-4"></div>
+                                <p className="text-gray-400 font-bold text-xs uppercase tracking-widest">Synchronizing Technical Configurations...</p>
+                            </div>
+                        )}
+
+                        {status === 'failed' && (
+                            <div className="text-center py-20 text-red-500 font-medium bg-red-50 rounded-3xl border border-red-100 p-8">
+                                <p className="mb-4">Error loading configurations: {error}</p>
+                                <button
+                                    onClick={() => window.location.reload()}
+                                    className="px-6 py-2 bg-red-500 text-white rounded-xl font-bold text-xs uppercase tracking-widest"
+                                >
+                                    Retry Connection
+                                </button>
+                            </div>
+                        )}
+
+                        {status === 'succeeded' && filteredProducts.length === 0 && (
+                            <div className="text-center py-20 text-gray-400 font-medium bg-gray-50 rounded-3xl border border-gray-100 p-8">
+                                <p>No technical configurations found for the <span className="text-gray-900 font-bold">{filters.category}</span> category.</p>
+                                <button
+                                    onClick={() => navigate('/store')}
+                                    className="mt-4 px-6 py-2 border border-[#0072bc] text-[#0072bc] rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-[#0072bc] hover:text-white transition-all"
+                                >
+                                    View All Solutions
+                                </button>
                             </div>
                         )}
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                             {filteredProducts.map((product, index) => (
-                                <SectionTransition key={product.id} delay={index * 0.05}>
+                                <SectionTransition key={product._id || product.id} delay={index * 0.05}>
                                     <ProductCard
                                         product={product}
-                                        currentVariant={selectedVariants[product.id] || product.variants[0]}
+                                        currentVariant={selectedVariants[product._id || product.id] || product.variants[0]}
                                         onVariantChange={handleVariantChange}
                                     />
                                 </SectionTransition>

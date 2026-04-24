@@ -1,10 +1,55 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useEnquiry } from '../context/EnquiryContext'
+import { toast } from 'react-hot-toast'
+import { fetchJSON } from '../services/api'
 
 export default function EnquiryModal() {
   const { isOpen, closeModal } = useEnquiry()
+  const [loading, setLoading] = useState(false)
+  const [formData, setFormData] = useState({
+    fullName: '',
+    phone: '',
+    interest: 'Commercial VRV',
+    details: ''
+  })
 
   if (!isOpen) return null
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+
+    try {
+      const data = await fetchJSON('/enquiries', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (data.success) {
+        toast.success('Inquiry submitted! We will contact you soon.')
+        setFormData({
+          fullName: '',
+          phone: '',
+          interest: 'Commercial VRV',
+          details: ''
+        })
+        closeModal()
+      }
+    } catch (error) {
+      console.error('Submission error:', error)
+      toast.error(error.message || 'Failed to submit inquiry. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <div className="fixed inset-0 z-[100] flex items-start justify-center p-4 sm:p-6 overflow-y-auto">
@@ -38,19 +83,15 @@ export default function EnquiryModal() {
 
         {/* Form */}
         <div className="p-8 -mt-6 relative z-20 bg-white rounded-t-[2rem]">
-          <form
-            className="space-y-5"
-            onSubmit={(e) => {
-              e.preventDefault()
-              alert('Inquiry submitted! We will contact you soon.')
-              closeModal()
-            }}
-          >
+          <form className="space-y-5" onSubmit={handleSubmit}>
             <div>
               <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Full Name</label>
               <input
                 required
+                name="fullName"
                 type="text"
+                value={formData.fullName}
+                onChange={handleInputChange}
                 className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all"
                 placeholder="John Doe"
               />
@@ -61,26 +102,44 @@ export default function EnquiryModal() {
                 <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Phone</label>
                 <input
                   required
+                  name="phone"
                   type="tel"
+                  value={formData.phone}
+                  onChange={handleInputChange}
                   className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all"
                   placeholder="+91"
                 />
               </div>
               <div>
                 <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Interest</label>
-                <select className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-xl text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all appearance-none cursor-pointer">
-                  <option>Commercial VRV</option>
-                  <option>Central Chillers</option>
-                  <option>Room AC</option>
-                  <option>Industrial Ventilation</option>
-                  <option>Comprehensive AMC</option>
-                </select>
+                <div className="relative">
+                  <select
+                    name="interest"
+                    value={formData.interest}
+                    onChange={handleInputChange}
+                    className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-xl text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all appearance-none cursor-pointer"
+                  >
+                    <option>Commercial VRV</option>
+                    <option>Central Chillers</option>
+                    <option>Room AC</option>
+                    <option>Industrial Ventilation</option>
+                    <option>Comprehensive AMC</option>
+                  </select>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
               </div>
             </div>
 
             <div>
               <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Additional Details</label>
               <textarea
+                name="details"
+                value={formData.details}
+                onChange={handleInputChange}
                 rows="3"
                 className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all resize-none"
                 placeholder="Please describe your site scale or specific requirements..."
@@ -89,10 +148,11 @@ export default function EnquiryModal() {
 
             <button
               type="submit"
-              className="w-full py-4 mt-2 bg-[#002f54] hover:bg-[#0072bc] text-white text-sm font-bold uppercase tracking-wider rounded-xl transition-all shadow-xl shadow-blue-900/10 active:scale-[0.98]"
+              disabled={loading}
+              className={`w-full py-4 mt-2 bg-[#002f54] hover:bg-[#0072bc] text-white text-sm font-bold uppercase tracking-wider rounded-xl transition-all shadow-xl shadow-blue-900/10 active:scale-[0.98] ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
               style={{ fontFamily: 'Outfit, sans-serif' }}
             >
-              Submit Enquiry
+              {loading ? 'Submitting...' : 'Submit Enquiry'}
             </button>
 
             <p className="text-center text-[10px] font-medium text-gray-400 mt-4 uppercase tracking-wider hidden sm:block">
