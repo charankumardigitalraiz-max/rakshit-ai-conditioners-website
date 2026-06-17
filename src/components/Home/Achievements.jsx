@@ -173,7 +173,7 @@ export default function Achievements() {
                       {item.title || 'Official Certification'}
                     </h4>
                     {item.description && (
-                      <p className="text-[10px] text-gray-400 mt-1 line-clamp-2 leading-relaxed">
+                      <p className="text-[12px] text-gray-400 mt-1 line-clamp-2 leading-relaxed">
                         {item.description}
                       </p>
                     )}

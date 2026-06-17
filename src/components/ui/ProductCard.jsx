@@ -87,8 +87,8 @@ export default function ProductCard({ product, currentVariant, onVariantChange }
                 {/* Price block - Compact */}
                 <div className="pt-2 border-t border-gray-100 flex items-end justify-between">
                     <div>
-                        <div className="text-[8px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">Indicative Quote</div>
-                        <div className="text-lg font-black text-gray-900 tracking-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                        <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">Indicative Quote</div>
+                        <div className="text-md font-semibold text-gray-900 tracking-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
                             {currentVariant?.price != null
                                 ? `₹${currentVariant.price.toLocaleString()}`
                                 : 'Contact for quote'}

@@ -42,12 +42,17 @@ export default function EnquiryModal() {
     setLoading(true)
 
     try {
+      const payload = {
+        ...formData,
+        message: formData.message?.trim() || `Enquiry for ${formData.interest}`,
+      }
+
       const data = await fetchJSON('/contacts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       })
 
       if (data.success) {
