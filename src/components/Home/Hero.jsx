@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Hero() {
   return (
@@ -43,22 +44,35 @@ export default function Hero() {
             Authorized Daikin partner providing energy-efficient HVAC design, installation, and 24/7 service for homes and businesses.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-            <a
-              href="/store"
-              className="px-8 py-3.5 bg-[#0072bc] text-white text-sm font-semibold tracking-wide transition-all shadow-lg hover:bg-[#005fa3] hover:-translate-y-0.5 inline-flex justify-center items-center"
+          <div className="flex flex-col gap-3 sm:gap-4">
+            <Link
+              to="/store"
+              className="group inline-flex items-center justify-center gap-2.5 w-full sm:w-fit px-8 py-3.5 rounded-xl bg-white text-[#0072bc] text-sm font-bold tracking-wide shadow-[0_8px_32px_rgba(0,0,0,0.18)] hover:bg-blue-50 hover:shadow-[0_12px_40px_rgba(0,114,188,0.28)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
               Explore Products
-            </a>
+              <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </Link>
 
-            <a
-              href="services/approach"
-              className="px-8 py-3.5 bg-transparent border border-white/60 text-white text-sm font-semibold tracking-wide transition-all hover:bg-white hover:text-[#0072bc] hover:border-white inline-flex justify-center items-center"
-              style={{ fontFamily: 'Inter, sans-serif' }}
-            >
-              View Our Services
-            </a>
+            <div className="grid grid-cols-2 sm:flex sm:flex-row gap-3">
+              <Link
+                to="/services/approach"
+                className="inline-flex items-center justify-center px-4 sm:px-6 py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/25 text-white text-xs sm:text-sm font-semibold tracking-wide hover:bg-white/20 hover:border-white/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 text-center"
+                style={{ fontFamily: 'Inter, sans-serif' }}
+              >
+                View Our Services
+              </Link>
+
+              <Link
+                to="/about"
+                className="inline-flex items-center justify-center px-4 sm:px-6 py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/25 text-white text-xs sm:text-sm font-semibold tracking-wide hover:bg-white/20 hover:border-white/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 text-center"
+                style={{ fontFamily: 'Inter, sans-serif' }}
+              >
+                About Rakshith
+              </Link>
+            </div>
           </div>
 
         </div>

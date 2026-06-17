@@ -11,6 +11,8 @@ export default function EnquiryModal() {
     email: '',
     phone: '',
     interest: 'Commercial VRV',
+    location: '',
+    area: '',
     message: ''
   })
 
@@ -41,6 +43,8 @@ export default function EnquiryModal() {
           email: '',
           phone: '',
           interest: 'Commercial VRV',
+          location: '',
+          area: '',
           message: ''
         })
         closeModal()
@@ -60,102 +64,129 @@ export default function EnquiryModal() {
         onClick={closeModal}
       />
 
-      <div className="relative z-10 bg-white w-full max-w-lg rounded-[2rem] shadow-2xl shadow-black/20 overflow-hidden animate-fadeInUp my-auto">
+      <div className="relative z-10 bg-white w-full max-w-md rounded-[1.75rem] shadow-2xl shadow-black/20 overflow-hidden animate-fadeInUp my-auto">
         {/* Modal Header */}
-        <div className="relative bg-[#002f54] p-8 pb-10 overflow-hidden">
+        <div className="relative bg-[#002f54] p-5 pb-6 overflow-hidden">
           <div
             className="absolute inset-0 opacity-10"
-            style={{ backgroundImage: 'radial-gradient(#fff 0.5px, transparent 0.5px)', backgroundSize: '20px 20px' }}
+            style={{ backgroundImage: 'radial-gradient(#fff 0.5px, transparent 0.5px)', backgroundSize: '16px 16px' }}
           />
-          <div className="absolute top-1/2 -right-10 w-40 h-40 bg-[#0072bc]/40 rounded-full blur-[40px]" />
+          <div className="absolute top-1/2 -right-10 w-36 h-36 bg-[#0072bc]/40 rounded-full blur-[35px]" />
           <button
             onClick={closeModal}
-            className="absolute top-6 right-6 z-20 w-10 h-10 flex items-center justify-center bg-white/10 hover:bg-white/25 text-white transition-all rounded-full focus:outline-none"
+            className="absolute top-4 right-4 z-20 w-8 h-8 flex items-center justify-center bg-white/10 hover:bg-white/25 text-white transition-all rounded-full focus:outline-none"
             aria-label="Close modal"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
-          <div className="relative z-10">
-            <h2 className="text-3xl font-bold text-white mb-2" style={{ fontFamily: 'Outfit, sans-serif' }}>Get a Quote</h2>
-            <p className="text-blue-100/70 text-sm">Our technical specialists will contact you within 24 hours to analyze your requirements.</p>
+          <div className="relative z-10 pr-6">
+            <h2 className="text-2xl font-bold text-white" style={{ fontFamily: 'Outfit, sans-serif' }}>Get a Quote</h2>
           </div>
         </div>
 
         {/* Form */}
-        <div className="p-8 -mt-6 relative z-20 bg-white rounded-t-[2rem]">
-          <form className="space-y-5" onSubmit={handleSubmit}>
+        <div className="p-6 -mt-4 relative z-20 bg-white rounded-t-[1.75rem]">
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
-              <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Full Name</label>
+              <label className="block text-[10.5px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Full Name</label>
               <input
                 required
                 name="name"
                 type="text"
                 value={formData.name}
                 onChange={handleInputChange}
-                className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all"
+                className="w-full px-4 py-2.5 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/15 focus:border-[#0072bc] transition-all"
                 placeholder="John Doe"
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3.5">
               <div>
-                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Phone</label>
+                <label className="block text-[10.5px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Phone</label>
                 <input
                   required
                   name="phone"
                   type="tel"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/15 focus:border-[#0072bc] transition-all"
                   placeholder="+91"
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Phone</label>
+                <label className="block text-[10.5px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Email</label>
                 <input
                   required
                   name="email"
                   type="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/15 focus:border-[#0072bc] transition-all"
                   placeholder="example@gmail.com"
                 />
               </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3.5">
               <div>
-                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Interest</label>
-                <div className="relative">
-                  <select
-                    name="interest"
-                    value={formData.interest}
-                    onChange={handleInputChange}
-                    className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-xl text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all appearance-none cursor-pointer"
-                  >
-                    <option>Commercial VRV</option>
-                    <option>Central Chillers</option>
-                    <option>Room AC</option>
-                    <option>Industrial Ventilation</option>
-                    <option>Comprehensive AMC</option>
-                  </select>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </div>
+                <label className="block text-[10.5px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Location / City</label>
+                <input
+                  required
+                  name="location"
+                  type="text"
+                  value={formData.location}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/15 focus:border-[#0072bc] transition-all"
+                  placeholder="e.g. Bengaluru"
+                />
+              </div>
+              <div>
+                <label className="block text-[10.5px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Area / Suburb</label>
+                <input
+                  required
+                  name="area"
+                  type="text"
+                  value={formData.area}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/15 focus:border-[#0072bc] transition-all"
+                  placeholder="e.g. Indiranagar"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-[10.5px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Interest</label>
+              <div className="relative">
+                <select
+                  name="interest"
+                  value={formData.interest}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-[#0072bc]/15 focus:border-[#0072bc] transition-all appearance-none cursor-pointer"
+                >
+                  <option>Commercial VRV</option>
+                  <option>Central Chillers</option>
+                  <option>Room AC</option>
+                  <option>Industrial Ventilation</option>
+                  <option>Comprehensive AMC</option>
+                </select>
+                <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
                 </div>
               </div>
             </div>
 
             <div>
-              <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Additional Details</label>
+              <label className="block text-[10.5px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Additional Details</label>
               <textarea
                 name="message"
                 value={formData.message}
                 onChange={handleInputChange}
-                rows="3"
-                className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/20 focus:border-[#0072bc] transition-all resize-none"
+                rows="2"
+                className="w-full px-4 py-2.5 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0072bc]/15 focus:border-[#0072bc] transition-all resize-none"
                 placeholder="Please describe your site scale or specific requirements..."
               />
             </div>
@@ -163,13 +194,13 @@ export default function EnquiryModal() {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full py-4 mt-2 bg-[#002f54] hover:bg-[#0072bc] text-white text-sm font-bold uppercase tracking-wider rounded-xl transition-all shadow-xl shadow-blue-900/10 active:scale-[0.98] ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
+              className={`w-full py-3 mt-1 bg-[#002f54] hover:bg-[#0072bc] text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-all shadow-lg shadow-blue-900/10 active:scale-[0.98] ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
               style={{ fontFamily: 'Outfit, sans-serif' }}
             >
               {loading ? 'Submitting...' : 'Submit Enquiry'}
             </button>
 
-            <p className="text-center text-[10px] font-medium text-gray-400 mt-4 uppercase tracking-wider hidden sm:block">
+            <p className="text-center text-[10px] font-bold text-gray-400 mt-3.5 uppercase tracking-wider hidden sm:block">
               Direct Line: +91 90300 64466
             </p>
           </form>

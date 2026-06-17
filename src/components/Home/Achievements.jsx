@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAchievements } from '../../redux/achievementsSlice'
 import { getImageUrl } from '../../services/api'
@@ -12,6 +12,27 @@ const awards = [
 
 export default function Achievements() {
   const scrollRef = useRef(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalImg, setModalImg] = useState('');
+  const [zoomStyle, setZoomStyle] = useState({});
+
+  const handleMouseMove = (e) => {
+    const { left, top, width, height } = e.target.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+    setZoomStyle({
+      transformOrigin: `${x}% ${y}%`,
+      transform: 'scale(1.8)'
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setZoomStyle({
+      transformOrigin: 'center center',
+      transform: 'scale(1)'
+    });
+  };
+
   const dispatch = useDispatch();
   const achievements = useSelector((state) => state.achievements.items)
   // Auto-scroll logic
@@ -116,7 +137,8 @@ export default function Achievements() {
                 <div className="h-1.5 w-full bg-[#0072bc] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 {/* Image area */}
-                <div className="relative flex items-center justify-center p-4 aspect-square">
+                <div className="relative flex items-center justify-center p-4 aspect-square"
+                  onClick={() => { setModalImg(getImageUrl(item.image)); setIsModalOpen(true); }}>
                   {/* Radial Backdrop */}
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,114,188,0.03)_0%,_transparent_70%)]" />
 
@@ -128,7 +150,17 @@ export default function Achievements() {
                     alt={`Award ${item._id}`}
                     className="relative z-10 w-full h-full object-contain transition-all duration-700 group-hover:scale-110 drop-shadow-xl"
                   />
-
+                  {/* View Image Button */}
+                  <button
+                    onClick={() => { setModalImg(getImageUrl(item.image)); setIsModalOpen(true); }}
+                    className="absolute top-2 right-2 p-1 bg-white/70 rounded-full hover:bg-white transition-colors z-10"
+                    aria-label="View image"
+                  >
+                    <svg className="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                  </button>
                 </div>
 
                 {/* Card Branding */}
@@ -147,6 +179,32 @@ export default function Achievements() {
             ))}
           </div>
 
+          {/* Image Modal */}
+          {isModalOpen && (
+            <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4" onClick={() => setIsModalOpen(false)}>
+              <div className="relative bg-white rounded-2xl max-w-4xl w-full max-h-[85vh] overflow-hidden p-2 shadow-2xl flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+                <div className="overflow-hidden rounded-xl max-h-[calc(85vh-16px)] w-full flex items-center justify-center bg-gray-50">
+                  <img 
+                    src={modalImg} 
+                    alt="Preview" 
+                    className="max-w-full max-h-[80vh] object-contain transition-transform duration-100 ease-out cursor-zoom-in" 
+                    style={zoomStyle}
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={handleMouseLeave}
+                  />
+                </div>
+                <button 
+                  className="absolute top-4 right-4 bg-black/60 hover:bg-black/80 text-white rounded-full p-2 transition-colors z-10" 
+                  onClick={() => setIsModalOpen(false)} 
+                  aria-label="Close"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          )}
           {/* Hint for more content on right */}
           <div className="absolute right-0 top-0 bottom-12 w-20 bg-gradient-to-l from-white to-transparent pointer-events-none group-hover/gallery:opacity-0 transition-opacity" />
         </div>

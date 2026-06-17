@@ -5,37 +5,34 @@ import { fetchJSON, getImageUrl } from '../services/api';
 
 export default function Clients() {
     const [clients, setClients] = useState([]);
-    const [categories, setCategories] = useState([{ _id: 'all', name: 'All' }]);
-    const [filter, setFilter] = useState('all');
+    const [branches, setBranches] = useState([]);
+    const [activeBranch, setActiveBranch] = useState('all');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        loadCategories();
+        loadBranches();
     }, []);
 
     useEffect(() => {
         loadClients();
-    }, [filter]);
+    }, [activeBranch]);
 
-    const loadCategories = async () => {
+    const loadBranches = async () => {
         try {
-            // Using the admin categories endpoint as it's already established and public
-            const res = await fetchJSON('/admin/categories?limit=100');
-            console.log('Loaded categories:', res);
+            const res = await fetchJSON('/branches');
             if (res.success && Array.isArray(res.data)) {
-                setCategories([{ _id: 'all', name: 'All' }, ...res.data]);
+                setBranches(res.data);
             }
         } catch (err) {
-            console.error('Error loading categories:', err);
+            console.error('Error loading branches:', err);
         }
     };
-
 
     const loadClients = async () => {
         setLoading(true);
         try {
-            const query = filter !== 'all' ? `?category=${filter}` : '';
+            const query = activeBranch !== 'all' ? `?branch=${activeBranch}` : '';
             const res = await fetchJSON(`/clients${query}`);
             if (res.success) {
                 setClients(res.data);
@@ -46,6 +43,8 @@ export default function Clients() {
             setLoading(false);
         }
     };
+
+    const activeBranchData = branches.find(b => b._id === activeBranch);
 
     return (
         <PageTransition>
@@ -69,26 +68,43 @@ export default function Clients() {
                     </div>
                 </section>
 
-                {/* ── STICKY FILTER ── */}
+                {/* ── BRANCH TABS ── */}
                 <div className="sticky top-[80px] z-40 bg-white/95 backdrop-blur-lg border-b border-gray-100">
                     <div className="max-w-7xl mx-auto px-5 sm:px-8">
-                        <div className="flex items-center justify-between h-14 overflow-x-auto no-scrollbar">
-                            <div className="flex items-center gap-1">
-                                {categories.map(cat => (
-                                    <button
-                                        key={cat._id}
-                                        onClick={() => setFilter(cat._id)}
-                                        className={`px-4 py-1.5 text-[13px] font-medium rounded-lg transition-all duration-200 whitespace-nowrap ${filter === cat._id
-                                            ? 'text-[#0072bc] bg-blue-50'
-                                            : 'text-gray-500 hover:text-gray-800 hover:bg-gray-50'}`}
-                                        style={{ fontFamily: 'Outfit, sans-serif' }}
-                                    >
-                                        {cat.name}
-                                    </button>
-                                ))}
+                        <div className="flex items-center justify-between h-14 overflow-x-auto no-scrollbar gap-4">
+                            <div className="flex items-center gap-1.5">
+                                <button
+                                    onClick={() => setActiveBranch('all')}
+                                    className={`px-4 py-1.5 text-[13px] font-medium rounded-lg transition-all duration-200 whitespace-nowrap ${activeBranch === 'all'
+                                        ? 'text-[#0072bc] bg-blue-50'
+                                        : 'text-gray-500 hover:text-gray-800 hover:bg-gray-50'}`}
+                                    style={{ fontFamily: 'Outfit, sans-serif' }}
+                                >
+                                    All Branches
+                                </button>
+                                {branches.map(branch => {
+                                    const isActive = activeBranch === branch._id;
+                                    const theme = branch.theme || '#0072bc';
+                                    return (
+                                        <button
+                                            key={branch._id}
+                                            onClick={() => setActiveBranch(branch._id)}
+                                            className={`px-4 py-1.5 text-[13px] font-medium rounded-lg transition-all duration-200 whitespace-nowrap ${!isActive ? 'text-gray-500 hover:text-gray-800 hover:bg-gray-50' : ''}`}
+                                            style={{
+                                                fontFamily: 'Outfit, sans-serif',
+                                                ...(isActive ? {
+                                                    color: theme,
+                                                    backgroundColor: `${theme}18`,
+                                                } : {}),
+                                            }}
+                                        >
+                                            {branch.name}
+                                        </button>
+                                    );
+                                })}
                             </div>
                             <span className="hidden sm:block text-xs border border-gray-100 px-5 py-3 rounded-lg text-gray-400 font-medium flex-shrink-0">
-                                <span className="text-[#0072bc] font-bold">{clients.length}</span> partners
+                                <span className="font-bold" style={{ color: activeBranchData?.theme || '#0072bc' }}>{clients.length}</span> partners
                             </span>
                         </div>
                     </div>
@@ -111,16 +127,22 @@ export default function Clients() {
                                             className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-70 group-hover:opacity-100"
                                         />
 
-                                        {/* Glass Overlay */}
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
 
-                                        {/* Compact Content */}
                                         <div className="absolute inset-0 p-6 flex flex-col justify-end">
                                             <div className="transform translate-y-3 group-hover:translate-y-0 transition-all duration-500">
-                                                <div className="mb-2.5">
+                                                <div className="mb-2.5 flex flex-wrap gap-1.5">
                                                     <span className="bg-[#0072bc] text-white text-[8px] font-black uppercase tracking-[0.2em] px-2 py-1 rounded shadow-lg">
                                                         {client.category?.name || 'Partner'}
                                                     </span>
+                                                    {client.branch?.name && (
+                                                        <span
+                                                            className="text-white text-[8px] font-black uppercase tracking-[0.2em] px-2 py-1 rounded shadow-lg"
+                                                            style={{ backgroundColor: activeBranchData?.theme || '#22c55e' }}
+                                                        >
+                                                            {client.branch.name}
+                                                        </span>
+                                                    )}
                                                 </div>
 
                                                 <h3 className="text-lg font-bold text-white mb-2 leading-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
@@ -143,7 +165,11 @@ export default function Clients() {
                         </div>
                     ) : (
                         <div className="text-center py-20">
-                            <p className="text-gray-400">No partners found in this category.</p>
+                            <p className="text-gray-400">
+                                {activeBranch === 'all'
+                                    ? 'No partners found.'
+                                    : `No partners found for ${activeBranchData?.name || 'this branch'}.`}
+                            </p>
                         </div>
                     )}
                 </div>

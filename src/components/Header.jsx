@@ -25,6 +25,11 @@ const navLinks = [
     subLinks: [
       { label: 'Our Approach', href: '/services/approach' },
       { label: 'AMC', href: '/services/amc' },
+      {label: 'Service Center Locations', href:'/services/service-Locations'},
+        {label:'Error Codes',href:'/services/error-codes'},
+        {label: 'Training',href:'/services/training'},
+        {label: 'Maintainance Services',href:'/services/maintainance-services'},
+        
     ]
   },
   { label: 'Contact Us', href: '/contact' },

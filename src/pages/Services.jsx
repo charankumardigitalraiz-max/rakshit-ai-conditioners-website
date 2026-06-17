@@ -4,33 +4,73 @@ import PageTransition from '../components/ui/PageTransition'
 import SectionTransition from '../components/ui/SectionTransition'
 import { useEnquiry } from '../context/EnquiryContext'
 
+import ServiceLocations from '../components/Services/Service-Locations'
+import ErrorCodes from '../components/Services/Error-Codes'
+import Training from '../components/Services/Training'
+import MaintainanceServices from '../components/Services/Maintainance'
+
 export default function Services() {
     const { serviceId } = useParams()
     const navigate = useNavigate()
     const { openModal } = useEnquiry()
 
+    const validServices = ['approach', 'amc', 'service-Locations', 'error-codes', 'training', 'maintainance-services'];
+
     // Default to 'approach' if there is no param or invalid param
     useEffect(() => {
-        if (!serviceId || (serviceId !== 'approach' && serviceId !== 'amc')) {
+        if (!serviceId || !validServices.includes(serviceId)) {
             navigate('/services/approach', { replace: true })
         }
     }, [serviceId, navigate])
 
-    const isAmc = serviceId === 'amc'
-
-    const hero = isAmc
-        ? {
-            pre: 'Asset Longevity',
-            title: 'Annual Maintenance',
-            subtitle: 'Contract (AMC)',
-            desc: 'Protect your infrastructure investments with our comprehensive, 24/7 priority maintenance protocols designed to guarantee zero unwanted downtime.'
+    const getHeroData = () => {
+        switch (serviceId) {
+            case 'amc':
+                return {
+                    pre: 'Asset Longevity',
+                    title: 'Annual Maintenance',
+                    subtitle: 'Contract (AMC)',
+                    desc: 'Protect your infrastructure investments with our comprehensive, 24/7 priority maintenance protocols designed to guarantee zero unwanted downtime.'
+                };
+            case 'service-Locations':
+                return {
+                    pre: 'Network & Coverage',
+                    title: 'Service Center',
+                    subtitle: 'Locations',
+                    desc: 'Find certified Daikin service centers and branch offices across South India to ensure quick support for your systems.'
+                };
+            case 'error-codes':
+                return {
+                    pre: 'System Diagnostics',
+                    title: 'Daikin AC',
+                    subtitle: 'Error Codes',
+                    desc: 'Quickly lookup and resolve Daikin air conditioner error codes to diagnose system behaviors and troubleshooting actions.'
+                };
+            case 'training':
+                return {
+                    pre: 'Academic Excellence',
+                    title: 'HVAC Academy',
+                    subtitle: 'Training Program',
+                    desc: 'Authorized Daikin skill development training courses covering design, installation, commission, and advanced diagnostics.'
+                };
+            case 'maintainance-services':
+                return {
+                    pre: 'Asset Integrity',
+                    title: 'Preventative & Corrective',
+                    subtitle: 'Maintenance',
+                    desc: 'Professional chemical washes, health audits, emergency repairs, and IAQ steam disinfection services for Daikin systems.'
+                };
+            case 'approach':
+            default:
+                return {
+                    pre: 'Engineering Methodology',
+                    title: 'Precision Climate',
+                    subtitle: 'Approach',
+                    desc: 'Our rigorously defined 5-step engineering framework ensures that every deployment is calculated, reliable, and perfectly integrated.'
+                };
         }
-        : {
-            pre: 'Engineering Methodology',
-            title: 'Precision Climate',
-            subtitle: 'Approach',
-            desc: 'Our rigorously defined 5-step engineering framework ensures that every deployment is calculated, reliable, and perfectly integrated.'
-        }
+    }
+    const hero = getHeroData();
 
     return (
         <>
@@ -61,8 +101,7 @@ export default function Services() {
                     <hr className="border-gray-100" />
 
                     {/* View Switching */}
-                    {isAmc ? (
-                        // --- AMC VIEW ---
+                    {serviceId === 'amc' && (
                         // --- AMC VIEW ---
                         <div className="bg-gray-50/30 overflow-hidden">
                             <section className="py-20">
@@ -262,7 +301,14 @@ export default function Services() {
                                 </div>
                             </section>
                         </div>
-                    ) : (
+                    )}
+
+                    {serviceId === 'service-Locations' && <ServiceLocations />}
+                    {serviceId === 'error-codes' && <ErrorCodes />}
+                    {serviceId === 'training' && <Training />}
+                    {serviceId === 'maintainance-services' && <MaintainanceServices />}
+
+                    {serviceId === 'approach' && (
                         // --- APPROACH VIEW ---
                         <section className="py-20 lg:py-16 bg-gray-50/50">
                             <div className="max-w-7xl mx-auto px-5 sm:px-8">
@@ -344,21 +390,39 @@ export default function Services() {
                                 <div>
                                     <div className="mb-12 border-l-4 border-[#0072bc] pl-6">
                                         <h3 className="text-2xl font-bold text-gray-900 mb-2" style={{ fontFamily: 'Outfit, sans-serif' }}>The Execution Roadmap</h3>
-                                        <p className="text-gray-500 text-sm">A systematic 6-phase journey from analytics to technical handover.</p>
+                                        <p className="text-gray-500 text-sm">A systematic 13-phase journey from analytics to technical handover.</p>
                                     </div>
                                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                                         {[
-                                            { num: '01', title: 'Requirement Analytics', desc: 'Thorough site surveys and load estimations based on geographical mapping and occupancy density.' },
-                                            { num: '02', title: 'System Blueprinting', desc: 'Drafting CAD alignments for duct routing and unit placements to ensure maximum aesthetic concealment.' },
-                                            { num: '03', title: 'Procurement Strategy', desc: 'Sourcing exact Daikin models and superior gauge copper pipelines with factory quality cross-checks.' },
-                                            { num: '04', title: 'Structural Installation', desc: 'Precision bracket mounting, copper laying, and gas-tight brazing protocols by certified engineers.' },
-                                            { num: '05', title: 'Commissioning', desc: 'Vacuum holding tests, nitrogen flushing, and systematic start-ups with index testing.' },
-                                            { num: '06', title: 'Telemetry Support', desc: 'Activating structural warranties and long-term preventive thermal checkups.' }
+                                            { num: '01', title: 'Requirement Analytics', desc: 'Thorough site surveys and load estimations based on geographical mapping and occupancy density.', img: '/service/ac_quality_protocols.png' },
+                                            { num: '02', title: 'System Blueprinting', desc: 'Drafting CAD alignments for duct routing and unit placements to ensure maximum aesthetic concealment.', img: '/service/daikin_vrv_infrastructure_1776869952285.png' },
+                                            { num: '03', title: 'Procurement Strategy', desc: 'Sourcing exact Daikin models and superior gauge copper pipelines with factory quality cross-checks.', img: '/service/hvac_lifecycle_support_1776869974416.png' },
+                                            { num: '04', title: 'Structural Installation', desc: 'Precision bracket mounting, copper laying, and gas-tight brazing protocols by certified engineers.', img: '/service/amc_technician_maintenance_1776509796451.png' },
+                                            { num: '05', title: 'Commissioning', desc: 'Vacuum holding tests, nitrogen flushing, and systematic start-ups with index testing.', img: '/service/amc_genuine_spares_1776509955145.png' },
+                                            { num: '06', title: 'Telemetry Support', desc: 'Activating structural warranties and long-term preventive thermal checkups.', img: '/service/daikin_vrv_infrastructure_1776869952285.png' },
+                                            { num: '07', title: 'Pump Service', desc: 'Installing high-efficiency condensate drain pumps with non-return valves to ensure clean, leak-free moisture disposal.', img: '/service/ac_quality_protocols.png' },
+                                            { num: '08', title: 'Copper Piping', desc: 'Laying premium-grade insulated copper lines with optimal routing to minimize thermal loss and pressure drop.', img: '/service/daikin_vrv_infrastructure_1776869952285.png' },
+                                            { num: '09', title: 'Advanced Copper Piping', desc: 'Deploying specialized brazing, nitrogen purging, and multi-port refnet joint layouts for VRV refrigerant distribution.', img: '/service/amc_genuine_spares_1776509955145.png' },
+                                            { num: '10', title: 'Design', desc: 'Drafting precise structural CAD blueprints, computing thermal cooling loads, and planning airflow alignments.', img: '/service/ac_quality_protocols.png' },
+                                            { num: '11', title: 'Duct', desc: 'Fabricating and sealing low-friction rectangular or round GI ducts to achieve quiet, balanced air delivery.', img: '/service/hvac_lifecycle_support_1776869974416.png' },
+                                            { num: '12', title: 'Grill Designs', desc: 'Installing linear slot diffusers, double-deflection grilles, and custom intake profiles for seamless ceiling integration.', img: '/service/daikin_vrv_infrastructure_1776869952285.png' },
+                                            { num: '13', title: 'Fans', desc: 'Integrating inline exhaust fans, fresh air ventilation units, and high-CFM blowers for complete indoor air cycling.', img: '/service/ac_quality_protocols.png' }
                                         ].map((step, idx) => (
-                                            <div key={idx} className="bg-white p-6 rounded-2xl border border-gray-100 hover:border-[#0072bc]/20 transition-all group flex gap-5">
-                                                <div className="text-2xl font-black text-gray-100 group-hover:text-[#0072bc]/10 transition-colors" style={{ fontFamily: 'Outfit, sans-serif' }}>{step.num}</div>
-                                                <div>
-                                                    <h4 className="text-sm font-bold text-gray-900 mb-1" style={{ fontFamily: 'Outfit, sans-serif' }}>{step.title}</h4>
+                                            <div key={idx} className="bg-white rounded-[2rem] border border-gray-100 overflow-hidden hover:border-[#0072bc]/30 hover:shadow-xl transition-all duration-500 group flex flex-col">
+                                                {/* Card Image */}
+                                                <div className="w-full h-32 sm:h-36 overflow-hidden relative">
+                                                    <img
+                                                        src={step.img}
+                                                        alt={step.title}
+                                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                    />
+                                                    <div className="absolute top-3 left-3 bg-[#0072bc]/90 backdrop-blur-sm text-white text-[10px] font-bold py-1 px-2.5 rounded-full">
+                                                        {step.num}
+                                                    </div>
+                                                </div>
+                                                {/* Content */}
+                                                <div className="p-5 flex-grow">
+                                                    <h4 className="text-sm font-bold text-gray-900 mb-1.5" style={{ fontFamily: 'Outfit, sans-serif' }}>{step.title}</h4>
                                                     <p className="text-gray-500 text-[11px] leading-relaxed">{step.desc}</p>
                                                 </div>
                                             </div>

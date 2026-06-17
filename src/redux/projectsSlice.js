@@ -3,7 +3,7 @@ import { fetchJSON } from '../services/api'
 
 export const fetchProjects = createAsyncThunk('projects/fetchProjects', async (_, thunkAPI) => {
   try {
-    const response = await fetchJSON('/projects')
+    const response = await fetchJSON('/projects?limit=100')
     return response.data || []
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message)

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, MapPin, Calendar, Activity, Wind, Database, ArrowRight } from 'lucide-react'
 import PageTransition from '../components/ui/PageTransition'
 import SectionTransition from '../components/ui/SectionTransition'
 import { fetchProjects } from '../redux/projectsSlice'
-import { getImageUrl } from '../services/api'
+import { fetchJSON, getImageUrl } from '../services/api'
 
 // Project Detail Modal Component
 const ProjectModal = ({ project, isOpen, onClose }) => {
@@ -88,9 +88,9 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
                 </div>
                 <div className="space-y-1">
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                    <Activity size={12} /> Horsepower (HP)
+                    <MapPin size={12} /> Branch
                   </p>
-                  <p className="text-sm font-semibold text-slate-700">{project.hp || 'Not Specified'}</p>
+                  <p className="text-sm font-semibold text-slate-700">{project.branch?.name || 'Not Specified'}</p>
                 </div>
               </div>
 
@@ -125,6 +125,8 @@ export default function Projects() {
 
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [branches, setBranches] = useState([]);
+  const [activeBranch, setActiveBranch] = useState('all');
 
   useEffect(() => {
     if (projectStatus === 'idle') {
@@ -132,12 +134,34 @@ export default function Projects() {
     }
   }, [dispatch, projectStatus])
 
+  useEffect(() => {
+    const loadBranches = async () => {
+      try {
+        const res = await fetchJSON('/branches');
+        if (res.success && Array.isArray(res.data)) {
+          setBranches(res.data);
+        }
+      } catch (err) {
+        console.error('Error loading branches:', err);
+      }
+    };
+    loadBranches();
+  }, []);
+
   const openModal = (project) => {
     setSelectedProject(project);
     setIsModalOpen(true);
   };
 
-  const filteredProjects = allProjects
+  const activeBranchData = branches.find(b => b._id === activeBranch);
+
+  const filteredProjects = useMemo(() => {
+    if (activeBranch === 'all') return allProjects;
+    return allProjects.filter((project) => {
+      const branchId = project.branch?._id || project.branch;
+      return branchId === activeBranch;
+    });
+  }, [allProjects, activeBranch]);
 
   return (
     <PageTransition>
@@ -168,13 +192,59 @@ export default function Projects() {
           </div>
         </div>
 
+        {/* Branch Tabs */}
+        <div className="sticky top-[80px] z-40 bg-white/95 backdrop-blur-lg border-b border-gray-100">
+          <div className="max-w-7xl mx-auto px-5 sm:px-8">
+            <div className="flex items-center justify-between h-14 overflow-x-auto no-scrollbar gap-4">
+              <div className="flex items-center gap-1.5">
+                <button
+                  onClick={() => setActiveBranch('all')}
+                  className={`px-4 py-1.5 text-[13px] font-medium rounded-lg transition-all duration-200 whitespace-nowrap ${activeBranch === 'all'
+                    ? 'text-[#0072bc] bg-blue-50'
+                    : 'text-gray-500 hover:text-gray-800 hover:bg-gray-50'}`}
+                  style={{ fontFamily: 'Outfit, sans-serif' }}
+                >
+                  All Branches
+                </button>
+                {branches.map((branch) => {
+                  const isActive = activeBranch === branch._id;
+                  const theme = branch.theme || '#0072bc';
+                  return (
+                    <button
+                      key={branch._id}
+                      onClick={() => setActiveBranch(branch._id)}
+                      className={`px-4 py-1.5 text-[13px] font-medium rounded-lg transition-all duration-200 whitespace-nowrap ${!isActive ? 'text-gray-500 hover:text-gray-800 hover:bg-gray-50' : ''}`}
+                      style={{
+                        fontFamily: 'Outfit, sans-serif',
+                        ...(isActive ? { color: theme, backgroundColor: `${theme}18` } : {}),
+                      }}
+                    >
+                      {branch.name}
+                    </button>
+                  );
+                })}
+              </div>
+              <span className="hidden sm:block text-xs border border-gray-100 px-5 py-3 rounded-lg text-gray-400 font-medium flex-shrink-0">
+                <span className="font-bold" style={{ color: activeBranchData?.theme || '#0072bc' }}>{filteredProjects.length}</span> projects
+              </span>
+            </div>
+          </div>
+        </div>
+
         {/* Full Projects Gallery */}
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 py-2">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 py-10 lg:py-14">
           {projectStatus === 'loading' && (
             <div className="py-14 text-center text-gray-500">Loading projects...</div>
           )}
           {projectStatus === 'failed' && (
             <div className="py-14 text-center text-red-500">{projectError || 'Failed to load projects.'}</div>
+          )}
+          {projectStatus === 'succeeded' && filteredProjects.length === 0 && (
+            <div className="py-20 text-center text-gray-400">
+              {activeBranch === 'all'
+                ? 'No projects found.'
+                : `No projects found for ${activeBranchData?.name || 'this branch'}.`}
+            </div>
           )}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
             {filteredProjects.map((project, index) => (
@@ -190,10 +260,18 @@ export default function Projects() {
                     />
 
                     {/* Category Badge */}
-                    <div className="absolute top-4 right-4 z-10">
+                    <div className="absolute top-4 right-4 z-10 flex flex-col gap-1.5 items-end">
                       <span className="bg-white/80 backdrop-blur-md px-3 py-1 rounded-lg text-[9px] font-bold text-[#0072bc] uppercase tracking-[0.1em] border border-white/20 shadow-sm">
                         {typeof project.category === 'string' ? project.category : project.category?.name}
                       </span>
+                      {project.branch?.name && (
+                        <span
+                          className="bg-white/80 backdrop-blur-md px-3 py-1 rounded-lg text-[9px] font-bold uppercase tracking-[0.1em] border border-white/20 shadow-sm"
+                          style={{ color: project.branch?.theme || '#22c55e' }}
+                        >
+                          {project.branch.name}
+                        </span>
+                      )}
                     </div>
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>

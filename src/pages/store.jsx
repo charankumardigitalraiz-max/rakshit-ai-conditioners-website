@@ -103,7 +103,7 @@ export default function Store() {
         const initialVariants = {}
         products.forEach(p => {
             const pid = p._id || p.id;
-            if (pid) initialVariants[pid] = p.variants[0]
+            if (pid && p.variants?.length) initialVariants[pid] = p.variants[0]
         })
         setSelectedVariants(initialVariants)
     }, [products])
@@ -225,7 +225,7 @@ export default function Store() {
                                 <SectionTransition key={product._id || product.id} delay={index * 0.05}>
                                     <ProductCard
                                         product={product}
-                                        currentVariant={selectedVariants[product._id || product.id] || product.variants[0]}
+                                        currentVariant={selectedVariants[product._id || product.id] || product.variants?.[0]}
                                         onVariantChange={handleVariantChange}
                                     />
                                 </SectionTransition>

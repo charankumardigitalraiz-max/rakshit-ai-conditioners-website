@@ -52,6 +52,7 @@ export default function ProductCard({ product, currentVariant, onVariantChange }
                 </div>
 
                 {/* Variant Selector - Pill Format */}
+                {product.variants?.length > 0 && currentVariant && (
                 <div className="mt-auto mb-5">
                     <div className="flex items-center justify-between mb-2">
                         <span className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">Select Model</span>
@@ -81,13 +82,16 @@ export default function ProductCard({ product, currentVariant, onVariantChange }
                         </div>
                     </div>
                 </div>
+                )}
 
                 {/* Price block - Compact */}
                 <div className="pt-2 border-t border-gray-100 flex items-end justify-between">
                     <div>
                         <div className="text-[8px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">Indicative Quote</div>
                         <div className="text-lg font-black text-gray-900 tracking-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                            ₹{currentVariant.price.toLocaleString()}
+                            {currentVariant?.price != null
+                                ? `₹${currentVariant.price.toLocaleString()}`
+                                : 'Contact for quote'}
                         </div>
                     </div>
                     <div className="text-[8px] font-bold text-gray-400 uppercase tracking-widest italic mb-1">

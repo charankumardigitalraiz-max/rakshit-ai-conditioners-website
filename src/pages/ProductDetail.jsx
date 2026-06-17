@@ -40,7 +40,7 @@ export default function ProductDetail() {
                 },
                 body: JSON.stringify({
                     ...quoteData,
-                    interest: `${product.name} (${activeVariant.capacity})`,
+                    interest: `${product.name}${activeVariant?.capacity ? ` (${activeVariant.capacity})` : ''}`,
                     product: product._id || product.id // Support both for safety
                 }),
             })
@@ -68,20 +68,20 @@ export default function ProductDetail() {
         const found = products.find(p => p.slug === productId || p.id === productId || p._id === productId)
         if (found) {
             setProduct(found)
-            setActiveVariant(found.variants[0])
+            setActiveVariant(found.variants?.[0] ?? null)
         } else if (products.length > 0) {
             // Fallback to searching by slug-like comparison if ID match fails
             const foundBySlug = products.find(p => p.id && (p.id.includes(productId) || productId.includes(p.id)))
             if (foundBySlug) {
                 setProduct(foundBySlug)
-                setActiveVariant(foundBySlug.variants[0])
+                setActiveVariant(foundBySlug.variants?.[0] ?? null)
             } else {
                 navigate('/store')
             }
         }
     }, [productId, products, navigate])
 
-    if (!product || !activeVariant) return <div className="min-h-screen flex items-center justify-center">Loading...</div>
+    if (!product) return <div className="min-h-screen flex items-center justify-center">Loading...</div>
 
     const techImages = [
         { label: 'Main Unit', isMain: true, url: getImageUrl(product.image), hasPlaceholder: product.hasPlaceholderImage, placeholderText: product.placeholderText },
@@ -223,6 +223,7 @@ export default function ProductDetail() {
                             </div>
 
                             {/* Pricing Block */}
+                            {activeVariant && (
                             <div className="mb-5 flex flex-col items-start bg-gray-50/50 p-6 rounded-2xl border border-gray-100">
                                 <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider block mb-2">Indicative Dealer Price</span>
                                 <div className="flex items-baseline gap-4 mb-2">
@@ -234,8 +235,10 @@ export default function ProductDetail() {
                                     <span className="text-xs text-gray-500 font-medium">Includes GST *</span>
                                 </div>
                             </div>
+                            )}
 
                             {/* Capacity Selector */}
+                            {product.variants?.length > 0 && activeVariant && (
                             <div className="mb-10">
                                 <div className="flex items-center justify-between mb-4">
                                     <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider block mb-2">Choose Configuration</span>
@@ -262,6 +265,7 @@ export default function ProductDetail() {
                                     })}
                                 </div>
                             </div>
+                            )}
 
                             {/* CTA Actions */}
                             <div className="flex flex-col sm:flex-row gap-3">
@@ -328,11 +332,13 @@ export default function ProductDetail() {
                                         <div className="bg-gray-50/50 p-4 rounded-3xl border border-gray-100">
                                             <div className="grid grid-cols-1 gap-2">
                                                 {[
-                                                    { label: 'Cooling Capacity', val: `${activeVariant.capacity}` },
+                                                    ...(activeVariant ? [
+                                                        { label: 'Cooling Capacity', val: `${activeVariant.capacity}` },
+                                                        { label: 'ISEER Rating', val: activeVariant.iseer ? `${activeVariant.iseer}` : '3.90+ for 3-Star Models' },
+                                                    ] : []),
                                                     { label: 'Power Supply', val: product.technicalSpecs?.powerSupply || '1 Phase, 230 V, 50 Hz' },
                                                     { label: 'Refrigerant', val: product.refrigerant || 'Eco-Friendly R-32 (Zero ODP)' },
                                                     { label: 'Condenser Coil', val: product.technicalSpecs?.condenserCoil || '100% High-Grade Copper' },
-                                                    { label: 'ISEER Rating', val: activeVariant.iseer ? `${activeVariant.iseer}` : '3.90+ for 3-Star Models' },
                                                     { label: 'Operating Temp', val: product.technicalSpecs?.operatingTemp || 'Stable up to 52°C Ambient' }
                                                 ].map((spec, i) => (
                                                     <div key={i} className="flex flex-col sm:flex-row sm:items-center justify-between bg-white p-5 sm:px-8 rounded-2xl border border-transparent hover:border-blue-100 transition-all gap-2">
@@ -511,7 +517,7 @@ export default function ProductDetail() {
                                 <form className="space-y-5" onSubmit={handleQuoteSubmit}>
                                     <div>
                                         <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">Product Configuration</label>
-                                        <input type="text" readOnly value={`${product.name} - ${activeVariant.capacity}`} className="w-full bg-gray-50 border border-gray-200 text-gray-500 text-sm rounded-xl px-4 py-3 focus:outline-none font-medium" />
+                                        <input type="text" readOnly value={`${product.name}${activeVariant?.capacity ? ` - ${activeVariant.capacity}` : ''}`} className="w-full bg-gray-50 border border-gray-200 text-gray-500 text-sm rounded-xl px-4 py-3 focus:outline-none font-medium" />
                                     </div>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                         <div>

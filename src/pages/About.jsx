@@ -33,7 +33,7 @@ export default function About() {
               </p>
               <div className="flex flex-wrap items-center justify-center gap-6">
                 <div className="bg-blue-50/50 px-6 py-3 rounded-full border border-blue-100 flex items-center gap-3">
-                  <span className="text-[#0072bc] font-bold text-xl" style={{ fontFamily: 'Outfit, sans-serif' }}>₹50Cr+</span>
+                  <span className="text-[#0072bc] font-bold text-xl" style={{ fontFamily: 'Outfit, sans-serif' }}>₹75Cr+</span>
                   <span className="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold" style={{ fontFamily: 'Outfit, sans-serif' }}>Annual Turnover</span>
                 </div>
                 <div className="bg-blue-50/50 px-6 py-3 rounded-full border border-blue-100 flex items-center gap-3">
@@ -59,13 +59,13 @@ export default function About() {
                 </h2>
                 <div className="space-y-6 text-gray-600 leading-relaxed text-base">
                   <p>
-                    With an annual turnover exceeding <strong className="text-gray-900">50 crores</strong> and a team of experienced, skilled engineers and technicians across South India, we’ve become a preferred partner for high-end cooling systems. Our clients include IT companies, real estate developers, educational institutions, and manufacturing plants.
+                    With an annual turnover exceeding <strong className="text-gray-900">75 crores</strong> and a team of experienced, skilled engineers and technicians across South India, we’ve become a preferred partner for high-end cooling systems. Our clients include IT companies, real estate developers, educational institutions, and manufacturing plants.
                   </p>
                   <p>
                     Our success stems from our strong business structure, which includes technicians, engineers, and managers working seamlessly together. This ensures we efficiently address complex tasks, provide quick responses, and deliver high-quality service with a dedicated professional team.
                   </p>
                   <p className="italic text-sm text-[#0072bc] font-medium">
-                    Started by Mr. Koppisetty Rajkamal, Rakshith has evolved into a leading cooling solutions provider, following quality standards that match the best in the world.
+                    Started by <strong className="text-gray-900 font-bold not-italic">Mr. Koppisetty Rajkamal</strong>, Rakshith has evolved into a leading cooling solutions provider, following quality standards that match the best in the world.
                   </p>
                 </div>
 
@@ -204,9 +204,11 @@ export default function About() {
                   { id: 1, val: 10, label: 'VRV Engineers', sub: 'Site Experts' },
                   { id: 2, val: 6, label: 'Non-VRV Team', sub: 'Site Engineers' },
                   { id: 3, val: 75, label: 'Installers', sub: '25 Tech + 50 Helpers' },
-                  { id: 4, val: 24, label: 'Service Team', sub: '12 Tech + 12 Helpers' },
-                  { id: 5, val: 15, label: 'Admin Staff', sub: 'Operations' },
+                  { id: 4, val: 48, label: 'Service Team', sub: '12 Tech + 12 Helpers' },
+                  { id: 5, val: 25, label: 'Admin Staff', sub: 'Operations' },
                   { id: 6, val: 5, label: 'Marketing', sub: 'Sales Support' },
+                  { id: 7, val: 6, label: 'Project Managers' },
+                   { id: 8, val: 26, label: 'Design & Store ' },
                 ].map((stat) => (
                   <div key={stat.id} className="text-center">
                     <div className="text-2xl font-black text-gray-900" style={{ fontFamily: 'Outfit, sans-serif' }}>{stat.val}</div>
