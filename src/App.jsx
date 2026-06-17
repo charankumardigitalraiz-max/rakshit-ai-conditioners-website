@@ -1,6 +1,7 @@
 import React, { Suspense, lazy, useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import { Toaster } from 'react-hot-toast'
 import { fetchProducts } from './redux/productSlice'
 import { AnimatePresence } from 'framer-motion'
 import Header from './components/Header'
@@ -43,6 +44,7 @@ function App() {
 
   return (
     <EnquiryProvider>
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="font-sans antialiased text-gray-900 bg-white selection:bg-[#005bac] selection:text-white relative">
         <ScrollToTop />
         <SocialBand />

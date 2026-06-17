@@ -56,9 +56,11 @@ export default function EnquiryModal() {
       })
 
       if (data.success) {
-        toast.success('Inquiry submitted! We will contact you soon.')
+        toast.success('Inquiry submitted successfully! We will contact you soon.')
         setFormData(DEFAULT_FORM)
         closeModal()
+      } else {
+        toast.error(data.error || data.message || 'Failed to submit inquiry. Please try again.')
       }
     } catch (error) {
       console.error('Submission error:', error)
