@@ -2,13 +2,6 @@ import React, { useRef, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAchievements } from '../../redux/achievementsSlice'
 import { getImageUrl } from '../../services/api'
-const awards = [
-  { id: 1, img: '/achievements/1.webp' },
-  { id: 2, img: '/achievements/2.webp' },
-  { id: 3, img: '/achievements/3.webp' },
-  { id: 4, img: '/achievements/4.webp' },
-  // { id: 5, img: '/achievements/4.webp' },
-]
 
 export default function Achievements() {
   const scrollRef = useRef(null);
@@ -128,7 +121,7 @@ export default function Achievements() {
             ref={scrollRef}
             className="flex overflow-x-auto gap-6 pb-12 snap-x no-scrollbar scroll-smooth"
           >
-            {achievements.map((item, index) => (
+            {achievements.map((item) => (
               <div
                 key={item._id}
                 className="flex-shrink-0 w-[220px] sm:w-[260px] snap-start group relative bg-white rounded-3xl border border-gray-100 overflow-hidden transition-all duration-500 hover:border-[#0072bc]/30 hover:shadow-[0_40px_80px_-20px_rgba(0,114,188,0.15)]"
@@ -145,9 +138,19 @@ export default function Achievements() {
                   {/* Pulsing Base */}
                   <div className="absolute inset-4 rounded-full border border-blue-50 group-hover:scale-110 transition-transform duration-1000 group-hover:border-[#0072bc]/10" />
 
+                  {/* Year Badge */}
+                  {item.year && (
+                    <span className="absolute top-3 left-3 z-20 inline-flex items-center gap-1 px-2.5 py-1 bg-[#0072bc] text-white text-[10px] font-black uppercase tracking-wider rounded-full shadow-lg shadow-[#0072bc]/30 ring-2 ring-white">
+                      <svg className="w-3 h-3 opacity-90" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+                      </svg>
+                      {item.year}
+                    </span>
+                  )}
+
                   <img
                     src={getImageUrl(item.image)}
-                    alt={`Award ${item._id}`}
+                    alt={item.title || 'Achievement award'}
                     className="relative z-10 w-full h-full object-contain transition-all duration-700 group-hover:scale-110 drop-shadow-xl"
                   />
                   {/* View Image Button */}
@@ -164,10 +167,16 @@ export default function Achievements() {
                 </div>
 
                 {/* Card Branding */}
-                <div className="px-6 py-5 bg-gray-50/50 group-hover:bg-blue-50/40 transition-colors border-t border-gray-50 flex items-center justify-between">
-                  <div>
-                    <h4 className="text-[12px] font-bold text-gray-900 tracking-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>Official Certification</h4>
-                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Premium Partner</p>
+                <div className="px-5 py-4 bg-gray-50/50 group-hover:bg-blue-50/40 transition-colors border-t border-gray-50 flex items-start justify-between gap-3">
+                  <div className="min-w-0 flex-1">
+                    <h4 className="text-[12px] font-bold text-gray-900 tracking-tight line-clamp-2 leading-snug" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                      {item.title || 'Official Certification'}
+                    </h4>
+                    {item.description && (
+                      <p className="text-[10px] text-gray-400 mt-1 line-clamp-2 leading-relaxed">
+                        {item.description}
+                      </p>
+                    )}
                   </div>
                   <div className="w-8 h-8 rounded-full bg-white border border-gray-100 flex items-center justify-center shadow-sm text-[#0072bc] group-hover:bg-[#0072bc] group-hover:text-white transition-all">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
