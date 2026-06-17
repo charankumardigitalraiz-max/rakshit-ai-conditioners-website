@@ -1,27 +1,77 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import PageTransition from '../components/ui/PageTransition'
 import SectionTransition from '../components/ui/SectionTransition'
 import { useEnquiry } from '../context/EnquiryContext'
+import { fetchJSON } from '../services/api'
 
 import ServiceLocations from '../components/Services/Service-Locations'
 import ErrorCodes from '../components/Services/Error-Codes'
 import Training from '../components/Services/Training'
 import MaintainanceServices from '../components/Services/Maintainance'
+import ApproachView from '../components/Services/ApproachView'
 
 export default function Services() {
     const { serviceId } = useParams()
     const navigate = useNavigate()
     const { openModal } = useEnquiry()
+    const [approachData, setApproachData] = useState(null)
+    const [approachLoading, setApproachLoading] = useState(false)
+    const [trainingData, setTrainingData] = useState(null)
+    const [trainingLoading, setTrainingLoading] = useState(false)
+
+    const openAmcQuotation = () => {
+        openModal({
+            title: 'AMC Quotation',
+            subtitle: 'Annual Maintenance Contract',
+            interest: 'Comprehensive AMC',
+            message: 'I would like to request a quotation for an Annual Maintenance Contract (AMC). Please share pricing for Comprehensive, Non-Comprehensive, and Labour Only options.',
+        })
+    }
 
     const validServices = ['approach', 'amc', 'service-Locations', 'error-codes', 'training', 'maintainance-services'];
 
-    // Default to 'approach' if there is no param or invalid param
     useEffect(() => {
         if (!serviceId || !validServices.includes(serviceId)) {
             navigate('/services/approach', { replace: true })
         }
     }, [serviceId, navigate])
+
+    useEffect(() => {
+        if (serviceId !== 'approach') return
+
+        const loadApproach = async () => {
+            try {
+                setApproachLoading(true)
+                const res = await fetchJSON('/service-approach')
+                setApproachData(res.data)
+            } catch {
+                setApproachData(null)
+            } finally {
+                setApproachLoading(false)
+            }
+        }
+
+        loadApproach()
+    }, [serviceId])
+
+    useEffect(() => {
+        if (serviceId !== 'training') return
+
+        const loadTraining = async () => {
+            try {
+                setTrainingLoading(true)
+                const res = await fetchJSON('/service-training')
+                setTrainingData(res.data)
+            } catch {
+                setTrainingData(null)
+            } finally {
+                setTrainingLoading(false)
+            }
+        }
+
+        loadTraining()
+    }, [serviceId])
 
     const getHeroData = () => {
         switch (serviceId) {
@@ -47,7 +97,12 @@ export default function Services() {
                     desc: 'Quickly lookup and resolve Daikin air conditioner error codes to diagnose system behaviors and troubleshooting actions.'
                 };
             case 'training':
-                return {
+                return trainingData?.pageHero ? {
+                    pre: trainingData.pageHero.pre,
+                    title: trainingData.pageHero.title,
+                    subtitle: trainingData.pageHero.subtitle,
+                    desc: trainingData.pageHero.description,
+                } : {
                     pre: 'Academic Excellence',
                     title: 'HVAC Academy',
                     subtitle: 'Training Program',
@@ -62,7 +117,12 @@ export default function Services() {
                 };
             case 'approach':
             default:
-                return {
+                return approachData?.hero ? {
+                    pre: approachData.hero.pre,
+                    title: approachData.hero.title,
+                    subtitle: approachData.hero.subtitle,
+                    desc: approachData.hero.description,
+                } : {
                     pre: 'Engineering Methodology',
                     title: 'Precision Climate',
                     subtitle: 'Approach',
@@ -291,7 +351,7 @@ export default function Services() {
 
                                     <div className="mt-12 text-center">
                                         <button
-                                            onClick={openModal}
+                                            onClick={openAmcQuotation}
                                             className="inline-flex items-center gap-2 px-8 py-3 bg-[#002f54] text-white text-[11px] font-bold uppercase tracking-wider rounded-xl shadow-lg hover:bg-[#0072bc] transition-colors"
                                         >
                                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
@@ -305,132 +365,13 @@ export default function Services() {
 
                     {serviceId === 'service-Locations' && <ServiceLocations />}
                     {serviceId === 'error-codes' && <ErrorCodes />}
-                    {serviceId === 'training' && <Training />}
+                    {serviceId === 'training' && (
+                        <Training content={trainingData} loading={trainingLoading} />
+                    )}
                     {serviceId === 'maintainance-services' && <MaintainanceServices />}
 
                     {serviceId === 'approach' && (
-                        // --- APPROACH VIEW ---
-                        <section className="py-20 lg:py-16 bg-gray-50/50">
-                            <div className="max-w-7xl mx-auto px-5 sm:px-8">
-                                {/* Core Philosophy Pillars */}
-                                <div className="mb-20">
-                                    <div className="text-center max-w-2xl mx-auto mb-16">
-                                        <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                                            Our Core <span className="text-[#0072bc]">Methodology</span>
-                                        </h2>
-                                        <p className="text-gray-500 text-sm leading-relaxed">
-                                            Our approach is rooted in three foundational pillars that ensure every installation is a masterpiece of precision and reliability.
-                                        </p>
-                                    </div>
-                                    <div className="grid lg:grid-cols-3 gap-8">
-                                        {[
-                                            {
-                                                title: 'Standardized Quality Protocols',
-                                                desc: 'We deliver industry-leading quality through standardized cooling protocols and optimized hardware selection, ensuring maximum thermodynamic efficiency.',
-                                                img: '/service/ac_quality_protocols.png',
-                                                icon: (
-                                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                                                    </svg>
-                                                )
-                                            },
-                                            {
-                                                title: 'Infrastructure Integrity',
-                                                desc: 'Our safety-first engineering protocols prevent malfunctions through rigorous equipment auditing and preemptive thermal assessments.',
-                                                img: '/service/daikin_vrv_infrastructure_1776869952285.png',
-                                                icon: (
-                                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                                                    </svg>
-                                                )
-                                            },
-                                            {
-                                                title: 'Proactive Lifecycle Support',
-                                                desc: 'We provide prompt, record-driven support that maximizes equipment longevity through dedicated technical monitoring and periodic health checks.',
-                                                img: '/service/hvac_lifecycle_support_1776869974416.png',
-                                                icon: (
-                                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                    </svg>
-                                                )
-                                            }
-                                        ].map((step, idx) => (
-                                            <div
-                                                key={idx}
-                                                className="bg-white rounded-[2rem] border border-gray-100 hover:border-[#0072bc]/30 hover:shadow-xl transition-all duration-500 overflow-hidden group"
-                                            >
-                                                {/* Image */}
-                                                <div className="w-full h-48 overflow-hidden">
-                                                    <img
-                                                        src={step.img}
-                                                        alt={step.title}
-                                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                                    />
-                                                </div>
-
-                                                {/* Content */}
-                                                <div className="p-6">
-                                                    <h4
-                                                        className="text-lg font-bold text-gray-900 mb-3"
-                                                        style={{ fontFamily: 'Outfit, sans-serif' }}
-                                                    >
-                                                        {step.title}
-                                                    </h4>
-
-                                                    <p className="text-gray-500 text-sm leading-relaxed">
-                                                        {step.desc}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Implementation Roadmap */}
-                                <div>
-                                    <div className="mb-12 border-l-4 border-[#0072bc] pl-6">
-                                        <h3 className="text-2xl font-bold text-gray-900 mb-2" style={{ fontFamily: 'Outfit, sans-serif' }}>The Execution Roadmap</h3>
-                                        <p className="text-gray-500 text-sm">A systematic 13-phase journey from analytics to technical handover.</p>
-                                    </div>
-                                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                        {[
-                                            { num: '01', title: 'Requirement Analytics', desc: 'Thorough site surveys and load estimations based on geographical mapping and occupancy density.', img: '/service/ac_quality_protocols.png' },
-                                            { num: '02', title: 'System Blueprinting', desc: 'Drafting CAD alignments for duct routing and unit placements to ensure maximum aesthetic concealment.', img: '/service/daikin_vrv_infrastructure_1776869952285.png' },
-                                            { num: '03', title: 'Procurement Strategy', desc: 'Sourcing exact Daikin models and superior gauge copper pipelines with factory quality cross-checks.', img: '/service/hvac_lifecycle_support_1776869974416.png' },
-                                            { num: '04', title: 'Structural Installation', desc: 'Precision bracket mounting, copper laying, and gas-tight brazing protocols by certified engineers.', img: '/service/amc_technician_maintenance_1776509796451.png' },
-                                            { num: '05', title: 'Commissioning', desc: 'Vacuum holding tests, nitrogen flushing, and systematic start-ups with index testing.', img: '/service/amc_genuine_spares_1776509955145.png' },
-                                            { num: '06', title: 'Telemetry Support', desc: 'Activating structural warranties and long-term preventive thermal checkups.', img: '/service/daikin_vrv_infrastructure_1776869952285.png' },
-                                            { num: '07', title: 'Pump Service', desc: 'Installing high-efficiency condensate drain pumps with non-return valves to ensure clean, leak-free moisture disposal.', img: '/service/ac_quality_protocols.png' },
-                                            { num: '08', title: 'Copper Piping', desc: 'Laying premium-grade insulated copper lines with optimal routing to minimize thermal loss and pressure drop.', img: '/service/daikin_vrv_infrastructure_1776869952285.png' },
-                                            { num: '09', title: 'Advanced Copper Piping', desc: 'Deploying specialized brazing, nitrogen purging, and multi-port refnet joint layouts for VRV refrigerant distribution.', img: '/service/amc_genuine_spares_1776509955145.png' },
-                                            { num: '10', title: 'Design', desc: 'Drafting precise structural CAD blueprints, computing thermal cooling loads, and planning airflow alignments.', img: '/service/ac_quality_protocols.png' },
-                                            { num: '11', title: 'Duct', desc: 'Fabricating and sealing low-friction rectangular or round GI ducts to achieve quiet, balanced air delivery.', img: '/service/hvac_lifecycle_support_1776869974416.png' },
-                                            { num: '12', title: 'Grill Designs', desc: 'Installing linear slot diffusers, double-deflection grilles, and custom intake profiles for seamless ceiling integration.', img: '/service/daikin_vrv_infrastructure_1776869952285.png' },
-                                            { num: '13', title: 'Fans', desc: 'Integrating inline exhaust fans, fresh air ventilation units, and high-CFM blowers for complete indoor air cycling.', img: '/service/ac_quality_protocols.png' }
-                                        ].map((step, idx) => (
-                                            <div key={idx} className="bg-white rounded-[2rem] border border-gray-100 overflow-hidden hover:border-[#0072bc]/30 hover:shadow-xl transition-all duration-500 group flex flex-col">
-                                                {/* Card Image */}
-                                                <div className="w-full h-32 sm:h-36 overflow-hidden relative">
-                                                    <img
-                                                        src={step.img}
-                                                        alt={step.title}
-                                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                                    />
-                                                    <div className="absolute top-3 left-3 bg-[#0072bc]/90 backdrop-blur-sm text-white text-[10px] font-bold py-1 px-2.5 rounded-full">
-                                                        {step.num}
-                                                    </div>
-                                                </div>
-                                                {/* Content */}
-                                                <div className="p-5 flex-grow">
-                                                    <h4 className="text-sm font-bold text-gray-900 mb-1.5" style={{ fontFamily: 'Outfit, sans-serif' }}>{step.title}</h4>
-                                                    <p className="text-gray-500 text-[11px] leading-relaxed">{step.desc}</p>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
+                        <ApproachView content={approachData} loading={approachLoading} />
                     )}
 
                     {/* Service CTA Footer */}

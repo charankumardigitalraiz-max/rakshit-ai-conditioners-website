@@ -1,22 +1,36 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useEnquiry } from '../context/EnquiryContext'
 import { toast } from 'react-hot-toast'
 import { fetchJSON } from '../services/api'
 
+const DEFAULT_FORM = {
+  name: '',
+  email: '',
+  phone: '',
+  interest: 'Commercial VRV',
+  location: '',
+  area: '',
+  message: '',
+}
+
 export default function EnquiryModal() {
-  const { isOpen, closeModal } = useEnquiry()
+  const { isOpen, modalContext, closeModal } = useEnquiry()
   const [loading, setLoading] = useState(false)
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    interest: 'Commercial VRV',
-    location: '',
-    area: '',
-    message: ''
-  })
+  const [formData, setFormData] = useState(DEFAULT_FORM)
+
+  useEffect(() => {
+    if (!isOpen) return
+
+    setFormData({
+      ...DEFAULT_FORM,
+      interest: modalContext?.interest || DEFAULT_FORM.interest,
+      message: modalContext?.message || '',
+    })
+  }, [isOpen, modalContext])
 
   if (!isOpen) return null
+
+  const modalTitle = modalContext?.title || 'Get a Quote'
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -38,15 +52,7 @@ export default function EnquiryModal() {
 
       if (data.success) {
         toast.success('Inquiry submitted! We will contact you soon.')
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          interest: 'Commercial VRV',
-          location: '',
-          area: '',
-          message: ''
-        })
+        setFormData(DEFAULT_FORM)
         closeModal()
       }
     } catch (error) {
@@ -82,7 +88,10 @@ export default function EnquiryModal() {
             </svg>
           </button>
           <div className="relative z-10 pr-6">
-            <h2 className="text-2xl font-bold text-white" style={{ fontFamily: 'Outfit, sans-serif' }}>Get a Quote</h2>
+            <h2 className="text-2xl font-bold text-white" style={{ fontFamily: 'Outfit, sans-serif' }}>{modalTitle}</h2>
+            {modalContext?.subtitle && (
+              <p className="text-blue-100/80 text-sm mt-1.5 leading-snug">{modalContext.subtitle}</p>
+            )}
           </div>
         </div>
 
@@ -170,6 +179,8 @@ export default function EnquiryModal() {
                   <option>Room AC</option>
                   <option>Industrial Ventilation</option>
                   <option>Comprehensive AMC</option>
+                  <option>Maintenance & Repair</option>
+                  <option>HVAC Training</option>
                 </select>
                 <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

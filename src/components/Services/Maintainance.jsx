@@ -67,6 +67,24 @@ const maintenanceCategories = [
 export default function MaintainanceServices() {
   const { openModal } = useEnquiry();
 
+  const openMaintenanceBooking = () => {
+    openModal({
+      title: 'Service Booking',
+      subtitle: 'Schedule a maintenance or repair visit.',
+      interest: 'Maintenance & Repair',
+      message: 'I would like to book a maintenance or repair service call.',
+    })
+  }
+
+  const openServiceSchedule = (service) => {
+    openModal({
+      title: 'Schedule Service',
+      subtitle: service.title,
+      interest: 'Maintenance & Repair',
+      message: `I would like to schedule the following service: "${service.title}".`,
+    })
+  }
+
   return (
     <div className="py-12 bg-gray-50/50">
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
@@ -94,7 +112,7 @@ export default function MaintainanceServices() {
               ))}
             </div>
             <button
-              onClick={openModal}
+              onClick={openMaintenanceBooking}
               className="px-6 py-3 bg-[#002f54] text-white hover:bg-[#0072bc] transition-colors rounded-xl text-xs font-bold uppercase tracking-wider shadow-md"
             >
               Book Service Call Now
@@ -151,7 +169,7 @@ export default function MaintainanceServices() {
 
               <div className="border-t border-gray-50 pt-6 mt-8 flex justify-end">
                 <button
-                  onClick={openModal}
+                  onClick={() => openServiceSchedule(cat)}
                   className="px-4 py-2 bg-gray-50 hover:bg-[#0072bc] hover:text-white transition-all text-xs font-bold uppercase tracking-wider text-[#0072bc] border border-gray-100 hover:border-[#0072bc] rounded-xl"
                 >
                   Schedule This Service
