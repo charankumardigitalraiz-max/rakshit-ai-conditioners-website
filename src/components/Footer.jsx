@@ -36,14 +36,14 @@ export default function Footer() {
 
           {/* Brand Identity Column */}
           <div className="lg:col-span-2 ">
-            <div className="mb-8">
+            <div className="mb-6">
               <div className="inline-flex items-center justify-center bg-white p-3 px-5 rounded-2xl shadow-lg border border-white/10 group hover:scale-105 transition-transform duration-500">
                 <img
                   src="/Rakshith logo web png.png"
                   alt="Rakshith Air Conditioners"
-                  width="180"
-                  height="48"
-                  className="h-10 w-auto object-contain"
+                  width="200"
+                  height="50"
+                  className="h-15 w-auto object-cover"
                 />
               </div>
             </div>

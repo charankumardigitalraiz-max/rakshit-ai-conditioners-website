@@ -91,14 +91,14 @@ export default function Header() {
               <Link
                 to="/"
                 className={`flex items-center justify-center h-full transition-all duration-500 ${isHome && !scrolled
-                  ? 'bg-white px-10 rounded-b-2xl shadow-sm'
+                  ? 'bg-white px-6 rounded-b-3xl shadow-sm'
                   : 'bg-transparent px-0'
                   }`}
               >
                 <img
                   src="/Rakshith logo web png.png"
                   alt="Rakshith Air Conditioners"
-                  className={`w-auto object-contain transition-all duration-500 ${isHome && !scrolled ? 'h-10' : 'h-11'}`}
+                  className={`w-auto object-contain transition-all duration-500 ${isHome && !scrolled ? 'h-15' : 'h-15'}`}
                 />
               </Link>
             </div>

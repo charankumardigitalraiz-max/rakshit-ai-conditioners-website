@@ -29,7 +29,7 @@ export default function About() {
                 Pioneering <span className="text-[#0072bc]">Cooling Solutions</span>
               </h1>
               <p className="text-gray-500 text-lg leading-relaxed mb-10 max-w-3xl mx-auto">
-                RAKSHITH Air Condition & Services, established in 2011, is a registered company specializing in advanced HVAC solutions. As an authorized dealer and service provider for Daikin, we focus on delivering exceptional services for commercial, industrial, and residential sectors.
+                <strong>RAKSHITH </strong>Air Condition & Services, established in 2011, is a registered company specializing in advanced HVAC solutions. As an authorized dealer and service provider for Daikin, we focus on delivering exceptional services for commercial, industrial, and residential sectors.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-6">
                 <div className="bg-blue-50/50 px-6 py-3 rounded-full border border-blue-100 flex items-center gap-3">
@@ -205,10 +205,10 @@ export default function About() {
                   { id: 2, val: 6, label: 'Non-VRV Team', sub: 'Site Engineers' },
                   { id: 3, val: 75, label: 'Installers', sub: '25 Tech + 50 Helpers' },
                   { id: 4, val: 48, label: 'Service Team', sub: '12 Tech + 12 Helpers' },
-                  { id: 5, val: 25, label: 'Admin Staff', sub: 'Operations' },
+                  { id: 5, val: 25, label: 'Admin ', sub: 'Operations' },
                   { id: 6, val: 5, label: 'Marketing', sub: 'Sales Support' },
                   { id: 7, val: 6, label: 'Project Managers' },
-                   { id: 8, val: 26, label: 'Design & Store ' },
+                   { id: 8, val: 26, label: 'Design ' },
                 ].map((stat) => (
                   <div key={stat.id} className="text-center">
                     <div className="text-2xl font-black text-gray-900" style={{ fontFamily: 'Outfit, sans-serif' }}>{stat.val}</div>

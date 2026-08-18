@@ -34,9 +34,10 @@ export default function Hero() {
         <div className="max-w-xl">
 
           <h1
-            className="text-white text-3xl sm:text-4xl lg:text-5xl xl:text-[3.25rem] font-bold tracking-tight leading-[1.15] mb-3 sm:mb-4"
+            className="text-white text-3xl sm:text-4xl lg:text-5xl xl:text-[3.20rem] font-bold tracking-tight leading-[1.15] mb-3 sm:mb-4"
             style={{ fontFamily: 'Outfit, sans-serif' }}
-          >
+          ><br></br>
+          <br></br>
             Experience Ultimate Comfort with Smart Cooling Solutions
           </h1>
 
